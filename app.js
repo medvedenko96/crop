@@ -14,4 +14,8 @@ app.get('/', (req, res) => {
     res.send({ hi: 'there' });
 });
 
+app.post('/', (req, res) => {
+    res.send({ post: 'test' });
+});
+
 app.listen(PORT);
