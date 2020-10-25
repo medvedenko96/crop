@@ -1,10 +1,16 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const mongoose = require('mongoose');
 
-passport.use(new LocalStrategy({},
-    (username, password, done) => {
-        console.log({username, password})
+const User = mongoose.model('users');
 
-        return done(null, { username: 'test@gmail.com' });
+passport.use(new LocalStrategy({
+        usernameField: 'userName',
+        passwordField: 'password'
+    },
+    (userName, password, done) => {
+        console.log({userName, password, User})
+
+        return done(null, {userName, password});
     }
 ));
