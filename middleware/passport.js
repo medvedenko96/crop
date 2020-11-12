@@ -4,13 +4,31 @@ const mongoose = require('mongoose');
 
 const User = mongoose.model('users');
 
-passport.use(new LocalStrategy({
-        usernameField: 'userName',
-        passwordField: 'password'
-    },
-    (userName, password, done) => {
-        console.log({userName, password, User})
+passport.serializeUser((user, done) => {
+  return done(null, user.id);
+});
 
-        return done(null, {userName, password});
+passport.deserializeUser((id, done) => {
+  User.findById(id).then((user) => {
+    done(null, user);
+  }).catch((err) => {
+    done(err, null);
+  });
+});
+
+passport.use(new LocalStrategy({
+  usernameField: 'userName',
+  passwordField: 'password',
+},
+(userName, password, done) => {
+  User.findOne({ userName }, (err, user) => {
+    if (err) { return done(err); }
+    if (!user) {
+      return done(null, false, { message: 'Incorrect username.' });
     }
-));
+    if (!user.validPassword(password)) {
+      return done(null, false, { message: 'Incorrect password.' });
+    }
+    return done(null, user);
+  });
+}));
