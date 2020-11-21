@@ -9,10 +9,10 @@ import Store from './store';
 import 'antd/dist/antd.less';
 
 ReactDOM.render(
-    <Provider store={Store}>
-        <Router>
-            <Route exect path="/admin" component={Login} />
-        </Router>
-    </Provider>,
-    document.getElementById('root'),
+  <Provider store={Store}>
+    <Router>
+      <Route exect path="/admin" component={Login} />
+    </Router>
+  </Provider>,
+  document.getElementById('root')
 );
