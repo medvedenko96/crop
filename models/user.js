@@ -5,7 +5,7 @@ const { generateSalt, generateHah, generateJwt } = generators;
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  userName: String,
+  username: String,
   companyName: String,
   hash: String,
   salt: String,

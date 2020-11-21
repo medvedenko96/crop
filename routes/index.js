@@ -4,7 +4,7 @@ const router = express.Router();
 const authService = require('../services/authService');
 
 // AdminLogin
-router.post('/AdminLogin', authService.login);
+router.post('/admin-login', authService.login);
 router.post('/create-user', authService.createUser);
 router.get('/logout', authService.logout);
 
