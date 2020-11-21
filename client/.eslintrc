@@ -1,0 +1,7 @@
+{
+  "extends": ["airbnb-base", "react-app"],
+  "rules":{
+	"indent": 2,
+	"no-tabs": 0
+  }
+}

@@ -1,20 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import App from './components/App';
-import Store from './store'
+import Login from './pages/AdminLogin';
+import Store from './store';
 
-
+import 'antd/dist/antd.less';
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={Store}>
         <Router>
-            <App />
+            <Route exect path="/admin" component={Login} />
         </Router>
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+    </Provider>,
+    document.getElementById('root'),
 );

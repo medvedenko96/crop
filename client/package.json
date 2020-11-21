@@ -23,11 +23,6 @@
     "test": "react-app-rewired test",
     "lint": "eslint"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",

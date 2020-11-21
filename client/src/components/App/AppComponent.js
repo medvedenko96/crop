@@ -1,15 +1,13 @@
 import React from 'react';
 
-import './App.less';
-import { Button } from 'antd'
+import Login from '../../pages/AdminLogin';
 
-const AppComponent = () => {
-  return (
-    <div>
-      Hi motherfackers!
-        <Button>Button</Button>
-    </div>
-  );
-};
+import './App.css';
+
+const AppComponent = () => (
+  <div>
+    <Login />
+  </div>
+);
 
 export default AppComponent;
