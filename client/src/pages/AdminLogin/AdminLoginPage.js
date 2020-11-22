@@ -1,24 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+
 
 import { loginActions } from '../../store/actions/auth';
 
 import LoginComponent from '../../components/Login';
 
 const AdminLoginPage = ({ login }) => {
-  const handleSuccess = async (values) => {
+  const [serverError, setServerError] = useState('');
+
+  const handleSubmit = async (values) => {
     try {
       const { username, companyName } = await login(values);
+      setServerError('');
     } catch (error) {
-      console.log(error);
+      setServerError(error.message);
     }
   };
 
-  const handleFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-
-  return <LoginComponent onSuccess={handleSuccess} onFailed={handleFailed} />;
+  return <LoginComponent onSubmit={handleSubmit} serverError={serverError}  />;
 };
 
 const mapStateToProps = () => {};

@@ -3,3 +3,20 @@
   justify-content: center;
   margin-top: 100px;
 }
+
+.wrapper > form {
+  width: 300px;
+}
+
+.input_icon {
+  color: rgba(0, 0, 0, 0.45)  !important;
+}
+
+.forgot {
+  padding-bottom: 12px;
+  color: #1DA57A;
+}
+
+.input_error {
+  color: #ff4d4f;
+}
