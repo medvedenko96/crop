@@ -1,23 +1,17 @@
 const express = require('express');
-const cookieSession = require('cookie-session');
-const passport = require('passport');
-const keys = require('./config/keys');
+const cookieParser = require('cookie-parser');
+const { authenticateToken } = require('./middleware/authenticateToken');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-app.use(express.json());
+const path = ['/login'];
+
 require('./models');
-require('./middleware/passport');
 
-app.use(cookieSession({
-  maxAge: 14 * 24 * 60 * 60 * 1000,
-  keys: [keys.cookiesKey],
-}));
+app.use(express.json());
+app.use(cookieParser());
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use('/api', require('./routes'));
+app.use('/api', authenticateToken(path), require('./routes'));
 
 app.listen(PORT);

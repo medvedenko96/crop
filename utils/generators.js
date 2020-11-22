@@ -4,6 +4,11 @@ const keys = require('../config/keys');
 
 module.exports.generateSalt = () => crypto.randomBytes(16).toString('hex');
 
-module.exports.generateHah = (password, salt) => crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
+module.exports.generateHah = (password, salt) => (
+  crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex')
+);
 
-module.exports.generateJwt = (id, login) => jwt.sign({ _id: id, login }, keys.jwt_secret);
+// 86400 expires in 24 hours
+module.exports.generateJwt = (id, login) => (
+  jwt.sign({ _id: id, login }, keys.jwt_secret, { expiresIn: 86400 })
+);

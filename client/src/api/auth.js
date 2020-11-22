@@ -11,7 +11,7 @@ export default {
   },
 
   async login({ username, password }) {
-    const { data } = await axios.post('/api/admin-login', {
+    const { data } = await axios.post('/api/login', {
       username,
       password,
     });

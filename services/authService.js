@@ -1,4 +1,3 @@
-const passport = require('passport');
 const mongoose = require('mongoose');
 
 const User = mongoose.model('users');
@@ -8,31 +7,36 @@ const responseJSON = (res, status, content) => {
   res.json(content);
 };
 
-module.exports.login = (req, res) => {
-  if (!req.body.username || !req.body.password) {
+const login = ({ body }, res) => {
+  const { username, password } = body;
+
+  if (!username || !password) {
     responseJSON(res, 400, {
       message: 'All fields required.',
     });
     return;
   }
 
-  passport.authenticate('local', { session: false }, (err, user, info) => {
+  User.findOne({ username }, (err, user) => {
     if (err) {
-      console.error(err);
-      responseJSON(res, 400, err);
+      responseJSON(res, 500, err);
       return;
     }
 
-    if (user) {
-      responseJSON(res, 200,
-        { token: user.generateJwt(), username: user.username, companyName: user.companyName });
-    } else {
-      responseJSON(res, 401, info);
+    if (!user || !user.validPassword(password)) {
+      responseJSON(res, 400, {
+        message: 'Incorrect username or password.',
+      });
     }
-  })(req, res);
+
+    if (user && user.validPassword(password)) {
+      res.cookie('token', user.generateJwt(), { maxAge: 86400 });
+      responseJSON(res, 200, { username: user.username });
+    }
+  });
 };
 
-module.exports.createUser = ({ body: { username, password, companyName } }, res) => {
+const createUser = ({ body: { username, password, companyName } }, res) => {
   if (!username || !password || !companyName) {
     responseJSON(res, 400, {
       message: 'All fields required.',
@@ -61,7 +65,13 @@ module.exports.createUser = ({ body: { username, password, companyName } }, res)
   });
 };
 
-module.exports.logout = (req, res) => {
-  req.logout();
-  responseJSON(res, 200);
+const logout = (req, res) => {
+  res.clearCookie('token');
+  responseJSON(res, 200, req.cookies.token);
+};
+
+module.exports = {
+  login,
+  createUser,
+  logout,
 };
