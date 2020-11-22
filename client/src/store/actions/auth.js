@@ -1,22 +1,18 @@
 import { auth } from '../../api';
 
 const LOGIN = 'LOGIN';
-
-export const createUserActions = (date) => async (dispatch) => {
-  await auth.createUser(date);
-};
+const LOGOUT = 'LOGOUT';
 
 export const loginActions = (date) => async (dispatch) => {
-  const { username, companyName } = await auth.login(date);
+  const data = await auth.login(date);
 
-  dispatch({
-    type: LOGIN,
-    payload: {
-      username,
-      companyName,
-      isLogin: !!username,
-    },
-  });
+  dispatch({ type: LOGIN });
 
-  return !!username;
+  return data;
 };
+
+export const logoutActions = (date) => async (dispatch) => {
+  await auth.login(date);
+  dispatch({ type: LOGOUT });
+};
+

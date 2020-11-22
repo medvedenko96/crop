@@ -27,18 +27,7 @@ const LoginComponent = ({ onSubmit, serverError }) => {
     },
   });
 
-  const {
-    handleSubmit,
-    errors,
-    values,
-    handleChange,
-    setFieldError,
-    setFieldValue,
-    isSubmitting,
-    validateForm,
-  } = formik;
-
-  console.log(formik)
+  const { handleSubmit, errors, values, handleChange } = formik;
 
   return (
     <div className={styles.wrapper}>

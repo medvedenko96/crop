@@ -7,6 +7,7 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   username: String,
   companyName: String,
+  isAdmin: Boolean,
   hash: String,
   salt: String,
 });

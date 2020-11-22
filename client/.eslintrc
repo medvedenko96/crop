@@ -1,8 +1,17 @@
 {
   "extends": ["airbnb-base", "react-app", "prettier", "prettier/react"],
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
   "rules": {
     "indent": ["error", 2],
     "no-tabs": 0,
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": 0,
+    "no-underscore-dangle": 0
   }
 }

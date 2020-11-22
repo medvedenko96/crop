@@ -9,4 +9,3 @@ mongoose
   );
 
 require('./user');
-require('./admin');

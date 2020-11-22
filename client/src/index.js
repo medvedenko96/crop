@@ -11,7 +11,7 @@ import 'antd/dist/antd.less';
 ReactDOM.render(
   <Provider store={Store}>
     <Router>
-      <Route exect path="/admin" component={Login} />
+      <Route exect path="/login" component={Login} />
     </Router>
   </Provider>,
   document.getElementById('root')

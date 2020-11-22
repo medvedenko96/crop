@@ -3,6 +3,6 @@
     "airbnb-base"
   ],
   "rules": {
-    "max-len": ["error", { "code": 120 }]
-  }
+    "max-len": ["error", { "code": 120 }],
+    "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] }]  }
 }

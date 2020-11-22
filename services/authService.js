@@ -1,77 +1,36 @@
 const mongoose = require('mongoose');
+const { responseJSON } = require('../utils/response');
 
 const User = mongoose.model('users');
-
-const responseJSON = (res, status, content) => {
-  res.status(status);
-  res.json(content);
-};
 
 const login = ({ body }, res) => {
   const { username, password } = body;
 
   if (!username || !password) {
-    responseJSON(res, 400, {
-      message: 'All fields required.',
-    });
-    return;
+    responseJSON(res, 400, { message: 'All fields required.' });
   }
 
   User.findOne({ username }, (err, user) => {
-    if (err) {
-      responseJSON(res, 500, err);
-      return;
-    }
+    if (err) { responseJSON(res, 500, err); }
 
     if (!user || !user.validPassword(password)) {
-      responseJSON(res, 400, {
-        message: 'Incorrect username or password.',
-      });
+      responseJSON(res, 400, { message: 'Incorrect username or password.' });
     }
 
     if (user && user.validPassword(password)) {
-      res.cookie('token', user.generateJwt(), { maxAge: 86400 });
-      responseJSON(res, 200, { username: user.username });
-    }
-  });
-};
-
-const createUser = ({ body: { username, password, companyName } }, res) => {
-  if (!username || !password || !companyName) {
-    responseJSON(res, 400, {
-      message: 'All fields required.',
-    });
-    return;
-  }
-
-  User.findOne({ username }).then((existingUser) => {
-    if (existingUser) {
-      responseJSON(res, 400, {
-        message: 'Existing user',
-      });
-    } else {
-      const newUser = new User({ username, companyName });
-
-      newUser.setPassword(password);
-      newUser.save((err) => {
-        if (err) {
-          responseJSON(res, 404, err);
-          return;
-        }
-
-        responseJSON(res, 200);
-      });
+      // secure: false, // set to true if your using https
+      res.cookie('token', user.generateJwt(), { maxAge: 86400, secure: false, httpOnly: true });
+      responseJSON(res, 200,
+        {
+          id: user._id, isAdmin: !!user.isAdmin, username: user.username, companyName: user.companyName,
+        });
     }
   });
 };
 
 const logout = (req, res) => {
   res.clearCookie('token');
-  responseJSON(res, 200, req.cookies.token);
+  responseJSON(res, 200);
 };
 
-module.exports = {
-  login,
-  createUser,
-  logout,
-};
+module.exports = { login, logout };
