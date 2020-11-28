@@ -10,9 +10,9 @@
   "scripts": {
     "start": "node app.js",
     "server": "nodemon app.js",
-    "lint": "eslint",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "lint": "eslint"
   },
   "author": "",
   "license": "ISC",

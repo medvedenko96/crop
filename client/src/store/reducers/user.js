@@ -1,4 +1,4 @@
-import { SET_USER_INFO } from '../actions/user'
+import { SET_USER_INFO } from '../actions/user';
 
 const initialState = {
   id: '',

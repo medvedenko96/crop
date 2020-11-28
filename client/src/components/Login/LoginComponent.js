@@ -10,10 +10,8 @@ const { Item } = Form;
 
 const LoginComponent = ({ onSubmit, serverError }) => {
   const validationSchema = Yup.object().shape({
-    username: Yup.string()
-      .required('Please input your username!'),
-    password: Yup.string()
-      .required('Please input your password!'),
+    username: Yup.string().required('Please input your username!'),
+    password: Yup.string().required('Please input your password!'),
   });
 
   const formik = useFormik({
@@ -22,8 +20,8 @@ const LoginComponent = ({ onSubmit, serverError }) => {
       password: '',
     },
     validationSchema,
-    onSubmit: values => {
-      onSubmit(values)
+    onSubmit: (values) => {
+      onSubmit(values);
     },
   });
 
@@ -31,16 +29,17 @@ const LoginComponent = ({ onSubmit, serverError }) => {
 
   return (
     <div className={styles.wrapper}>
-      <form
-        onSubmit={handleSubmit}
-      >
+      <form onSubmit={handleSubmit}>
         <Item
           name="username"
-          wrapperCol={{span: 24, offset: 0}}
+          wrapperCol={{ span: 24, offset: 0 }}
           validateStatus={errors.username}
           onChange={handleChange}
           value={values.username}
-          {...(errors.username && ({ validateStatus: "error", help: errors.username }))}
+          {...(errors.username && {
+            validateStatus: 'error',
+            help: errors.username,
+          })}
         >
           <Input
             prefix={<UserOutlined className={styles.input_icon} />}
@@ -51,8 +50,13 @@ const LoginComponent = ({ onSubmit, serverError }) => {
           name="password"
           onChange={handleChange}
           value={values.password}
-          {...(errors.password && ({ validateStatus: "error", help: errors.password }))}
-          {...(serverError &&  { help: (<div className={styles.input_error}>{serverError}</div>) })}
+          {...(errors.password && {
+            validateStatus: 'error',
+            help: errors.password,
+          })}
+          {...(serverError && {
+            help: <div className={styles.input_error}>{serverError}</div>,
+          })}
         >
           <Input.Password
             prefix={<LockOutlined className={styles.input_icon} />}
@@ -63,13 +67,17 @@ const LoginComponent = ({ onSubmit, serverError }) => {
           Forgot password
         </div>
         <Item>
-          <Button className="login-form-button" type="primary" htmlType="submit">
+          <Button
+            className="login-form-button"
+            type="primary"
+            htmlType="submit"
+          >
             Submit
           </Button>
         </Item>
       </form>
     </div>
-  )
+  );
 };
 
 export default LoginComponent;

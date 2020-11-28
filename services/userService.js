@@ -5,12 +5,12 @@ const User = mongoose.model('users');
 
 const createUser = ({ body: { username, password, companyName } }, res) => {
   if (!username || !password || !companyName) {
-    responseJSON(res, 400, { message: 'All fields required.' });
+    responseJSON(res, 400, { error: 'All fields required.' });
   }
 
   User.findOne({ username }).then((existingUser) => {
     if (existingUser) {
-      responseJSON(res, 400, { message: 'Existing user' });
+      responseJSON(res, 400, { error: 'Existing user' });
     } else {
       const newUser = new User({ username, companyName });
 

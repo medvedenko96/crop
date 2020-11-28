@@ -7,14 +7,14 @@ const login = ({ body }, res) => {
   const { username, password } = body;
 
   if (!username || !password) {
-    responseJSON(res, 400, { message: 'All fields required.' });
+    responseJSON(res, 400, { error: 'All fields required.' });
   }
 
   User.findOne({ username }, (err, user) => {
     if (err) { responseJSON(res, 500, err); }
 
     if (!user || !user.validPassword(password)) {
-      responseJSON(res, 400, { message: 'Incorrect username or password.' });
+      responseJSON(res, 400, { error: 'Incorrect username or password.' });
     }
 
     if (user && user.validPassword(password)) {

@@ -1,0 +1,24 @@
+.ant-menu-item-group-title, .ant-menu-item {
+    padding-left: 40px !important;
+}
+
+.ant-menu-item-group-title {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    font-size: 13px !important;
+}
+
+.ant-menu-item-group-title::after {
+    position: relative;
+    top: 12px;
+    display: block;
+    width: calc(100% - 20px);
+    height: 1px;
+    background: #f0f0f0;
+    content: "";
+}
+
+.ant-menu-inline .ant-menu-item-selected:after, .ant-menu-inline .ant-menu-selected:after {
+    content: '1';
+}
+

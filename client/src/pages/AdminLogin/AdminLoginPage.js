@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from "react-router-dom";
-
+import { Redirect } from 'react-router-dom';
 
 import { loginActions } from '../../store/actions/auth';
 import { setUserInfoActions } from '../../store/actions/user';
@@ -22,16 +21,16 @@ const AdminLoginPage = ({ login, setUserInfo, userId, isAdmin }) => {
     }
   };
 
-  if (userId) {
-    return  isAdmin ? <Redirect to="/dashboard" /> : <Redirect to="/dashboard" />
+  if (userId && isAdmin) {
+    return <Redirect to="/dashboard" />;
   }
 
-  return <LoginComponent onSubmit={handleSubmit} serverError={serverError}  />;
+  return <LoginComponent onSubmit={handleSubmit} serverError={serverError} />;
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userId: state.user.id,
-  isAdmin: state.user.isAdmin
+  isAdmin: state.user.isAdmin,
 });
 
 const mapDispatchToProps = {
