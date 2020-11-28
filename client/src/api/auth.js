@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 export default {
-  async login({ username, password }) {
+  async login({ login, password }) {
     const { data } = await axios.post('/api/login', {
-      username,
+      manager: login,
       password,
     });
 

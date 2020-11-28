@@ -10,13 +10,13 @@ const { Item } = Form;
 
 const LoginComponent = ({ onSubmit, serverError }) => {
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required('Please input your username!'),
+    login: Yup.string().required('Please input your login!'),
     password: Yup.string().required('Please input your password!'),
   });
 
   const formik = useFormik({
     initialValues: {
-      username: '',
+      login: '',
       password: '',
     },
     validationSchema,
@@ -31,19 +31,19 @@ const LoginComponent = ({ onSubmit, serverError }) => {
     <div className={styles.wrapper}>
       <form onSubmit={handleSubmit}>
         <Item
-          name="username"
+          name="login"
           wrapperCol={{ span: 24, offset: 0 }}
-          validateStatus={errors.username}
+          validateStatus={errors.login}
           onChange={handleChange}
-          value={values.username}
-          {...(errors.username && {
+          value={values.login}
+          {...(errors.login && {
             validateStatus: 'error',
-            help: errors.username,
+            help: errors.login,
           })}
         >
           <Input
             prefix={<UserOutlined className={styles.input_icon} />}
-            placeholder="Username"
+            placeholder="Login"
           />
         </Item>
         <Item
@@ -63,9 +63,6 @@ const LoginComponent = ({ onSubmit, serverError }) => {
             placeholder="Password"
           />
         </Item>
-        <div className={styles.forgot} href="">
-          Forgot password
-        </div>
         <Item>
           <Button
             className="login-form-button"

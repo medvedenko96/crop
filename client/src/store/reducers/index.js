@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
 
-import user from './user';
+import user from './manager';
 
 export default combineReducers({ user });

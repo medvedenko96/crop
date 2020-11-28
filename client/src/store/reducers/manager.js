@@ -1,9 +1,8 @@
-import { SET_USER_INFO } from '../actions/user';
+import { SET_USER_INFO } from '../actions/manager';
 
 const initialState = {
   id: '',
-  username: '',
-  companyName: '',
+  login: '',
   isAdmin: false,
 };
 

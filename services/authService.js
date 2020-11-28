@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 const { responseJSON } = require('../utils/response');
 
-const User = mongoose.model('users');
+const Manager = mongoose.model('managers');
 
 const login = ({ body }, res) => {
-  const { username, password } = body;
+  const { manager, password } = body;
 
-  if (!username || !password) {
+  if (!manager || !password) {
     responseJSON(res, 400, { error: 'All fields required.' });
   }
 
-  User.findOne({ username }, (err, user) => {
+  Manager.findOne({ manager }, (err, user) => {
     if (err) { responseJSON(res, 500, err); }
 
     if (!user || !user.validPassword(password)) {
@@ -22,7 +22,7 @@ const login = ({ body }, res) => {
       res.cookie('token', user.generateJwt(), { maxAge: 86400, secure: false, httpOnly: true });
       responseJSON(res, 200,
         {
-          id: user._id, isAdmin: !!user.isAdmin, username: user.username, companyName: user.companyName,
+          id: user._id, isAdmin: user.isAdmin, login: user.manager, companyName: user.companyName,
         });
     }
   });

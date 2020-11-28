@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { loginActions } from '../../store/actions/auth';
-import { setUserInfoActions } from '../../store/actions/user';
+import { setUserInfoActions } from '../../store/actions/manager';
 
 import LoginComponent from '../../components/Login';
 
-const AdminLoginPage = ({ login, setUserInfo, userId, isAdmin }) => {
+const LoginPage = ({ login, setUserInfo, userId, isAdmin }) => {
   const [serverError, setServerError] = useState('');
 
   const handleSubmit = async (values) => {
@@ -38,4 +38,4 @@ const mapDispatchToProps = {
   setUserInfo: setUserInfoActions,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminLoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
