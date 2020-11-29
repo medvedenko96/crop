@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
+/* @Components */
 import MenuComponent from './MenuComponent';
 
-const MenuContainer = () => {
+/* @Actions */
+import { getCompaniesActions } from '../../store/actions/company';
+
+const MenuContainer = ({ getCompanies, companies }) => {
+  useEffect(() => getCompanies(), [])
+
   const menuItem = [
     {
       title: 'Companies',
-      items: [
-        { itemsTitle: 'CompanyName1' },
-        { itemsTitle: 'CompanyName2' },
-        { itemsTitle: 'CompanyName3' },
-        { itemsTitle: 'CompanyName4' },
-        { itemsTitle: 'CompanyName5' },
-        { itemsTitle: 'CompanyName6' },
-      ],
+      items: companies,
     },
     {
       title: 'Settings',
@@ -24,4 +24,12 @@ const MenuContainer = () => {
   return <MenuComponent menuItem={menuItem} />;
 };
 
-export default MenuContainer;
+const props = state => ({
+  companies: state.companies?.companies || [],
+});
+
+const actions = {
+  getCompanies: getCompaniesActions
+};
+
+export default connect(props, actions)(MenuContainer);

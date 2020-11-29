@@ -1,10 +1,10 @@
 export const SET_USER_INFO = 'SET_USER_INFO';
 
-export const setUserInfoActions = ({ id, login, isAdmin }) => (
+export const setManagerInfoActions = managerInfo => (
   dispatch
 ) => {
   dispatch({
     type: SET_USER_INFO,
-    payload: { id, login, isAdmin },
+    payload: { ...managerInfo },
   });
 };

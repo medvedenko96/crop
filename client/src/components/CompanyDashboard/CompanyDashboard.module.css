@@ -1,0 +1,14 @@
+.dashboardWrapper {
+    position: relative;
+    padding: 0 64px;
+}
+
+.nodeWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nodeTitle {
+    margin-left: 4px;
+}

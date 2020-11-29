@@ -1,15 +1,20 @@
 const express = require('express');
 
 const router = express.Router();
-const authService = require('../services/authService');
-const managerService = require('../services/managerService');
+const authServices = require('../services/authServices');
+const managerServices = require('../services/managerServices');
+const companyServices = require('../services/companyServices');
 
 // auth
-router.post('/login', authService.login);
-router.get('/logout', authService.logout);
+router.get('/logout', authServices.logout);
+router.post('/login', authServices.login);
 
 // manager
-router.post('/create-manager', managerService.createManager);
+router.post('/create-manager', managerServices.createManager);
+
+// company
+router.get('/get-companies', companyServices.getCompanies);
+router.post('/create-company', companyServices.createCompany);
 
 router.get('/test', (req, res) => {
   res.send({ session: req.session, headers: req.headers, cookies: req.cookies });

@@ -1,0 +1,33 @@
+.componentWrapper {
+    position: fixed;
+    right: 64px;
+    bottom: 128px;
+}
+
+.buttonWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 3px 6px -4px rgba(0,0,0,.12), 0 6px 16px 0 rgba(0,0,0,.08), 0 9px 28px 8px rgba(0,0,0,.05);
+    transition: color .3s;
+    border: none;
+    padding: 12px;
+    border-radius: 50%;
+}
+
+.buttonWrapper:focus {
+    outline: none;
+    color: #1DA57A;
+}
+
+.buttonWrapper > svg {
+    width: 24px;
+    height: 24px;
+    fill: rgba(0,0,0,.85);
+}
+
+.buttonWrapper:hover > svg {
+    fill: #1DA57A;
+}

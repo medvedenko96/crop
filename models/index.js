@@ -7,3 +7,4 @@ mongoose
   .catch(() => console.error('connect to mongodb has been failed'));
 
 require('./manager');
+require('./company');

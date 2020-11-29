@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 
-module.exports.authenticateToken = (path = []) => (req, res, next) => {
+const path = ['/login'];
+
+module.exports.authenticateToken = (req, res, next) => {
   const { url, cookies } = req;
 
   if (path.includes(url)) {

@@ -2,19 +2,21 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
+/* @Actions */
 import { loginActions } from '../../store/actions/auth';
-import { setUserInfoActions } from '../../store/actions/manager';
+import { setManagerInfoActions } from '../../store/actions/manager';
 
+/* @Components */
 import LoginComponent from '../../components/Login';
 
-const LoginPage = ({ login, setUserInfo, userId, isAdmin }) => {
+const LoginPage = ({ login, setManagerInfo, userId, isAdmin }) => {
   const [serverError, setServerError] = useState('');
 
   const handleSubmit = async (values) => {
     try {
-      const user = await login(values);
+      const manager = await login(values);
 
-      setUserInfo(user);
+      setManagerInfo(manager);
       setServerError('');
     } catch (error) {
       setServerError(error.message);
@@ -28,14 +30,14 @@ const LoginPage = ({ login, setUserInfo, userId, isAdmin }) => {
   return <LoginComponent onSubmit={handleSubmit} serverError={serverError} />;
 };
 
-const mapStateToProps = (state) => ({
+const props = (state) => ({
   userId: state.user.id,
   isAdmin: state.user.isAdmin,
 });
 
-const mapDispatchToProps = {
+const actions = {
   login: loginActions,
-  setUserInfo: setUserInfoActions,
+  setManagerInfo: setManagerInfoActions,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(props, actions)(LoginPage);

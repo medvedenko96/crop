@@ -1,11 +1,14 @@
 import React from 'react';
 
+/* @Antd */
 import { Row, Col } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
-
+/* @Components */
 import Menu from '../../components/Menu';
+import CompanyDashboard from '../../components/CompanyDashboard'
 
+/* @Styles */
 import styles from './DashboardPage.module.css'
 
 const DashboardPage = () => {
@@ -31,7 +34,7 @@ const DashboardPage = () => {
             <Menu />
           </Col>
           <Col  xs={24} sm ={24} md={18} lg={18} xl={19} xxl={20}>
-            <div className={styles.dashboardWrapper}>DashboardPage</div>
+            <CompanyDashboard />
           </Col>
         </Row>
       </div>
