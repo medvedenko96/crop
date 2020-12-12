@@ -1,7 +1,7 @@
-import { GET_COMPANIES } from '../actions/company';
+import { GET_COMPANIES, CREATE_COMPANY } from '../actions/company';
 
 const initialState = {
-  companies: [],
+  listCompanies: [],
 };
 
 export default (state = initialState, action = {}) => {
@@ -9,7 +9,16 @@ export default (state = initialState, action = {}) => {
   case GET_COMPANIES:
     return {
       ...state,
-      companies: action.payload,
+      listCompanies: action.payload,
+    };
+
+  case CREATE_COMPANY:
+    return {
+      ...state,
+      listCompanies: [
+        ...state.listCompanies,
+        action.payload
+      ],
     };
 
   default:

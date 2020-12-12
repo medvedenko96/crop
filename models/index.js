@@ -4,7 +4,7 @@ const keys = require('../config/keys');
 mongoose
   .connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('mongodb connected'))
-  .catch(() => console.error('connect to mongodb has been failed'));
+  .catch((err) => console.error('mongodb failed', err));
 
 require('./manager');
 require('./company');

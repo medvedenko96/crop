@@ -1,10 +1,10 @@
 .wrapper {
   display: flex;
   justify-content: center;
-  margin-top: 100px;
 }
 
 .wrapper > form {
+  margin-top: 100px;
   width: 300px;
 }
 

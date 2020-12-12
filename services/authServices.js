@@ -11,7 +11,9 @@ const login = ({ body }, res) => {
   }
 
   Manager.findOne({ manager }, (err, user) => {
-    if (err) { responseJSON(res, 500, err); }
+    if (err) {
+      responseJSON(res, 500, err);
+    }
 
     if (!user || !user.validPassword(password)) {
       responseJSON(res, 400, { error: 'Incorrect username or password.' });
@@ -19,7 +21,7 @@ const login = ({ body }, res) => {
 
     if (user && user.validPassword(password)) {
       // secure: false, // set to true if your using https
-      res.cookie('token', user.generateJwt(), { maxAge: 86400, secure: false, httpOnly: true });
+      res.cookie('token', user.generateJwt(), { maxAge: 86400000, httpOnly: true });
       responseJSON(res, 200,
         {
           id: user._id, isAdmin: user.isAdmin, login: user.manager, companyName: user.companyName,

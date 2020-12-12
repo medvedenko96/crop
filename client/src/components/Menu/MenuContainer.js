@@ -7,8 +7,8 @@ import MenuComponent from './MenuComponent';
 /* @Actions */
 import { getCompaniesActions } from '../../store/actions/company';
 
-const MenuContainer = ({ getCompanies, companies }) => {
-  useEffect(() => getCompanies(), [])
+const MenuContainer = ({ getCompanies, companies = [] }) => {
+  useEffect(() => getCompanies(), [companies.length])
 
   const menuItem = [
     {
@@ -25,7 +25,7 @@ const MenuContainer = ({ getCompanies, companies }) => {
 };
 
 const props = state => ({
-  companies: state.companies?.companies || [],
+  companies: state.companies?.listCompanies || [],
 });
 
 const actions = {
