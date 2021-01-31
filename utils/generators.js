@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-const keys = require('../config/keys');
+const config = require('../config');
 
 module.exports.generateSalt = () => crypto.randomBytes(16).toString('hex');
 
@@ -10,5 +10,5 @@ module.exports.generateHah = (password, salt) => (
 
 // 86400 expires in 24 hours
 module.exports.generateJwt = (id, login) => (
-  jwt.sign({ _id: id, login }, keys.jwt_secret, { expiresIn: 86400 })
+  jwt.sign({ _id: id, login }, config.JWT_SECRET, { expiresIn: 86400 })
 );

@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
-const keys = require('../config/keys');
+const config = require('../config');
 
-const path = ['/login'];
+const { responseJSON } = require('../utils/response');
+
+const path = ['/login', '/test', '/create-manager'];
 
 module.exports.authenticateToken = (req, res, next) => {
   const { url, cookies } = req;
@@ -12,15 +14,16 @@ module.exports.authenticateToken = (req, res, next) => {
   }
 
   if (cookies.token) {
-    jwt.verify(cookies.token, keys.jwt_secret, (err, user) => {
+    jwt.verify(cookies.token, config.JWT_SECRET, (err, user) => {
       if (err) {
-        return res.sendStatus(403);
+        responseJSON(res, 500, err);
+        return;
       }
 
       req.user = user;
       next();
     });
   } else {
-    res.sendStatus(401).send({ error: 'You most login!' });
+    responseJSON(res, 401, { error: 'You most login!' });
   }
 };
