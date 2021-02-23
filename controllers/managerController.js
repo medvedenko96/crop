@@ -7,34 +7,30 @@ const createManager = ({ body: { login, password } }, res) => {
     return responseJSON(res, 400, { error: 'All fields required.' });
   }
 
-  return pool.query(
-    'SELECT * FROM managers WHERE login=$1 ',
-    [login],
-    (error, result) => {
-      if (error) {
-        return res.status(500).send('Server error');
-      }
+  return pool.query('SELECT * FROM managers WHERE login=$1 ', [login], (error, result) => {
+    if (error) {
+      return res.status(500).send('Server error');
+    }
 
-      if (result.rows.length > 0 && result.rows[0].login === login) {
-        return res.status(201).send('User already exists');
-      }
+    if (result.rows.length > 0 && result.rows[0].login === login) {
+      return res.status(201).send('User already exists');
+    }
 
-      const salt = generateSalt();
-      const hash = generateHah(password, salt);
+    const salt = generateSalt();
+    const hash = generateHah(password, salt);
 
-      return pool.query(
-        'INSERT INTO managers (login, hash, salt) VALUES ($1, $2, $3)',
-        [login, hash, salt],
-        (err) => {
-          if (err) {
-            return res.status(500).send('Server error');
-          }
+    return pool.query(
+      'INSERT INTO managers (login, hash, salt) VALUES ($1, $2, $3)',
+      [login, hash, salt],
+      (err) => {
+        if (err) {
+          return res.status(500).send('Server error');
+        }
 
-          return res.status(201).send('User added');
-        },
-      );
-    },
-  );
+        return res.status(201).send('User added');
+      },
+    );
+  });
 };
 
 const deleteManger = ({ body: { login } }, res) => {
@@ -48,5 +44,6 @@ const deleteManger = ({ body: { login } }, res) => {
 };
 
 module.exports = {
-  createManager, deleteManger,
+  createManager,
+  deleteManger,
 };

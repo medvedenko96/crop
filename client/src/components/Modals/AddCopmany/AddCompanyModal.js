@@ -19,7 +19,7 @@ const AddCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
       password: '',
     },
     validationSchema,
-    onSubmit: values => onOk(values),
+    onSubmit: (values) => onOk(values),
   });
 
   const { handleSubmit, errors, values, handleChange, handleReset } = formik;
@@ -27,19 +27,14 @@ const AddCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
   const onCancel = () => {
     handleReset();
     handleCancel();
-  }
+  };
 
   return (
-    <Modal
-      title="Add Company"
-      visible={isShowModal}
-      onOk={handleSubmit}
-      onCancel={onCancel}
-    >
+    <Modal title="Add Company" visible={isShowModal} onOk={handleSubmit} onCancel={onCancel}>
       <form>
         <Item
           name="companyName"
-          label='Company name'
+          label="Company name"
           validateStatus={errors.companyName}
           onChange={handleChange}
           value={values.companyName}
@@ -52,7 +47,7 @@ const AddCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
         </Item>
         <Item
           name="password"
-          label='Password'
+          label="Password"
           validateStatus={errors.password}
           onChange={handleChange}
           value={values.password}
@@ -66,6 +61,6 @@ const AddCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
       </form>
     </Modal>
   );
-}
+};
 
 export default AddCompanyModal;

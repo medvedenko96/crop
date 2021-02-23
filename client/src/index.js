@@ -13,10 +13,10 @@ import './index.css';
 ReactDOM.render(
   <Provider store={Store}>
     <Router>
-      <Route exect path="/manger" component={MangerLogin} />
+      <Route exect path="/manager" component={MangerLogin} />
       <Route exect path="/login" component={<div>hi</div>} />
       <Route exect path="/dashboard" component={Dashboard} />
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

@@ -8,7 +8,7 @@ import MenuComponent from './MenuComponent';
 import { getCompaniesActions } from '../../store/actions/company';
 
 const MenuContainer = ({ getCompanies, companies = [] }) => {
-  useEffect(() => getCompanies(), [companies.length])
+  useEffect(() => getCompanies(), [companies.length]);
 
   const menuItem = [
     {
@@ -24,12 +24,12 @@ const MenuContainer = ({ getCompanies, companies = [] }) => {
   return <MenuComponent menuItem={menuItem} />;
 };
 
-const props = state => ({
+const props = (state) => ({
   companies: state.companies?.listCompanies || [],
 });
 
 const actions = {
-  getCompanies: getCompaniesActions
+  getCompanies: getCompaniesActions,
 };
 
 export default connect(props, actions)(MenuContainer);

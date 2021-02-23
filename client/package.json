@@ -12,6 +12,7 @@
     "http-proxy-middleware": "^1.0.6",
     "less": "^3.12.2",
     "less-loader": "^7.1.0",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-app-rewired": "^2.1.6",
     "react-dom": "^17.0.1",
@@ -25,20 +26,10 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
-    "lint": "eslint src/",
-    "prettier": "prettier --write \"**/*.+(js|jsx)\""
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
+    "test": "react-app-rewired test"
   },
   "browserslist": [
     "last 2 version",
     "not dead"
-  ],
-  "devDependencies": {
-    "prettier": "^2.2.1"
-  }
+  ]
 }

@@ -7,18 +7,14 @@ import { Menu, Dropdown } from 'antd';
 import { ReactComponent as MagicWand } from '../../static/icons/magic-wand.svg';
 
 /* @Styles */
-import styles from './MagicButton.module.css'
+import styles from './MagicButton.module.css';
 
 const MagicButtonComponent = ({ menuNodes }) => {
   const menu = (
     <Menu>
-      {
-        menuNodes.map((node, i) => (
-          <Menu.Item key={i}>
-            {node}
-          </Menu.Item>
-        ))
-      }
+      {menuNodes.map((node, i) => (
+        <Menu.Item key={i}>{node}</Menu.Item>
+      ))}
     </Menu>
   );
 
@@ -31,6 +27,6 @@ const MagicButtonComponent = ({ menuNodes }) => {
       </Dropdown>
     </div>
   );
-}
+};
 
 export default MagicButtonComponent;

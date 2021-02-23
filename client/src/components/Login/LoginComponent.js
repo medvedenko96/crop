@@ -43,10 +43,7 @@ const LoginComponent = ({ onSubmit, serverError }) => {
             help: errors.login,
           })}
         >
-          <Input
-            prefix={<UserOutlined className={styles.input_icon} />}
-            placeholder="Login"
-          />
+          <Input prefix={<UserOutlined className={styles.input_icon} />} placeholder="Login" />
         </Item>
         <Item
           name="password"
@@ -66,11 +63,7 @@ const LoginComponent = ({ onSubmit, serverError }) => {
           />
         </Item>
         <Item>
-          <Button
-            className="login-form-button"
-            type="primary"
-            htmlType="submit"
-          >
+          <Button className="login-form-button" type="primary" htmlType="submit">
             Submit
           </Button>
         </Item>

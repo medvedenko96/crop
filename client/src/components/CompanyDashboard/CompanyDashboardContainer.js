@@ -20,8 +20,8 @@ const CompanyDashboardContainer = ({ createCompany }) => {
     setIsShowModal(true);
   };
 
-  const handleOk = values => {
-    createCompany(values)
+  const handleOk = (values) => {
+    createCompany(values);
     setIsShowModal(false);
   };
 
@@ -30,22 +30,24 @@ const CompanyDashboardContainer = ({ createCompany }) => {
   };
 
   const menuNodes = [
-    <div className={styles.nodeWrapper} key='1' onClick={showModal}>
+    <div className={styles.nodeWrapper} key="1" onClick={showModal}>
       <AppstoreAddOutlined />
       <div className={styles.nodeTitle}>Add Company</div>
     </div>,
-  ]
+  ];
 
-  return <CompanyDashboardComponent
-    menuNodes={menuNodes}
-    isShowModal={isShowModal}
-    handleOk={handleOk}
-    handleCancel={handleCancel}
-  />;
+  return (
+    <CompanyDashboardComponent
+      menuNodes={menuNodes}
+      isShowModal={isShowModal}
+      handleOk={handleOk}
+      handleCancel={handleCancel}
+    />
+  );
 };
 
 const actions = {
-  createCompany: createCompanyAction
+  createCompany: createCompanyAction,
 };
 
 export default connect(null, actions)(CompanyDashboardContainer);

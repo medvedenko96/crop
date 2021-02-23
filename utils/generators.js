@@ -18,5 +18,8 @@ const validationPassword = (password, { salt, hash }) => (
 );
 
 module.exports = {
-  generateSalt, generateHah, generateJwt, validationPassword,
+  generateSalt,
+  generateHah,
+  generateJwt,
+  validationPassword,
 };

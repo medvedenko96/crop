@@ -15,4 +15,3 @@ export const logoutActions = (date) => async (dispatch) => {
   await auth.mangerLogin(date);
   dispatch({ type: LOGOUT });
 };
-

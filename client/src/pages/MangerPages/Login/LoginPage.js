@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { string, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -9,13 +10,18 @@ import { setManagerInfoActions } from '../../../store/actions/manager';
 /* @Components */
 import LoginComponent from '../../../components/Login';
 
+const propTypes = {
+  login: string,
+  setManagerInfo: func,
+  userId: string,
+};
+
 const LoginPage = ({ login, setManagerInfo, userId }) => {
   const [serverError, setServerError] = useState('');
 
   const handleSubmit = async (values) => {
     try {
       const manager = await login(values);
-      console.log(manager);
 
       setManagerInfo(manager);
       setServerError('');
@@ -30,6 +36,8 @@ const LoginPage = ({ login, setManagerInfo, userId }) => {
 
   return <LoginComponent onSubmit={handleSubmit} serverError={serverError} />;
 };
+
+LoginPage.propTypes = propTypes;
 
 const props = (state) => ({
   userId: state.user.id,
