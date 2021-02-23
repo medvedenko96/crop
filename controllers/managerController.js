@@ -2,34 +2,51 @@ const { pool } = require('../db');
 const { responseJSON } = require('../utils/response');
 const { generateSalt, generateHah } = require('../utils/generators');
 
-const createManager = ({ body: { name, password } }, res) => {
-  if (!name || !password) {
+const createManager = ({ body: { login, password } }, res) => {
+  if (!login || !password) {
     return responseJSON(res, 400, { error: 'All fields required.' });
   }
 
-  const salt = generateSalt();
-  const hash = generateHah(password, salt);
-
   return pool.query(
-    'INSERT INTO managers (name, hash, salt) VALUES ($1, $2, $3)',
-    [name, hash, salt],
-    (error) => {
+    'SELECT * FROM managers WHERE login=$1 ',
+    [login],
+    (error, result) => {
       if (error) {
-        throw error;
+        return res.status(500).send('Server error');
       }
 
-      res.status(201).send('User added');
+      if (result.rows.length > 0 && result.rows[0].login === login) {
+        return res.status(201).send('User already exists');
+      }
+
+      const salt = generateSalt();
+      const hash = generateHah(password, salt);
+
+      return pool.query(
+        'INSERT INTO managers (login, hash, salt) VALUES ($1, $2, $3)',
+        [login, hash, salt],
+        (err) => {
+          if (err) {
+            return res.status(500).send('Server error');
+          }
+
+          return res.status(201).send('User added');
+        },
+      );
     },
   );
 };
 
-const getAllManagers = (req, res) => {
-  pool.query('SELECT * FROM managers', (error, results) => {
+const deleteManger = ({ body: { login } }, res) => {
+  pool.query('DELETE FROM managers WHERE login = $1', [login], (error) => {
     if (error) {
-      return;
+      throw error;
     }
-    res.status(200).json(results.rows);
+
+    res.status(200).send('User deleted');
   });
 };
 
-module.exports = { createManager, getAllManagers };
+module.exports = {
+  createManager, deleteManger,
+};

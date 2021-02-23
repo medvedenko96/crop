@@ -3,18 +3,19 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 /* @Actions */
-import { loginActions } from '../../store/actions/auth';
-import { setManagerInfoActions } from '../../store/actions/manager';
+import { loginActions } from '../../../store/actions/auth';
+import { setManagerInfoActions } from '../../../store/actions/manager';
 
 /* @Components */
-import LoginComponent from '../../components/Login';
+import LoginComponent from '../../../components/Login';
 
-const LoginPage = ({ login, setManagerInfo, userId, isAdmin }) => {
+const LoginPage = ({ login, setManagerInfo, userId }) => {
   const [serverError, setServerError] = useState('');
 
   const handleSubmit = async (values) => {
     try {
       const manager = await login(values);
+      console.log(manager);
 
       setManagerInfo(manager);
       setServerError('');
@@ -23,7 +24,7 @@ const LoginPage = ({ login, setManagerInfo, userId, isAdmin }) => {
     }
   };
 
-  if (userId && isAdmin) {
+  if (userId) {
     return <Redirect to="/dashboard" />;
   }
 

@@ -1,4 +1,3 @@
-// process.env.NODE_ENV === 'production'
 require('dotenv').config();
 
 module.exports = {
@@ -10,6 +9,5 @@ module.exports = {
   DB_PORT: process.env.DB_PORT,
   DB_DATABASE: process.env.DB_DATABASE,
   DATABASE_URL: process.env.DATABASE_URL,
-  // ---------
-  isProduction: process.env.NODE_ENV === 'production',
+  IS_PRODUCTION: process.env.NODE_ENV === 'production',
 };

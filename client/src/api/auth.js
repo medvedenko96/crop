@@ -1,16 +1,16 @@
 import axios from 'axios';
 
 export default {
-  async login({ login, password }) {
-    const { data } = await axios.post('/api/login', {
-      manager: login,
+  async mangerLogin({ login, password }) {
+    const { data } = await axios.post('/api/login-manger', {
+      login,
       password,
     });
 
     return data;
   },
 
-  async logout() {
+  async mangerLogout() {
     await axios.get('/api/logout');
   },
 };

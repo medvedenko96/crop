@@ -2,13 +2,21 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 
-module.exports.generateSalt = () => crypto.randomBytes(16).toString('hex');
+const generateSalt = () => crypto.randomBytes(16).toString('hex');
 
-module.exports.generateHah = (password, salt) => (
+const generateHah = (password, salt) => (
   crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex')
 );
 
 // 86400 expires in 24 hours
-module.exports.generateJwt = (id, login) => (
-  jwt.sign({ _id: id, login }, config.JWT_SECRET, { expiresIn: 86400 })
+const generateJwt = (id, name) => (
+  jwt.sign({ id, login: name }, config.JWT_SECRET, { expiresIn: 86400 })
 );
+
+const validationPassword = (password, { salt, hash }) => (
+  hash === generateHah(password, salt)
+);
+
+module.exports = {
+  generateSalt, generateHah, generateJwt, validationPassword,
+};

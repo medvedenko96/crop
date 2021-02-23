@@ -5,8 +5,8 @@ import { Row, Col } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 /* @Components */
-import Menu from '../../components/Menu';
-import CompanyDashboard from '../../components/CompanyDashboard'
+import Menu from '../../../components/Menu';
+import CompanyDashboard from '../../../components/CompanyDashboard'
 
 /* @Styles */
 import styles from './DashboardPage.module.css'

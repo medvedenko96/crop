@@ -1,12 +1,16 @@
 const express = require('express');
 
 const managerController = require('../controllers/managerController');
+const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-// manager
+// MANAGER
 router.post('/create-manager', managerController.createManager);
+router.post('/delete-manager', managerController.deleteManger);
+// auth
+router.post('/login-manger', authController.MangerLogin);
 
-router.get('/test', managerController.getAllManagers);
+// COMPANY
 
 module.exports = router;
