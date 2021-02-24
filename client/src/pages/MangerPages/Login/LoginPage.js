@@ -11,7 +11,7 @@ import { setManagerInfoActions } from '../../../store/actions/manager';
 import LoginComponent from '../../../components/Login';
 
 const propTypes = {
-  login: string,
+  login: func,
   setManagerInfo: func,
   userId: string,
 };

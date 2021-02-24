@@ -57,10 +57,7 @@ const LoginComponent = ({ onSubmit, serverError }) => {
             help: <div className={styles.input_error}>{serverError}</div>,
           })}
         >
-          <Input.Password
-            prefix={<LockOutlined className={styles.input_icon} />}
-            placeholder="Password"
-          />
+          <Input.Password prefix={<LockOutlined className={styles.input_icon} />} placeholder="Password" />
         </Item>
         <Item>
           <Button className="login-form-button" type="primary" htmlType="submit">
