@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { string, func } from 'prop-types';
+import { number, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ import LoginComponent from '../../../components/Login';
 const propTypes = {
   login: func,
   setManagerInfo: func,
-  userId: string,
+  userId: number,
 };
 
 const LoginPage = ({ login, setManagerInfo, userId }) => {

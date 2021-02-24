@@ -1,4 +1,5 @@
 import React from 'react';
+import { func, bool } from 'prop-types';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -6,6 +7,12 @@ import * as Yup from 'yup';
 import { Input, Modal, Form } from 'antd';
 
 const { Item } = Form;
+
+const propTypes = {
+  isShowModal: bool,
+  onOk: func,
+  handleCancel: func,
+};
 
 const AddCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
   const validationSchema = Yup.object().shape({
@@ -62,5 +69,7 @@ const AddCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
     </Modal>
   );
 };
+
+AddCompanyModal.propTypes = propTypes;
 
 export default AddCompanyModal;

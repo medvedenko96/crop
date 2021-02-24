@@ -8,6 +8,11 @@ import { ReactComponent as MagicWand } from '../../static/icons/magic-wand.svg';
 
 /* @Styles */
 import styles from './MagicButton.module.css';
+import { array } from 'prop-types';
+
+const propTypes = {
+  menuNodes: array,
+};
 
 const MagicButtonComponent = ({ menuNodes }) => {
   const menu = (
@@ -28,5 +33,7 @@ const MagicButtonComponent = ({ menuNodes }) => {
     </div>
   );
 };
+
+MagicButtonComponent.propTypes = propTypes;
 
 export default MagicButtonComponent;

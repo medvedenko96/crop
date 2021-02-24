@@ -6,8 +6,14 @@ import MenuComponent from './MenuComponent';
 
 /* @Actions */
 import { getCompaniesActions } from '../../store/actions/company';
+import { array, func } from 'prop-types';
 
-const MenuContainer = ({ getCompanies, companies = [] }) => {
+const propTypes = {
+  getCompanies: func,
+  companies: array,
+};
+
+const MenuContainer = ({ getCompanies, companies }) => {
   useEffect(() => getCompanies(), [companies.length]);
 
   const menuItem = [
@@ -24,8 +30,14 @@ const MenuContainer = ({ getCompanies, companies = [] }) => {
   return <MenuComponent menuItem={menuItem} />;
 };
 
+MenuContainer.propTypes = propTypes;
+
+MenuContainer.defaultProps = {
+  companies: [],
+};
+
 const props = (state) => ({
-  companies: state.companies?.listCompanies || [],
+  companies: state.companies?.listCompanies,
 });
 
 const actions = {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { func } from 'prop-types';
 import { connect } from 'react-redux';
 
 /* @Icons */
@@ -12,6 +13,10 @@ import { createCompanyAction } from '../../store/actions/company';
 
 /* @Styles */
 import styles from './CompanyDashboard.module.css';
+
+const propTypes = {
+  createCompany: func,
+};
 
 const CompanyDashboardContainer = ({ createCompany }) => {
   const [isShowModal, setIsShowModal] = useState(false);
@@ -45,6 +50,8 @@ const CompanyDashboardContainer = ({ createCompany }) => {
     />
   );
 };
+
+CompanyDashboardContainer.propTypes = propTypes;
 
 const actions = {
   createCompany: createCompanyAction,

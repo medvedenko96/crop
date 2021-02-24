@@ -1,4 +1,5 @@
 import React from 'react';
+import { func, string } from 'prop-types';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -9,6 +10,11 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import styles from './Login.module.css';
 
 const { Item } = Form;
+
+const propTypes = {
+  onSubmit: func,
+  serverError: string,
+};
 
 const LoginComponent = ({ onSubmit, serverError }) => {
   const validationSchema = Yup.object().shape({
@@ -68,5 +74,7 @@ const LoginComponent = ({ onSubmit, serverError }) => {
     </div>
   );
 };
+
+LoginComponent.propTypes = propTypes;
 
 export default LoginComponent;
