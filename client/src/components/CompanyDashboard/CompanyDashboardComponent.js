@@ -3,25 +3,43 @@ import { func, array, bool } from 'prop-types';
 
 /* @Components */
 import MagicButton from '../MagicButton';
-import AddCompanyModal from '../Modals/AddCopmany';
+import { CreateCompanyModal, DeleteCompanyModal } from '../Modals';
 
 /* @Styles */
 import styles from './CompanyDashboard.module.css';
 
 const propTypes = {
   menuNodes: array,
-  isShowModal: bool,
-  handleOk: func,
+  isShowCreateCompanyModal: bool,
+  isShowDeleteCompanyModal: bool,
+  handleSubmitCreateCompanyModal: func,
+  handleSubmitDeleteCompanyModal: func,
   handleCancel: func,
 };
 
-const CompanyDashboardComponent = ({ menuNodes, isShowModal, handleOk, handleCancel }) => (
+const CompanyDashboardComponent = ({
+  menuNodes,
+  isShowCreateCompanyModal,
+  isShowDeleteCompanyModal,
+  handleSubmitCreateCompanyModal,
+  handleSubmitDeleteCompanyModal,
+  handleCancel,
+}) => (
   <>
     <div className={styles.dashboardWrapper}>
       DashboardPage
       <MagicButton menuNodes={menuNodes} />
     </div>
-    <AddCompanyModal isShowModal={isShowModal} onOk={handleOk} handleCancel={handleCancel} />
+    <CreateCompanyModal
+      isShowModal={isShowCreateCompanyModal}
+      onOk={handleSubmitCreateCompanyModal}
+      handleCancel={handleCancel}
+    />
+    <DeleteCompanyModal
+      isShowModal={isShowDeleteCompanyModal}
+      onOk={handleSubmitDeleteCompanyModal}
+      handleCancel={handleCancel}
+    />
   </>
 );
 

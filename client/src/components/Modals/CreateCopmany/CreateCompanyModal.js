@@ -14,7 +14,7 @@ const propTypes = {
   handleCancel: func,
 };
 
-const AddCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
+const CreateCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
   const validationSchema = Yup.object().shape({
     login: Yup.string().required('Please input company login!'),
     companyName: Yup.string().required('Please input company name!'),
@@ -85,6 +85,6 @@ const AddCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
   );
 };
 
-AddCompanyModal.propTypes = propTypes;
+CreateCompanyModal.propTypes = propTypes;
 
-export default AddCompanyModal;
+export default CreateCompanyModal;

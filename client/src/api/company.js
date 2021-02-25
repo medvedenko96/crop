@@ -9,6 +9,14 @@ export default {
     });
   },
 
+  async deleteCompany({ login }) {
+    const { data } = await axios.post('/api/delete-company', {
+      login,
+    });
+
+    return data;
+  },
+
   async getCompanies() {
     const { data } = await axios.get('/api/get-companies');
 
