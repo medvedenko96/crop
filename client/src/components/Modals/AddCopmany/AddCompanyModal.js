@@ -16,12 +16,14 @@ const propTypes = {
 
 const AddCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
   const validationSchema = Yup.object().shape({
+    login: Yup.string().required('Please input company login!'),
     companyName: Yup.string().required('Please input company name!'),
     password: Yup.string().required('Please input company password!'),
   });
 
   const formik = useFormik({
     initialValues: {
+      login: '',
       companyName: '',
       password: '',
     },
@@ -37,8 +39,21 @@ const AddCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
   };
 
   return (
-    <Modal title="Add Company" visible={isShowModal} onOk={handleSubmit} onCancel={onCancel}>
+    <Modal title="Create company" visible={isShowModal} onOk={handleSubmit} onCancel={onCancel}>
       <form>
+        <Item
+          name="login"
+          label="Company login"
+          validateStatus={errors.login}
+          onChange={handleChange}
+          value={values.login}
+          {...(errors.login && {
+            validateStatus: 'error',
+            help: errors.login,
+          })}
+        >
+          <Input />
+        </Item>
         <Item
           name="companyName"
           label="Company name"

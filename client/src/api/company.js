@@ -1,10 +1,11 @@
 import axios from 'axios';
 
 export default {
-  async createCompany({ companyName, password }) {
+  async createCompany({ companyName, login, password }) {
     await axios.post('/api/create-company', {
       companyName,
       password,
+      login,
     });
   },
 

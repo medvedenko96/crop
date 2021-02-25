@@ -4,3 +4,11 @@ CREATE TABLE managers (
   hash VARCHAR(128) NOT NULL,
   salt VARCHAR(32) NOT NULL
 );
+
+CREATE TABLE companies (
+  ID SERIAL PRIMARY KEY,
+  login VARCHAR(30) NOT NULL,
+  company_name VARCHAR(255) NOT NULL,
+  hash VARCHAR(128) NOT NULL,
+  salt VARCHAR(32) NOT NULL
+);

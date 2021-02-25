@@ -15,8 +15,8 @@ const MenuComponent = ({ menuItem }) => (
     {menuItem.map((el) =>
       el.items ? (
         <ItemGroup key={el.title} title={el.title}>
-          {el.items.map(({ companyName, id }) => (
-            <Item key={id}>{companyName}</Item>
+          {el.items.map(({ company, id }) => (
+            <Item key={id}>{company}</Item>
           ))}
         </ItemGroup>
       ) : (
