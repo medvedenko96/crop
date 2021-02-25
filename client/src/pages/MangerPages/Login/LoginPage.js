@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 /* @Actions */
-import { loginActions } from '../../../store/actions/auth';
+import { loginManagerActions } from '../../../store/actions/auth';
 import { setManagerInfoActions } from '../../../store/actions/manager';
 
 /* @Components */
@@ -41,11 +41,10 @@ LoginPage.propTypes = propTypes;
 
 const props = (state) => ({
   userId: state.user.id,
-  isAdmin: state.user.isAdmin,
 });
 
 const actions = {
-  login: loginActions,
+  login: loginManagerActions,
   setManagerInfo: setManagerInfoActions,
 };
 

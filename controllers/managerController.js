@@ -19,17 +19,13 @@ const createManager = ({ body: { login, password } }, res) => {
     const salt = generateSalt();
     const hash = generateHah(password, salt);
 
-    return pool.query(
-      'INSERT INTO managers (login, hash, salt) VALUES ($1, $2, $3)',
-      [login, hash, salt],
-      (err) => {
-        if (err) {
-          return res.status(500).send('Server error');
-        }
+    return pool.query('INSERT INTO managers (login, hash, salt) VALUES ($1, $2, $3)', [login, hash, salt], (err) => {
+      if (err) {
+        return res.status(500).send('Server error');
+      }
 
-        return res.status(201).send('User added');
-      },
-    );
+      return res.status(201).send('User added');
+    });
   });
 };
 

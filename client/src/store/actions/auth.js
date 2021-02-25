@@ -3,7 +3,7 @@ import { auth } from '../../api';
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 
-export const loginActions = (date) => async (dispatch) => {
+export const loginManagerActions = (date) => async (dispatch) => {
   const data = await auth.mangerLogin(date);
 
   dispatch({ type: LOGIN });

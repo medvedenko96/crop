@@ -24,10 +24,10 @@ const MangerLogin = ({ body }, res) => {
     if (user.login === login && isValidPassword) {
       // secure: false, // set to true if your using https
       res.cookie('token', generateJwt(user.id, user.login), { maxAge: 86400000, httpOnly: true });
+
       return responseJSON(res, 200, {
         id: user.id,
-        login: user.manager,
-        companyName: user.companyName,
+        login: user.login,
       });
     }
 

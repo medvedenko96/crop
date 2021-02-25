@@ -3,19 +3,17 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+/* @Components */
 import MangerLogin from './pages/MangerPages/Login';
 import Dashboard from './pages/MangerPages/Dashboard';
+import NotFound from './pages/CommonPages/NotFound';
+
+/* @Store */
 import Store from './store';
 
+/* @Styles */
 import 'antd/dist/antd.less';
 import './index.css';
-
-const NotFound = () => (
-  <div>
-    <h3>404 page not found</h3>
-    <p>We are sorry but the page you are looking for does not exist.</p>
-  </div>
-);
 
 ReactDOM.render(
   <Provider store={Store}>

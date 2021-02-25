@@ -3,7 +3,6 @@ import { SET_USER_INFO } from '../actions/manager';
 const initialState = {
   id: null,
   login: '',
-  isAdmin: false,
 };
 
 export default (state = initialState, action = {}) => {
