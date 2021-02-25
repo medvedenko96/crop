@@ -39,7 +39,7 @@ const getCompanies = (req, res) => {
       return responseJSON(res, 500, 'Server error');
     }
 
-    const companies = result?.rows || [];
+    const companies = (!!result && result.rows) || [];
 
     return responseJSON(res, 200, companies);
   });
