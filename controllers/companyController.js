@@ -13,7 +13,7 @@ const createCompany = ({ body: { login, companyName, password } }, res) => {
     }
 
     if (result.rows.length > 0 && result.rows[0].login === login) {
-      return res.status(201).send('User already exists');
+      return responseJSON(res, 201, { message: 'User already exists', error });
     }
 
     const salt = generateSalt();
@@ -45,7 +45,30 @@ const getCompanies = (req, res) => {
   });
 };
 
+const deleteCompany = ({ body }, res) => {
+  const { login } = body;
+
+  return pool.query('SELECT * FROM companies WHERE login=$1 ', [login], (error, result) => {
+    if (error) {
+      return responseJSON(res, 500, { message: 'Server error', error });
+    }
+
+    if (result.rows.length === 0) {
+      return responseJSON(res, 200, { message: 'The company does not exist', isSuccess: false });
+    }
+
+    return pool.query('DELETE FROM companies WHERE login=$1', [login], (error, result) => {
+      if (error) {
+        return responseJSON(res, 500, 'Server error');
+      }
+
+      return responseJSON(res, 200, { message: 'Success', isSuccess: true, login });
+    });
+  });
+};
+
 module.exports = {
   createCompany,
   getCompanies,
+  deleteCompany,
 };

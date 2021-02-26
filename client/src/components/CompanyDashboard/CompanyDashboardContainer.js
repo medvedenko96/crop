@@ -8,17 +8,23 @@ import { AppstoreAddOutlined, DeleteOutlined } from '@ant-design/icons';
 /* @Components */
 import CompanyDashboardComponent from './CompanyDashboardComponent';
 
+/* @Antd */
+import { message as antdMessage } from 'antd';
+
 /* @Actions */
 import { createCompanyAction, deleteCompanyAction } from '../../store/actions/company';
 
 /* @Styles */
 import styles from './CompanyDashboard.module.css';
 
+const notification = (type, message) => antdMessage[type](message);
+
 const propTypes = {
   createCompany: func,
+  deleteCompany: func,
 };
 
-const CompanyDashboardContainer = ({ createCompany }) => {
+const CompanyDashboardContainer = ({ createCompany, deleteCompany }) => {
   const [isShowCreateCompanyModal, setIsShowCreateCompanyModal] = useState(false);
   const [isShowDeleteCompanyModal, setIsShowDeleteCompanyModal] = useState(false);
 
@@ -26,13 +32,25 @@ const CompanyDashboardContainer = ({ createCompany }) => {
     setIsShowCreateCompanyModal(true);
   };
 
+  const showDeleteCompanyModal = () => {
+    setIsShowDeleteCompanyModal(true);
+  };
+
   const handleSubmitCreateCompanyModal = (values) => {
     createCompany(values);
     setIsShowCreateCompanyModal(false);
   };
 
-  const handleSubmitDeleteCompanyModal = (values) => {
-    setIsShowCreateCompanyModal(false);
+  const handleSubmitDeleteCompanyModal = async (values) => {
+    const { message, isSuccess } = await deleteCompany(values);
+
+    if (isSuccess) {
+      setIsShowDeleteCompanyModal(false);
+      notification('success', message);
+      return;
+    }
+
+    notification('error', message);
   };
 
   const handleCancel = () => {
@@ -45,7 +63,7 @@ const CompanyDashboardContainer = ({ createCompany }) => {
       <AppstoreAddOutlined />
       <div className={styles.nodeTitle}>Add Company</div>
     </div>,
-    <div className={styles.nodeWrapper} key="2" onClick={setIsShowDeleteCompanyModal}>
+    <div className={styles.nodeWrapper} key="2" onClick={showDeleteCompanyModal}>
       <DeleteOutlined />
       <div className={styles.nodeTitle}>Delete Company</div>
     </div>,

@@ -16,5 +16,6 @@ router.post('/login-manger', authController.MangerLogin);
 // company
 router.post('/create-company', companyController.createCompany);
 router.get('/get-companies', companyController.getCompanies);
+router.post('/delete-company', companyController.deleteCompany);
 
 module.exports = router;

@@ -21,10 +21,6 @@ const MenuContainer = ({ getCompanies, companies }) => {
       title: 'Companies',
       items: companies,
     },
-    {
-      title: 'Settings',
-      link: '/settings',
-    },
   ];
 
   return <MenuComponent menuItem={menuItem} />;

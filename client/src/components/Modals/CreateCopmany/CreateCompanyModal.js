@@ -78,7 +78,7 @@ const CreateCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
             help: errors.password,
           })}
         >
-          <Input.Password />
+          <Input />
         </Item>
       </form>
     </Modal>

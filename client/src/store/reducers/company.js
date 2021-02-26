@@ -1,4 +1,4 @@
-import { GET_COMPANIES, CREATE_COMPANY } from '../actions/company';
+import { UPDATE_COMPANIES, GET_COMPANIES, CREATE_COMPANY } from '../actions/company';
 
 const initialState = {
   listCompanies: [],
@@ -7,6 +7,12 @@ const initialState = {
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case GET_COMPANIES:
+      return {
+        ...state,
+        listCompanies: action.payload,
+      };
+
+    case UPDATE_COMPANIES:
       return {
         ...state,
         listCompanies: action.payload,
