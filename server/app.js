@@ -23,10 +23,11 @@ app.use(cors(origin));
 app.use('/api', authenticateToken, require('./routes'));
 
 if (isProduction) {
+  const dirname = __dirname.replace('/server', '');
   app.use(express.static('client/build'));
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.resolve(dirname, 'client', 'build', 'index.html'));
   });
 }
 
