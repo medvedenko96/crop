@@ -3,6 +3,7 @@ const express = require('express');
 const managerController = require('../controllers/managerController');
 const authController = require('../controllers/authController');
 const companyController = require('../controllers/companyController');
+const regionController = require('../controllers/regionController');
 
 const router = express.Router();
 
@@ -17,5 +18,8 @@ router.post('/login-manger', authController.MangerLogin);
 router.post('/create-company', companyController.createCompany);
 router.get('/get-companies', companyController.getCompanies);
 router.post('/delete-company', companyController.deleteCompany);
+
+// region
+router.post('/create-region', regionController.createRegion);
 
 module.exports = router;

@@ -7,35 +7,35 @@ const createManager = ({ body: { login, password } }, res) => {
     return responseJSON(res, 400, { error: 'All fields required.' });
   }
 
-  return pool.query('SELECT * FROM managers WHERE login=$1 ', [login], (error, result) => {
-    if (error) {
-      return res.status(500).send('Server error');
-    }
+  const salt = generateSalt();
+  const hash = generateHah(password, salt);
 
-    if (result.rows.length > 0 && result.rows[0].login === login) {
-      return res.status(201).send('User already exists');
-    }
-
-    const salt = generateSalt();
-    const hash = generateHah(password, salt);
-
-    return pool.query('INSERT INTO managers (login, hash, salt) VALUES ($1, $2, $3)', [login, hash, salt], (err) => {
-      if (err) {
-        return res.status(500).send('Server error');
+  return pool.query(
+    'INSERT INTO manager(login, hash, salt) SELECT $1, $2, $3 WHERE NOT EXISTS (SELECT login FROM manager WHERE login=$4)',
+    [login, hash, salt, login],
+    (error, result) => {
+      if (error) {
+        return res.status(500).send({ message: 'Server error', error });
       }
 
-      return res.status(201).send('User added');
-    });
-  });
+      const { rowCount } = result;
+
+      if (rowCount) {
+        return res.status(201).send({ message: 'User added' });
+      }
+
+      return res.status(300).send({ message: 'User exists' });
+    },
+  );
 };
 
 const deleteManger = ({ body: { login } }, res) => {
-  pool.query('DELETE FROM managers WHERE login = $1', [login], (error) => {
+  pool.query('DELETE FROM manager WHERE login = $1', [login], (error) => {
     if (error) {
-      throw error;
+      return res.status(500).send({ message: 'Server error', error });
     }
 
-    res.status(200).send('User deleted');
+    res.status(200).send({ message: 'User deleted' });
   });
 };
 

@@ -33,7 +33,7 @@ MenuContainer.defaultProps = {
 };
 
 const props = (state) => ({
-  companies: state.companies?.listCompanies,
+  companies: state.companies || [],
 });
 
 const actions = {

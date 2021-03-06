@@ -2,11 +2,13 @@ import axios from 'axios';
 
 export default {
   async createCompany({ companyName, login, password }) {
-    await axios.post('/api/create-company', {
+    const { data } = await axios.post('/api/create-company', {
       companyName,
       password,
       login,
     });
+
+    return data;
   },
 
   async deleteCompany({ login }) {

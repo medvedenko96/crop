@@ -9,7 +9,7 @@ const MangerLogin = ({ body }, res) => {
     return responseJSON(res, 400, { error: 'All fields required.' });
   }
 
-  return pool.query('SELECT * FROM managers WHERE login=$1 ', [login], (error, result) => {
+  return pool.query('SELECT * FROM manager WHERE login=$1 ', [login], (error, result) => {
     if (error) {
       return responseJSON(res, 500, error);
     }

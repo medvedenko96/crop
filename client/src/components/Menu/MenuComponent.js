@@ -12,17 +12,13 @@ const propTypes = {
 
 const MenuComponent = ({ menuItem }) => (
   <Menu>
-    {menuItem.map((el) =>
-      el.items ? (
-        <ItemGroup key={el.title} title={el.title}>
-          {el.items.map(({ company, id }) => (
-            <Item key={id}>{company}</Item>
-          ))}
-        </ItemGroup>
-      ) : (
-        <Item key={el.title}>{el.title}</Item>
-      ),
-    )}
+    {menuItem.map((el) => (
+      <ItemGroup key={el.title} title={el.title}>
+        {el.items.map(({ company, id }) => (
+          <Item key={id}>{company}</Item>
+        ))}
+      </ItemGroup>
+    ))}
   </Menu>
 );
 

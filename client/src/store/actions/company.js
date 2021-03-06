@@ -4,22 +4,28 @@ export const CREATE_COMPANY = 'CREATE_COMPANY';
 export const GET_COMPANIES = 'GET_COMPANIES';
 export const UPDATE_COMPANIES = 'UPDATE_COMPANIES';
 
-export const createCompanyAction = (date) => async (dispatch) => {
-  await company.createCompany(date);
+export const createCompanyAction = (newCompany) => async (dispatch) => {
+  const data = await company.createCompany(newCompany);
 
-  dispatch({ type: CREATE_COMPANY, payload: { companyName: date.companyName, login: date.login, id: 1 } });
+  if (data.isSuccess) {
+    dispatch({
+      type: CREATE_COMPANY,
+      payload: data.company,
+    });
+  }
+
+  return data;
 };
 
-export const deleteCompanyAction = (date) => async (dispatch, getState) => {
-  const {
-    companies: { listCompanies },
-  } = getState();
-  const result = await company.deleteCompany(date);
+export const deleteCompanyAction = (login) => async (dispatch, getState) => {
+  const { companies } = getState();
+  const data = await company.deleteCompany(login);
 
-  if (result.isSuccess) {
-    dispatch({ type: UPDATE_COMPANIES, payload: listCompanies.filter(({ login }) => login !== result.login) });
+  if (data.isSuccess) {
+    dispatch({ type: UPDATE_COMPANIES, payload: companies.filter(({ login }) => login !== data.login) });
   }
-  return result;
+
+  return data;
 };
 
 export const getCompaniesActions = () => async (dispatch) => {
