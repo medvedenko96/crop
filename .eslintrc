@@ -15,6 +15,7 @@
     "import/no-anonymous-default-export": ["error", {"allowObject": true, "allowArrowFunction": true}],
     "react-hooks/rules-of-hooks": 0,
     "react-hooks/exhaustive-deps": 0,
+    "no-useless-escape": 0,
     "prettier/prettier": [
       "error",
       {

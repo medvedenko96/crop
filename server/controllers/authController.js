@@ -37,6 +37,7 @@ const MangerLogin = ({ body }, res) => {
 
 const logout = (req, res) => {
   res.clearCookie('token');
+  res.clearCookie('tokeN');
   responseJSON(res, 200);
 };
 
