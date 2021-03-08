@@ -6,7 +6,7 @@ import { UserOutlined } from '@ant-design/icons';
 
 /* @Components */
 import Menu from '../../../components/Menu';
-import CompanyDashboard from '../../../components/CompanyDashboard';
+import Dashboard from '../../../components/DashboardWrapper';
 
 /* @Styles */
 import styles from './DashboardPage.module.css';
@@ -36,7 +36,7 @@ const DashboardPage = () => (
           <Menu />
         </Col>
         <Col xs={24} sm={24} md={18} lg={18} xl={19} xxl={20}>
-          <CompanyDashboard />
+          <Dashboard />
         </Col>
       </Row>
     </div>

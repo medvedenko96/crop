@@ -4,9 +4,10 @@ import { func, array, bool } from 'prop-types';
 /* @Components */
 import MagicButton from '../MagicButton';
 import { CreateCompanyModal, DeleteCompanyModal } from '../Modals';
+import DashboardContent from '../DashboardContent';
 
 /* @Styles */
-import styles from './CompanyDashboard.module.css';
+import styles from './DashboardWrapper.module.css';
 
 const propTypes = {
   menuNodes: array,
@@ -17,7 +18,7 @@ const propTypes = {
   handleCancel: func,
 };
 
-const CompanyDashboardComponent = ({
+const DashboardWrapperComponent = ({
   menuNodes,
   isShowCreateCompanyModal,
   isShowDeleteCompanyModal,
@@ -27,7 +28,7 @@ const CompanyDashboardComponent = ({
 }) => (
   <>
     <div className={styles.dashboardWrapper}>
-      DashboardPage
+      <DashboardContent />
       <MagicButton menuNodes={menuNodes} />
     </div>
     <CreateCompanyModal
@@ -43,6 +44,6 @@ const CompanyDashboardComponent = ({
   </>
 );
 
-CompanyDashboardComponent.propTypes = propTypes;
+DashboardWrapperComponent.propTypes = propTypes;
 
-export default CompanyDashboardComponent;
+export default DashboardWrapperComponent;

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { AppstoreAddOutlined, DeleteOutlined } from '@ant-design/icons';
 
 /* @Components */
-import CompanyDashboardComponent from './CompanyDashboardComponent';
+import DashboardWrapperComponent from './DashboardWrapperComponent';
 
 /* @Antd */
 import { message as antdMessage } from 'antd';
@@ -15,7 +15,7 @@ import { message as antdMessage } from 'antd';
 import { createCompanyAction, deleteCompanyAction } from '../../store/actions/company';
 
 /* @Styles */
-import styles from './CompanyDashboard.module.css';
+import styles from './DashboardWrapper.module.css';
 
 const notification = (type, message) => antdMessage[type](message);
 
@@ -24,7 +24,7 @@ const propTypes = {
   deleteCompany: func,
 };
 
-const CompanyDashboardContainer = ({ createCompany, deleteCompany }) => {
+const DashboardWrapperContainer = ({ createCompany, deleteCompany }) => {
   const [isShowCreateCompanyModal, setIsShowCreateCompanyModal] = useState(false);
   const [isShowDeleteCompanyModal, setIsShowDeleteCompanyModal] = useState(false);
 
@@ -70,7 +70,7 @@ const CompanyDashboardContainer = ({ createCompany, deleteCompany }) => {
   ];
 
   return (
-    <CompanyDashboardComponent
+    <DashboardWrapperComponent
       menuNodes={menuNodes}
       isShowCreateCompanyModal={isShowCreateCompanyModal}
       isShowDeleteCompanyModal={isShowDeleteCompanyModal}
@@ -81,11 +81,11 @@ const CompanyDashboardContainer = ({ createCompany, deleteCompany }) => {
   );
 };
 
-CompanyDashboardContainer.propTypes = propTypes;
+DashboardWrapperContainer.propTypes = propTypes;
 
 const actions = {
   createCompany: createCompanyAction,
   deleteCompany: deleteCompanyAction,
 };
 
-export default connect(null, actions)(CompanyDashboardContainer);
+export default connect(null, actions)(DashboardWrapperContainer);
