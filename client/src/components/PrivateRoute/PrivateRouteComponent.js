@@ -1,22 +1,15 @@
 import React from 'react';
-import { func, shape, string, number } from 'prop-types';
-import { connect } from 'react-redux';
+import { func, string, number, bool } from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
-
-import useToken from '../../helpers/useToken';
 
 const propTypes = {
   render: func,
-  user: shape({
-    id: number,
-    login: string,
-  }),
+  id: number,
+  login: string,
+  isLoaded: bool,
 };
 
-const PrivateRouteComponent = ({ render: renderPage, user, ...props }) => {
-  const { checkToken } = useToken();
-  const isAuth = checkToken(user);
-
+const PrivateRouteComponent = ({ render: renderPage, isAuth, isLoaded, ...props }) => {
   const redirect = ({ location }) => (
     <Redirect
       to={{
@@ -26,19 +19,9 @@ const PrivateRouteComponent = ({ render: renderPage, user, ...props }) => {
     />
   );
 
-  return <Route {...props} render={isAuth ? renderPage : redirect} />;
+  return <Route {...props} render={isLoaded || isAuth ? renderPage : redirect} />;
 };
 
 PrivateRouteComponent.propTypes = propTypes;
 
-PrivateRouteComponent.defaultProps = {
-  user: {
-    id: 0,
-    login: '',
-  },
-};
-const props = (state) => ({
-  user: state.user,
-});
-
-export default connect(props, null)(PrivateRouteComponent);
+export default PrivateRouteComponent;

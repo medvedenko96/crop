@@ -1,16 +1,20 @@
-import { SET_USER_INFO } from '../actions/manager';
+import { SET_INFO, SET_IS_LOADED } from '../actions/manager';
 
 const initialState = {
+  isManagerInfoLoaded: true,
   id: null,
   login: '',
 };
 
 export default (state = initialState, action = {}) => {
-  switch (action.type) {
-    case SET_USER_INFO:
+  const { payload, type } = action;
+
+  switch (type) {
+    case SET_INFO:
+    case SET_IS_LOADED:
       return {
         ...state,
-        ...action.payload,
+        ...payload,
       };
 
     default:

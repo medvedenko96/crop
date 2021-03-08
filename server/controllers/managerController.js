@@ -1,4 +1,6 @@
 const { pool } = require('../db');
+const jwt = require('jsonwebtoken');
+const config = require('../config');
 const { responseJSON } = require('../utils/response');
 const { generateSalt, generateHah } = require('../utils/generators');
 
@@ -39,7 +41,36 @@ const deleteManger = ({ body: { login } }, res) => {
   });
 };
 
+const getManagerByJWT = (req, res) => {
+  const { cookies } = req;
+
+  if (cookies.token) {
+    jwt.verify(cookies.token, config.JWT_SECRET, (err, user) => {
+      if (err) {
+        responseJSON(res, 500, err);
+        return;
+      }
+
+      if (user && user.id) {
+        pool.query('SELECT id, login FROM manager WHERE id=$1', [user.id], (error, result) => {
+          if (error) {
+            return responseJSON(res, 500, { message: 'Server error', error });
+          }
+          const { rowCount, rows } = result;
+
+          if (rowCount) {
+            return responseJSON(res, 200, rows[0]);
+          }
+
+          return responseJSON(res, 500, { message: 'Server error' });
+        });
+      }
+    });
+  }
+};
+
 module.exports = {
   createManager,
   deleteManger,
+  getManagerByJWT,
 };

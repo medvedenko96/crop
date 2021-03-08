@@ -7,4 +7,9 @@ export default {
       password,
     });
   },
+  async getManagerByJWT() {
+    const { data } = await axios.get('/api/get-manager-by-jwt');
+
+    return data;
+  },
 };

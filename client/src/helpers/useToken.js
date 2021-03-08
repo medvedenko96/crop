@@ -35,6 +35,7 @@ export default function useToken() {
         return false;
       }
 
+      console.log(user, { login, id });
       isVerify = login === user.login && id === user.id;
     });
 

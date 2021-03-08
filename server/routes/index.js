@@ -8,6 +8,7 @@ const regionController = require('../controllers/regionController');
 const router = express.Router();
 
 // manager
+router.get('/get-manager-by-jwt', managerController.getManagerByJWT);
 router.post('/create-manager', managerController.createManager);
 router.post('/delete-manager', managerController.deleteManger);
 
