@@ -1,6 +1,6 @@
 import React from 'react';
 import { array } from 'prop-types';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 
 import './Menu.css';
@@ -12,15 +12,13 @@ const propTypes = {
 };
 
 const MenuComponent = ({ menuItem }) => {
-  const { url } = useRouteMatch();
-
   return (
     <Menu>
       {menuItem.map((el) => (
         <ItemGroup key={el.title} title={el.title}>
           {el.items.map(({ company, id }) => (
             <Item key={id}>
-              <Link to={`${url}/${company}`}>{company}</Link>
+              <Link to={`/dashboard/${company}`}>{company}</Link>
             </Item>
           ))}
         </ItemGroup>

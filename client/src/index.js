@@ -22,7 +22,7 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route exect path="/manager" render={(props) => <MangerLogin {...props} />} />
-          <PrivateRoute exect path="/dashboard" render={(props) => <Dashboard {...props} />} />
+          <PrivateRoute exect path="/dashboard/:company?" render={(props) => <Dashboard {...props} />} />
           <Route render={(props) => <NotFound {...props} />} />
         </Switch>
       </BrowserRouter>

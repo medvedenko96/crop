@@ -1,7 +1,14 @@
 import React from 'react';
+import { string } from 'prop-types';
 
-const DashboardContentContainer = () => {
-  return <div>DashboardContentContainer</div>;
+const propTypes = {
+  company: string,
 };
+
+const DashboardContentContainer = ({ company }) => {
+  return <div>{`company name: ${company}`}</div>;
+};
+
+DashboardContentContainer.propTypes = propTypes;
 
 export default DashboardContentContainer;
