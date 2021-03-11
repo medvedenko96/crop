@@ -9,7 +9,7 @@ const createRegion = ({ body }, res) => {
   }
 
   return pool.query(
-    'INSERT INTO manager (companyId, regionName) SELECT $1, $2 WHERE NOT EXISTS (SELECT id FROM manager WHERE id=$3)',
+    'INSERT INTO manager (company_id, region_name) SELECT $1, $2 WHERE NOT EXISTS (SELECT id FROM manager WHERE id=$3)',
     [companyId, regionName, companyId],
     (error, result) => {
       if (error) {

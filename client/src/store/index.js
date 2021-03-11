@@ -1,11 +1,13 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { routerMiddleware } from 'connected-react-router';
+import { applyMiddleware, compose, createStore } from 'redux';
 import reduxThunk from 'redux-thunk';
 
-import reducers from './reducers';
+/* @Reducers */
+import createRootReducer from './reducers';
 
-const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
-const middleware = [reduxThunk];
+export default function configureStore(history) {
+  const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+  const middleware = [reduxThunk, routerMiddleware(history)];
 
-const Store = createStore(reducers, {}, composeEnhancers(applyMiddleware(...middleware)));
-
-export default Store;
+  return createStore(createRootReducer(history), {}, composeEnhancers(applyMiddleware(...middleware)));
+}

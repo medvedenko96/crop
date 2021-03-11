@@ -1,12 +1,12 @@
 import React from 'react';
-import { string } from 'prop-types';
+import { number } from 'prop-types';
 
 const propTypes = {
-  company: string,
+  companyId: number,
 };
 
-const DashboardContentContainer = ({ company }) => {
-  return <div>{`company name: ${company}`}</div>;
+const DashboardContentContainer = ({ companyId }) => {
+  return <div>{`company id: ${companyId}`}</div>;
 };
 
 DashboardContentContainer.propTypes = propTypes;

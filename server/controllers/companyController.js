@@ -30,7 +30,7 @@ const createCompany = ({ body: { login, companyName, password } }, res) => {
 
           return responseJSON(res, 200, {
             message: 'Company added',
-            company: { id: rows[0].id, login: rows[0].login, company_name: rows[0].company_name },
+            company: { id: rows[0].id, login: rows[0].login, name: rows[0].company_name },
             isSuccess: true,
           });
         });
@@ -42,7 +42,7 @@ const createCompany = ({ body: { login, companyName, password } }, res) => {
 };
 
 const getCompanies = (req, res) => {
-  return pool.query('SELECT id, login, company_name as company FROM company', (error, result) => {
+  return pool.query('SELECT id, login, company_name as name FROM company', (error, result) => {
     if (error) {
       return responseJSON(res, 500, 'Server error');
     }

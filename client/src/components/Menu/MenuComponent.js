@@ -1,5 +1,5 @@
 import React from 'react';
-import { array } from 'prop-types';
+import { array, func, number } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 
@@ -8,17 +8,19 @@ import './Menu.css';
 const { ItemGroup, Item } = Menu;
 
 const propTypes = {
+  onClick: func,
   menuItem: array,
+  companyId: number,
 };
 
-const MenuComponent = ({ menuItem }) => {
+const MenuComponent = ({ menuItem, onClick, companyId }) => {
   return (
-    <Menu>
+    <Menu onClick={onClick} selectedKeys={[companyId]}>
       {menuItem.map((el) => (
         <ItemGroup key={el.title} title={el.title}>
-          {el.items.map(({ company, id }) => (
+          {el.items.map(({ name, id }) => (
             <Item key={id}>
-              <Link to={`/dashboard/${company}`}>{company}</Link>
+              <Link to={`/dashboard/${id}`}>{name}</Link>
             </Item>
           ))}
         </ItemGroup>
