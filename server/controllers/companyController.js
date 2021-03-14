@@ -65,7 +65,7 @@ const deleteCompany = ({ body }, res) => {
       return responseJSON(res, 200, { message: 'The company does not exist', isSuccess: false });
     }
 
-    return pool.query('DELETE FROM company WHERE login=$1', [login], (error, result) => {
+    return pool.query('DELETE FROM company WHERE login=$1', [login], (error) => {
       if (error) {
         return responseJSON(res, 500, 'Server error');
       }

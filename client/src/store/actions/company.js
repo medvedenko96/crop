@@ -38,5 +38,5 @@ export const getCompaniesAction = () => async (dispatch) => {
 };
 
 export const setCurrentCompanyIdAction = (id) => async (dispatch) => {
-  dispatch({ type: SET_CURRENT_COMPANY_ID, payload: id });
+  dispatch({ type: SET_CURRENT_COMPANY_ID, payload: +id });
 };

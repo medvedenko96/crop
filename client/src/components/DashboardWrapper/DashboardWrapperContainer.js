@@ -50,7 +50,7 @@ const DashboardWrapperContainer = ({ createCompany, deleteCompany }) => {
       return;
     }
 
-    notification('error', message);
+    notification('warning', message);
   };
 
   const handleCancel = () => {

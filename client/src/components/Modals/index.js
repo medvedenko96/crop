@@ -1,4 +1,5 @@
 import CreateCompanyModal from './CreateCopmany';
-import DeleteCompanyModal from './DeleteCompany/DeleteCompanyModal';
+import DeleteCompanyModal from './DeleteCompany';
+import CreateRegionModal from './CreateRegion';
 
-export { CreateCompanyModal, DeleteCompanyModal };
+export { CreateCompanyModal, DeleteCompanyModal, CreateRegionModal };

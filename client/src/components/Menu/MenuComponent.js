@@ -1,5 +1,5 @@
 import React from 'react';
-import { array, func, number } from 'prop-types';
+import { array, func, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 
@@ -10,7 +10,7 @@ const { ItemGroup, Item } = Menu;
 const propTypes = {
   onClick: func,
   menuItem: array,
-  companyId: number,
+  companyId: string,
 };
 
 const MenuComponent = ({ menuItem, onClick, companyId }) => {
