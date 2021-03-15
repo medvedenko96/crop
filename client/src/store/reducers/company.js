@@ -1,6 +1,6 @@
 import { UPDATE_COMPANIES, GET_COMPANIES, CREATE_COMPANY, SET_CURRENT_COMPANY_ID } from '../actions/company';
 
-import { SET_REGIONS, CREATE_REGION } from '../actions/region';
+import { SET_REGIONS, CREATE_REGION, DELETE_REGIONS } from '../actions/region';
 
 const initialState = {
   list: [],
@@ -32,6 +32,22 @@ const setRegion = (region, state) => {
   return { currentCompanyId, list: companies };
 };
 
+const deleteRegion = (regionId, state) => {
+  const { currentCompanyId, list } = state;
+
+  const companies = list.map((company) => {
+    const { regions = [], id } = company;
+
+    if (id === currentCompanyId) {
+      return { ...company, regions: regions.filter((region) => region.id !== regionId) };
+    }
+
+    return company;
+  });
+
+  return { currentCompanyId, list: companies };
+};
+
 export default (state = initialState, action = {}) => {
   const { payload, type } = action;
 
@@ -51,6 +67,9 @@ export default (state = initialState, action = {}) => {
 
     case CREATE_REGION:
       return setRegion(payload, state);
+
+    case DELETE_REGIONS:
+      return deleteRegion(payload, state);
 
     default:
       return state;

@@ -46,6 +46,7 @@ const DashboardContentContainer = ({
             <div className={styles.listWrapper}>
               <div className={styles.regionListWrapper}>
                 <List
+                  header={<div className={styles.listTitle}>Regions</div>}
                   className={styles.regionList}
                   size="small"
                   dataSource={regions}

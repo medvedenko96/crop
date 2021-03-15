@@ -9,7 +9,7 @@ import DashboardContentComponent from './DashboardContentComponent';
 import { message as antdMessage } from 'antd';
 
 /* @Actions */
-import { createRegionAction, getRegionsByCompanyIdAction } from '../../store/actions/region';
+import { createRegionAction, getRegionsByCompanyIdAction, deleteRegionByIdAction } from '../../store/actions/region';
 
 /* @Selectors */
 import { getCurrentCompanySelector } from '../../store/selectors/company';
@@ -19,6 +19,7 @@ const notification = (type, message) => antdMessage[type](message);
 const propTypes = {
   createRegion: func,
   getRegionsByCompanyId: func,
+  deleteRegionById: func,
   company: shape({
     id: number,
     name: string,
@@ -26,7 +27,7 @@ const propTypes = {
   }),
 };
 
-const DashboardContentContainer = ({ createRegion, getRegionsByCompanyId, company }) => {
+const DashboardContentContainer = ({ createRegion, getRegionsByCompanyId, deleteRegionById, company }) => {
   const { id, regions } = company;
 
   useEffect(() => {
@@ -55,8 +56,10 @@ const DashboardContentContainer = ({ createRegion, getRegionsByCompanyId, compan
     setIsShowCreateRegionModal(false);
   };
 
-  const handleDeleteRegion = (id) => {
-    console.log('handleDeleteRegion', id);
+  const handleDeleteRegion = async (id) => {
+    const isSuccess = await deleteRegionById(id);
+
+    isSuccess ? notification('success', 'success') : notification('warning', 'warning');
   };
 
   const handleEditRegion = (id) => {
@@ -87,6 +90,7 @@ DashboardContentComponent.propTypes = propTypes;
 const actions = {
   createRegion: createRegionAction,
   getRegionsByCompanyId: getRegionsByCompanyIdAction,
+  deleteRegionById: deleteRegionByIdAction,
 };
 
 const props = (state) => {

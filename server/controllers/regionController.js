@@ -50,7 +50,30 @@ const getRegionsByCompanyId = ({ body }, res) => {
   });
 };
 
+const deleteRegionById = ({ body }, res) => {
+  const { regionId } = body;
+
+  if (!regionId) {
+    return responseJSON(res, 400, { error: 'All fields required.' });
+  }
+
+  return pool.query('DELETE FROM region WHERE id=$1', [regionId], (error, result) => {
+    if (error) {
+      return responseJSON(res, 500, 'Server error');
+    }
+
+    const { rowCount } = result;
+
+    if (rowCount) {
+      return responseJSON(res, 200, { isSuccess: true });
+    }
+
+    return responseJSON(res, 200, { isSuccess: false });
+  });
+};
+
 module.exports = {
   createRegion,
   getRegionsByCompanyId,
+  deleteRegionById,
 };

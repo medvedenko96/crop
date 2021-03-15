@@ -12,4 +12,10 @@ export default {
 
     return data;
   },
+
+  async deleteRegionById(regionId) {
+    const { data } = await axios.post('/api/delete-region', { regionId });
+
+    return data;
+  },
 };
