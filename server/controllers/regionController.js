@@ -37,7 +37,7 @@ const getRegionsByCompanyId = ({ body }, res) => {
   const { companyId } = body;
 
   if (!companyId) {
-    return responseJSON(res, 400, { error: 'All fields required.' });
+    return responseJSON(res, 400, { message: 'All fields required.' });
   }
 
   return pool.query('SELECT id, region_name as name FROM region WHERE company_id=$1', [companyId], (error, result) => {
@@ -54,7 +54,7 @@ const deleteRegionById = ({ body }, res) => {
   const { regionId } = body;
 
   if (!regionId) {
-    return responseJSON(res, 400, { error: 'All fields required.' });
+    return responseJSON(res, 400, { message: 'All fields required.' });
   }
 
   return pool.query('DELETE FROM region WHERE id=$1', [regionId], (error, result) => {
@@ -72,8 +72,53 @@ const deleteRegionById = ({ body }, res) => {
   });
 };
 
+const updateRegionById = ({ body }, res) => {
+  const { regionId, regionName, companyId } = body;
+
+  if (!regionId || !regionName || !companyId) {
+    return responseJSON(res, 400, { error: 'All fields required.' });
+  }
+
+  return pool.query(
+    'SELECT * FROM region WHERE region_name=$1 AND company_id=$2',
+    [regionName, companyId],
+    (error, result) => {
+      if (error) {
+        return responseJSON(res, 500, 'Server error');
+      }
+
+      const { rowCount } = result;
+
+      if (!!rowCount) {
+        return responseJSON(res, 200, { isSuccess: false, message: 'Region exists' });
+      }
+
+      return pool.query('UPDATE region SET region_name=$1 WHERE id=$2', [regionName, regionId], (error, result) => {
+        if (error) {
+          return responseJSON(res, 500, 'Server error');
+        }
+
+        const { rowCount } = result;
+
+        if (rowCount) {
+          return responseJSON(res, 200, {
+            isSuccess: true,
+            message: 'Region updated',
+          });
+        }
+
+        return responseJSON(res, 200, {
+          isSuccess: false,
+          message: 'Region not updated',
+        });
+      });
+    },
+  );
+};
+
 module.exports = {
   createRegion,
   getRegionsByCompanyId,
   deleteRegionById,
+  updateRegionById,
 };

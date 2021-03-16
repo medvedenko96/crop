@@ -1,22 +1,24 @@
 import React from 'react';
-import { number, shape, string, func, array } from 'prop-types';
+import { number, shape, string, func, array, bool } from 'prop-types';
 
 /* @Antd */
-import { Button, List, Typography, Divider, Empty } from 'antd';
+import { Button, List, Divider, Empty } from 'antd';
 
 /* @Components */
-import { CreateRegionModal } from '../Modals';
+import { CreateRegionModal, UpdateRegionModal } from '../Modals';
 
 /* @Styles */
 import styles from './DashboardContent.module.css';
 
 const propTypes = {
-  isShowCreateRegionModal: func,
+  isShowCreateRegionModal: bool,
+  isShowUpdateRegionModal: bool,
   onOpenCreateRegionModal: func,
   onSubmitCreateCompanyModal: func,
+  onUpdateCreateCompanyModal: func,
   onCancel: func,
   onDeleteRegion: func,
-  onEditRegion: func,
+  onEditRegionClick: func,
   onRegionClick: func,
   company: shape({
     id: number,
@@ -28,11 +30,13 @@ const propTypes = {
 const DashboardContentContainer = ({
   company,
   isShowCreateRegionModal,
+  isShowUpdateRegionModal,
   onSubmitCreateCompanyModal,
   onOpenCreateRegionModal,
+  onUpdateCreateCompanyModal,
   onCancel,
   onDeleteRegion,
-  onEditRegion,
+  onEditRegionClick,
   onRegionClick,
 }) => {
   const { name, regions } = company;
@@ -56,7 +60,7 @@ const DashboardContentContainer = ({
                       key={id}
                       actions={[
                         <span
-                          onClick={() => onEditRegion(id)}
+                          onClick={() => onEditRegionClick(id)}
                           className={styles.listActionItem}
                           key="list-loadmore-edit"
                         >
@@ -90,6 +94,11 @@ const DashboardContentContainer = ({
       <CreateRegionModal
         isShowModal={isShowCreateRegionModal}
         onOk={onSubmitCreateCompanyModal}
+        handleCancel={onCancel}
+      />
+      <UpdateRegionModal
+        isShowModal={isShowUpdateRegionModal}
+        onOk={onUpdateCreateCompanyModal}
         handleCancel={onCancel}
       />
     </>

@@ -9,7 +9,12 @@ import DashboardContentComponent from './DashboardContentComponent';
 import { message as antdMessage } from 'antd';
 
 /* @Actions */
-import { createRegionAction, getRegionsByCompanyIdAction, deleteRegionByIdAction } from '../../store/actions/region';
+import {
+  createRegionAction,
+  getRegionsByCompanyIdAction,
+  deleteRegionByIdAction,
+  updateRegionByIdAction,
+} from '../../store/actions/region';
 
 /* @Selectors */
 import { getCurrentCompanySelector } from '../../store/selectors/company';
@@ -20,6 +25,7 @@ const propTypes = {
   createRegion: func,
   getRegionsByCompanyId: func,
   deleteRegionById: func,
+  updateRegionById: func,
   company: shape({
     id: number,
     name: string,
@@ -27,14 +33,22 @@ const propTypes = {
   }),
 };
 
-const DashboardContentContainer = ({ createRegion, getRegionsByCompanyId, deleteRegionById, company }) => {
-  const { id, regions } = company;
+const DashboardContentContainer = ({
+  createRegion,
+  getRegionsByCompanyId,
+  deleteRegionById,
+  updateRegionById,
+  company,
+}) => {
+  const { id } = company;
 
   useEffect(() => {
     !!id && getRegionsByCompanyId(id);
   }, [id]);
 
   const [isShowCreateRegionModal, setIsShowCreateRegionModal] = useState(false);
+  const [isShowUpdateRegionModal, setIsShowUpdateRegionModal] = useState(false);
+  const [currentRegionId, setCurrentRegionId] = useState(null);
 
   const handleOpenCreateRegionModal = () => {
     setIsShowCreateRegionModal(true);
@@ -52,8 +66,27 @@ const DashboardContentContainer = ({ createRegion, getRegionsByCompanyId, delete
     notification('warning', message);
   };
 
+  const handleUpdateCreateCompanyModal = async (values) => {
+    if (!currentRegionId) {
+      notification('error', 'error');
+      return;
+    }
+
+    const { message, isSuccess } = await updateRegionById({ ...values, regionId: currentRegionId, companyId: id });
+
+    if (isSuccess) {
+      notification('success', message);
+      setIsShowUpdateRegionModal(false);
+      setCurrentRegionId(null);
+      return;
+    }
+
+    notification('warning', message);
+  };
+
   const handleCancel = () => {
     setIsShowCreateRegionModal(false);
+    setIsShowUpdateRegionModal(false);
   };
 
   const handleDeleteRegion = async (id) => {
@@ -62,8 +95,9 @@ const DashboardContentContainer = ({ createRegion, getRegionsByCompanyId, delete
     isSuccess ? notification('success', 'success') : notification('warning', 'warning');
   };
 
-  const handleEditRegion = (id) => {
-    console.log('handleEditRegion', id);
+  const handleEditRegionClick = (id) => {
+    setIsShowUpdateRegionModal(true);
+    setCurrentRegionId(id);
   };
 
   const handleRegionClick = (id) => {
@@ -75,12 +109,14 @@ const DashboardContentContainer = ({ createRegion, getRegionsByCompanyId, delete
       company={company}
       createRegion={createRegion}
       isShowCreateRegionModal={isShowCreateRegionModal}
+      isShowUpdateRegionModal={isShowUpdateRegionModal}
       onOpenCreateRegionModal={handleOpenCreateRegionModal}
       onSubmitCreateCompanyModal={handleSubmitCreateCompanyModal}
-      onCancel={handleCancel}
+      onUpdateCreateCompanyModal={handleUpdateCreateCompanyModal}
       onDeleteRegion={handleDeleteRegion}
-      onEditRegion={handleEditRegion}
+      onEditRegionClick={handleEditRegionClick}
       onRegionClick={handleRegionClick}
+      onCancel={handleCancel}
     />
   );
 };
@@ -91,6 +127,7 @@ const actions = {
   createRegion: createRegionAction,
   getRegionsByCompanyId: getRegionsByCompanyIdAction,
   deleteRegionById: deleteRegionByIdAction,
+  updateRegionById: updateRegionByIdAction,
 };
 
 const props = (state) => {

@@ -18,4 +18,10 @@ export default {
 
     return data;
   },
+
+  async updateRegionById({ regionId, regionName, companyId }) {
+    const { data } = await axios.post('/api/update-region', { regionId, regionName, companyId });
+
+    return data;
+  },
 };

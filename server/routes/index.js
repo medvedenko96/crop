@@ -24,5 +24,6 @@ router.post('/delete-company', companyController.deleteCompany);
 router.post('/create-region', regionController.createRegion);
 router.post('/get-company-regions', regionController.getRegionsByCompanyId);
 router.post('/delete-region', regionController.deleteRegionById);
+router.post('/update-region', regionController.updateRegionById);
 
 module.exports = router;
