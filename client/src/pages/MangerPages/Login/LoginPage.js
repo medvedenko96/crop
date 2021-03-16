@@ -39,13 +39,15 @@ const LoginPage = ({ login, setManagerInfo, userId }) => {
 
 LoginPage.propTypes = propTypes;
 
-const props = (state) => ({
+LoginPage.displayName = 'LoginPage';
+
+const mapStateToProps = (state) => ({
   userId: state.user.id,
 });
 
-const actions = {
+const mapDispatchToProps = {
   login: loginManagerActions,
   setManagerInfo: setManagerInfoActions,
 };
 
-export default connect(props, actions)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

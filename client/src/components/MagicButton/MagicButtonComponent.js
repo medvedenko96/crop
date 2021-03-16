@@ -36,4 +36,6 @@ const MagicButtonComponent = ({ menuNodes }) => {
 
 MagicButtonComponent.propTypes = propTypes;
 
+MagicButtonComponent.displayName = 'MagicButtonComponent';
+
 export default MagicButtonComponent;

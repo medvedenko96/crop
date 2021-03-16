@@ -39,17 +39,19 @@ const MenuContainer = ({ getCompanies, companies, setCurrentCompanyId }) => {
 
 MenuContainer.propTypes = propTypes;
 
+MenuContainer.displayName = 'MenuContainer';
+
 MenuContainer.defaultProps = {
   companies: [],
 };
 
-const props = ({ companies }) => ({
+const mapStateToProps = ({ companies }) => ({
   companies: companies.list || [],
 });
 
-const actions = {
+const mapDispatchToProps = {
   getCompanies: getCompaniesAction,
   setCurrentCompanyId: setCurrentCompanyIdAction,
 };
 
-export default connect(props, actions)(MenuContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuContainer);

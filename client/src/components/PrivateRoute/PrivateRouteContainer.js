@@ -31,14 +31,14 @@ const PrivateRouteContainer = ({ id, login, isManagerInfoLoaded, getManagerInfo,
 
 PrivateRouteContainer.propTypes = propTypes;
 
-const props = ({ user }) => ({
+const mapStateToProps = ({ user }) => ({
   id: user.id,
   login: user.login,
   isManagerInfoLoaded: user.isManagerInfoLoaded,
 });
 
-const actions = {
+const mapDispatchToProps = {
   getManagerInfo: getManagerInfoActions,
 };
 
-export default connect(props, actions)(PrivateRouteContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(PrivateRouteContainer);

@@ -83,9 +83,11 @@ const DashboardWrapperContainer = ({ createCompany, deleteCompany }) => {
 
 DashboardWrapperContainer.propTypes = propTypes;
 
-const actions = {
+DashboardWrapperContainer.displayName = 'DashboardWrapperContainer';
+
+const mapDispatchToProps = {
   createCompany: createCompanyAction,
   deleteCompany: deleteCompanyAction,
 };
 
-export default connect(null, actions)(DashboardWrapperContainer);
+export default connect(null, mapDispatchToProps)(DashboardWrapperContainer);

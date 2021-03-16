@@ -77,4 +77,6 @@ const LoginComponent = ({ onSubmit, serverError }) => {
 
 LoginComponent.propTypes = propTypes;
 
+LoginComponent.displayName = 'LoginComponent';
+
 export default LoginComponent;
