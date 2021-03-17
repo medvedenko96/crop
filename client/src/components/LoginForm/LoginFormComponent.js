@@ -7,16 +7,16 @@ import * as Yup from 'yup';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-import styles from './Login.module.css';
+import styles from './LoginForm.module.css';
 
 const { Item } = Form;
 
 const propTypes = {
-  onSubmit: func,
+  onSubmitButtonClick: func,
   serverError: string,
 };
 
-const LoginComponent = ({ onSubmit, serverError }) => {
+const LoginFormComponent = ({ onSubmitButtonClick, serverError }) => {
   const validationSchema = Yup.object().shape({
     login: Yup.string().required('Please input your login!'),
     password: Yup.string().required('Please input your password!'),
@@ -29,7 +29,7 @@ const LoginComponent = ({ onSubmit, serverError }) => {
     },
     validationSchema,
     onSubmit: (values) => {
-      onSubmit(values);
+      onSubmitButtonClick(values);
     },
   });
 
@@ -75,8 +75,8 @@ const LoginComponent = ({ onSubmit, serverError }) => {
   );
 };
 
-LoginComponent.propTypes = propTypes;
+LoginFormComponent.propTypes = propTypes;
 
-LoginComponent.displayName = 'LoginComponent';
+LoginFormComponent.displayName = 'LoginFormComponent';
 
-export default LoginComponent;
+export default LoginFormComponent;

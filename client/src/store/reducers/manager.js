@@ -1,7 +1,9 @@
-import { SET_INFO, SET_IS_LOADED } from '../actions/manager';
+import { SET_INFO } from '../actions/manager';
+import { LOGIN_MANAGER } from '../actions/auth';
 
 const initialState = {
   isManagerInfoLoaded: true,
+  isAuth: false,
   id: null,
   login: '',
 };
@@ -11,7 +13,12 @@ export default (state = initialState, action = {}) => {
 
   switch (type) {
     case SET_INFO:
-    case SET_IS_LOADED:
+      return {
+        ...state,
+        ...payload,
+      };
+
+    case LOGIN_MANAGER:
       return {
         ...state,
         ...payload,

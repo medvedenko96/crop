@@ -19,12 +19,12 @@ const propTypes = {
 };
 
 const PrivateRouteContainer = ({ id, login, isManagerInfoLoaded, getManagerInfo, ...props }) => {
-  const { checkToken } = useToken();
-  const isAuth = checkToken({ login, id });
-
   if (!id) {
     useEffect(getManagerInfo, []);
   }
+
+  const { checkToken } = useToken();
+  const isAuth = checkToken({ login, id });
 
   return <PrivateRouteComponent isLoaded={isManagerInfoLoaded} isAuth={isAuth} {...props} />;
 };

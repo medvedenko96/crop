@@ -2,18 +2,17 @@ import { auth } from '../../api';
 
 import useToken from '../../helpers/useToken';
 
-const LOGIN = 'LOGIN';
+export const LOGIN_MANAGER = 'LOGIN_MANAGER';
 const LOGOUT = 'LOGOUT';
 
 export const loginManagerActions = (userInfo) => async (dispatch) => {
   const data = await auth.mangerLogin(userInfo);
   const { setToken } = useToken();
 
-  if (data.login && data.id) {
+  if (data?.login && data?.id) {
     setToken(data);
+    dispatch({ type: LOGIN_MANAGER, payload: { ...data, isManagerInfoLoaded: false } });
   }
-
-  dispatch({ type: LOGIN });
 
   return data;
 };

@@ -1,3 +1,3 @@
-import AdminLogin from './LoginPage';
+import LoginPage from './LoginPage';
 
-export default AdminLogin;
+export default LoginPage;

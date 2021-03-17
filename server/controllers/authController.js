@@ -15,7 +15,7 @@ const MangerLogin = ({ body }, res) => {
     }
 
     if (!result.rows.length) {
-      return responseJSON(res, 400, { error: 'Incorrect username or password.' });
+      return responseJSON(res, 200, { massage: 'Incorrect username or password.', isAuth: true });
     }
 
     const user = result.rows[0];
@@ -28,10 +28,11 @@ const MangerLogin = ({ body }, res) => {
       return responseJSON(res, 200, {
         id: user.id,
         login: user.login,
+        isAuth: true,
       });
     }
 
-    return responseJSON(res, 400, { error: 'Incorrect username or password.' });
+    return responseJSON(res, 200, { massage: 'Incorrect username or password.', isAuth: true });
   });
 };
 

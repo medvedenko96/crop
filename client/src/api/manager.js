@@ -8,8 +8,12 @@ export default {
     });
   },
   async getManagerByJWT() {
-    const { data } = await axios.get('/api/get-manager-by-jwt');
+    try {
+      const { data } = await axios.get('/api/get-manager-by-jwt');
 
-    return data;
+      return data;
+    } catch (error) {
+      // skip error
+    }
   },
 };

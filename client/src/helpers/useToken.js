@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const EXPIRES_IN = 86400; // 1 Day = 24 Hrs = 24*60*60 = 86400.
+const EXPIRES_IN = 86400; // 1 Day = 24 = 24*60*60 = 86400.
 const NAME = 'tokeN';
 const JWT_SECRET = process.env.REACT_APP_JWT_SECRET;
 
@@ -16,9 +16,10 @@ export default function useToken() {
   };
 
   const getToken = (name) => {
-    let matches = document.cookie.match(
+    const matches = document.cookie.match(
       new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'),
     );
+
     return matches ? decodeURIComponent(matches[1]) : undefined;
   };
 
