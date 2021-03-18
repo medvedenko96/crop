@@ -3,3 +3,5 @@ export const getCurrentCompanySelector = ({ companies }) => {
 
   return list.find((company) => company.id === +currentCompanyId) || {};
 };
+
+export const getCurrentRegionIdSelector = ({ companies }) => companies.currentRegionId;

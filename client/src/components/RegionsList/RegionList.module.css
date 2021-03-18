@@ -25,13 +25,28 @@
     background-color: #f0f0f0;
 }
 
-.listActionItem {
+.listItemActive {
+    background-color: #d8e6df !important;
+}
+
+.listItemActive:before {
+
+}
+
+.actionItem {
     color: #1DA57A;
     cursor: pointer;
 }
 
 
 .listActionText:hover {
-    color: #1DA57A;
     cursor: pointer;
+}
+
+.listActionText {
+  width: 100%;
+}
+
+.listActionTextActive {
+    color: #1DA57A;
 }

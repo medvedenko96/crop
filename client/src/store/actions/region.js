@@ -6,6 +6,7 @@ export const CREATE_REGION = `CREATE_${REGION}`;
 export const SET_REGIONS = `SET_${REGIONS}`;
 export const DELETE_REGIONS = `DELETE_${REGIONS}`;
 export const UPDATE_REGION = `UPDATE_${REGION}`;
+export const SET_CURRENT_REGION_ID = `SET_CURRENT_${REGION}_ID`;
 
 export const createRegionAction = (regionInfo) => async (dispatch) => {
   const { message, isSuccess, newRegion } = await region.createRegion(regionInfo);
@@ -43,4 +44,8 @@ export const updateRegionByIdAction = (regionInfo) => async (dispatch) => {
   }
 
   return { message, isSuccess };
+};
+
+export const setCurrentRegionIdAction = (currentRegionId) => async (dispatch) => {
+  return dispatch({ type: SET_CURRENT_REGION_ID, payload: currentRegionId });
 };

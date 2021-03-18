@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 /* @Components */
 import RegionsListComponent from './RegionsListComponent';
@@ -14,6 +15,7 @@ import {
   getRegionsByCompanyIdAction,
   updateRegionByIdAction,
 } from '../../store/actions/region';
+import { push } from 'connected-react-router';
 
 /* @Selectors */
 import { getCurrentCompanySelector } from '../../store/selectors/company';
@@ -26,15 +28,26 @@ const propTypes = {
   getRegionsByCompanyId: func,
   deleteRegionById: func,
   updateRegionById: func,
+  setCurrentRegionId: func,
+  goTo: func,
   company: shape({
     id: number,
     name: string,
     regions: array,
   }),
+  currentRegionId: number,
 };
 
-const RegionsListContainer = ({ createRegion, getRegionsByCompanyId, deleteRegionById, updateRegionById, company }) => {
+const RegionsListContainer = ({
+  createRegion,
+  getRegionsByCompanyId,
+  deleteRegionById,
+  updateRegionById,
+  goTo,
+  company,
+}) => {
   const { id } = company;
+  const { companyId, regionId } = useParams();
 
   useEffect(() => {
     !!id && getRegionsByCompanyId(id);
@@ -42,7 +55,7 @@ const RegionsListContainer = ({ createRegion, getRegionsByCompanyId, deleteRegio
 
   const [isShowCreateRegionModal, setIsShowCreateRegionModal] = useState(false);
   const [isShowUpdateRegionModal, setIsShowUpdateRegionModal] = useState(false);
-  const [currentRegionId, setCurrentRegionId] = useState(null);
+  const [currentRegionId, setCurrentRegionId] = useState(+regionId);
 
   const handleOpenCreateRegionModal = () => {
     setIsShowCreateRegionModal(true);
@@ -95,12 +108,16 @@ const RegionsListContainer = ({ createRegion, getRegionsByCompanyId, deleteRegio
   };
 
   const handleRegionClick = (id) => {
-    console.log('handleRegionClick', id);
+    const url = `/dashboard/${companyId}/${id}`;
+
+    setCurrentRegionId(id);
+    goTo(url);
   };
 
   return (
     <RegionsListComponent
       company={company}
+      currentRegionId={currentRegionId}
       createRegion={createRegion}
       isShowCreateRegionModal={isShowCreateRegionModal}
       isShowUpdateRegionModal={isShowUpdateRegionModal}
@@ -124,6 +141,7 @@ const mapDispatchToProps = {
   getRegionsByCompanyId: getRegionsByCompanyIdAction,
   deleteRegionById: deleteRegionByIdAction,
   updateRegionById: updateRegionByIdAction,
+  goTo: push,
 };
 
 const mapStateToProps = (state) => {

@@ -1,9 +1,10 @@
 import { UPDATE_COMPANIES, GET_COMPANIES, CREATE_COMPANY, SET_CURRENT_COMPANY_ID } from '../actions/company';
-import { SET_REGIONS, CREATE_REGION, DELETE_REGIONS, UPDATE_REGION } from '../actions/region';
+import { SET_REGIONS, CREATE_REGION, DELETE_REGIONS, UPDATE_REGION, SET_CURRENT_REGION_ID } from '../actions/region';
 
 const initialState = {
   list: [],
   currentCompanyId: null,
+  currentRegionId: null,
 };
 
 const setRegions = (regions, state) => {
@@ -96,6 +97,9 @@ export default (state = initialState, action = {}) => {
 
     case UPDATE_REGION:
       return updateRegion(payload, state);
+
+    case SET_CURRENT_REGION_ID:
+      return { ...state, currentRegionId: payload };
 
     default:
       return state;
