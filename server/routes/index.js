@@ -4,6 +4,7 @@ const managerController = require('../controllers/managerController');
 const authController = require('../controllers/authController');
 const companyController = require('../controllers/companyController');
 const regionController = require('../controllers/regionController');
+const fieldController = require('../controllers/fieldController');
 
 const router = express.Router();
 
@@ -25,5 +26,9 @@ router.post('/create-region', regionController.createRegion);
 router.post('/get-company-regions', regionController.getRegionsByCompanyId);
 router.post('/delete-region', regionController.deleteRegionById);
 router.post('/update-region', regionController.updateRegionById);
+
+// field
+router.post('/create-field', fieldController.createField);
+router.post('/get-company-regions', fieldController.getFieldsByRegionId);
 
 module.exports = router;
