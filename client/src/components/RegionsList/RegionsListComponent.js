@@ -1,5 +1,5 @@
 import React from 'react';
-import { array, bool, func, number, shape, string } from 'prop-types';
+import { object, bool, func, number, array } from 'prop-types';
 import classNames from 'classnames/bind';
 
 /* @Antd */
@@ -23,16 +23,13 @@ const propTypes = {
   onDeleteRegion: func,
   onEditRegionClick: func,
   onRegionClick: func,
-  company: shape({
-    id: number,
-    name: string,
-    regions: array,
-  }),
+  regionsIds: object,
+  regionsById: object,
   currentRegionId: number,
+  currentCompanyId: number,
 };
 
 const RegionsListComponent = ({
-  company,
   isShowCreateRegionModal,
   isShowUpdateRegionModal,
   onSubmitCreateCompanyModal,
@@ -42,9 +39,12 @@ const RegionsListComponent = ({
   onDeleteRegion,
   onEditRegionClick,
   onRegionClick,
+  regionsIds,
+  regionsById,
   currentRegionId,
+  currentCompanyId,
 }) => {
-  const { regions } = company;
+  const currentRegionIds = regionsIds[currentCompanyId] || [];
 
   return (
     <>
@@ -53,8 +53,8 @@ const RegionsListComponent = ({
           header={<div className={styles.listTitle}>Regions</div>}
           className={styles.regionList}
           size="small"
-          dataSource={regions}
-          renderItem={({ id, name }) => {
+          dataSource={currentRegionIds}
+          renderItem={(id) => {
             const activeItem = currentRegionId === id;
 
             return (
@@ -74,7 +74,7 @@ const RegionsListComponent = ({
                   onClick={() => onRegionClick(id)}
                   className={cx(styles.listActionText, { listActionTextActive: activeItem })}
                 >
-                  {name}
+                  {regionsById[id].name}
                 </span>
               </List.Item>
             );
@@ -103,7 +103,7 @@ RegionsListComponent.propTypes = propTypes;
 RegionsListComponent.displayName = 'RegionsListComponent';
 
 RegionsListComponent.defaultProps = {
-  company: { regions: [] },
+  regionIds: [],
 };
 
 export default RegionsListComponent;

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { array, func, object } from 'prop-types';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -7,15 +8,15 @@ import MenuComponent from './MenuComponent';
 
 /* @Actions */
 import { getCompaniesAction, setCurrentCompanyIdAction } from '../../store/actions/company';
-import { array, func } from 'prop-types';
 
 const propTypes = {
   getCompanies: func,
   setCurrentCompanyId: func,
-  companies: array,
+  companiesIds: array,
+  companiesById: object,
 };
 
-const MenuContainer = ({ getCompanies, companies, setCurrentCompanyId }) => {
+const MenuContainer = ({ getCompanies, setCurrentCompanyId, companiesIds, companiesById }) => {
   const { companyId } = useParams();
 
   useEffect(() => {
@@ -24,17 +25,19 @@ const MenuContainer = ({ getCompanies, companies, setCurrentCompanyId }) => {
   }, []);
 
   const handleClick = ({ key }) => {
-    setCurrentCompanyId(+key);
+    setCurrentCompanyId(key);
   };
 
   const menuItem = [
     {
       title: 'Companies',
-      items: companies,
+      items: companiesIds,
     },
   ];
 
-  return <MenuComponent menuItem={menuItem} onClick={handleClick} companyId={companyId} />;
+  return (
+    <MenuComponent menuItem={menuItem} onClick={handleClick} companyId={companyId} companiesById={companiesById} />
+  );
 };
 
 MenuContainer.propTypes = propTypes;
@@ -46,7 +49,8 @@ MenuContainer.defaultProps = {
 };
 
 const mapStateToProps = ({ companies }) => ({
-  companies: companies.list || [],
+  companiesById: companies.byId,
+  companiesIds: companies.allIds,
 });
 
 const mapDispatchToProps = {

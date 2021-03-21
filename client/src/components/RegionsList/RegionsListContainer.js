@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { func, number, shape, string, object } from 'prop-types';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { push } from 'connected-react-router';
 
 /* @Components */
 import RegionsListComponent from './RegionsListComponent';
@@ -14,12 +16,11 @@ import {
   deleteRegionByIdAction,
   getRegionsByCompanyIdAction,
   updateRegionByIdAction,
+  setCurrentRegionIdAction,
 } from '../../store/actions/region';
-import { push } from 'connected-react-router';
 
 /* @Selectors */
-import { getCurrentCompanySelector } from '../../store/selectors/company';
-import { array, func, number, shape, string } from 'prop-types';
+import { getCurrentCompanySelector, getRegionsSelector } from '../../store/selectors/company';
 
 const notification = (type, message) => antdMessage[type](message);
 
@@ -33,9 +34,10 @@ const propTypes = {
   company: shape({
     id: number,
     name: string,
-    regions: array,
   }),
   currentRegionId: number,
+  regionsById: object,
+  regionsIds: object,
 };
 
 const RegionsListContainer = ({
@@ -43,19 +45,25 @@ const RegionsListContainer = ({
   getRegionsByCompanyId,
   deleteRegionById,
   updateRegionById,
+  setCurrentRegionId,
   goTo,
   company,
+  currentRegionId,
+  regionsById,
+  regionsIds,
 }) => {
-  const { id } = company;
-  const { companyId, regionId } = useParams();
+  const { id: currentCompanyId = null } = company;
+  const { regionId } = useParams();
 
   useEffect(() => {
-    !!id && getRegionsByCompanyId(id);
-  }, [id]);
+    if (!!currentCompanyId && !regionsIds[currentCompanyId]) {
+      getRegionsByCompanyId(currentCompanyId);
+    }
+    regionId && setCurrentRegionId(+regionId);
+  }, [currentCompanyId]);
 
   const [isShowCreateRegionModal, setIsShowCreateRegionModal] = useState(false);
   const [isShowUpdateRegionModal, setIsShowUpdateRegionModal] = useState(false);
-  const [currentRegionId, setCurrentRegionId] = useState(+regionId);
 
   const handleOpenCreateRegionModal = () => {
     setIsShowCreateRegionModal(true);
@@ -79,12 +87,15 @@ const RegionsListContainer = ({
       return;
     }
 
-    const { message, isSuccess } = await updateRegionById({ ...values, regionId: currentRegionId, companyId: id });
+    const { message, isSuccess } = await updateRegionById({
+      ...values,
+      regionId: currentRegionId,
+      companyId: currentCompanyId,
+    });
 
     if (isSuccess) {
       notification('success', message);
       setIsShowUpdateRegionModal(false);
-      setCurrentRegionId(null);
       return;
     }
 
@@ -97,7 +108,7 @@ const RegionsListContainer = ({
   };
 
   const handleDeleteRegion = async (id) => {
-    const isSuccess = await deleteRegionById(id);
+    const isSuccess = await deleteRegionById(id, currentCompanyId);
 
     isSuccess ? notification('success', 'success') : notification('warning', 'warning');
   };
@@ -108,7 +119,7 @@ const RegionsListContainer = ({
   };
 
   const handleRegionClick = (id) => {
-    const url = `/dashboard/${companyId}/${id}`;
+    const url = `/dashboard/${currentCompanyId}/${id}`;
 
     setCurrentRegionId(id);
     goTo(url);
@@ -116,8 +127,10 @@ const RegionsListContainer = ({
 
   return (
     <RegionsListComponent
-      company={company}
+      regionsIds={regionsIds}
+      regionsById={regionsById}
       currentRegionId={currentRegionId}
+      currentCompanyId={currentCompanyId}
       createRegion={createRegion}
       isShowCreateRegionModal={isShowCreateRegionModal}
       isShowUpdateRegionModal={isShowUpdateRegionModal}
@@ -141,12 +154,17 @@ const mapDispatchToProps = {
   getRegionsByCompanyId: getRegionsByCompanyIdAction,
   deleteRegionById: deleteRegionByIdAction,
   updateRegionById: updateRegionByIdAction,
+  setCurrentRegionId: setCurrentRegionIdAction,
   goTo: push,
 };
 
 const mapStateToProps = (state) => {
+  const { regionsById, regionsIds, currentRegionId } = getRegionsSelector(state);
   return {
     company: getCurrentCompanySelector(state),
+    regionsById,
+    regionsIds,
+    currentRegionId,
   };
 };
 

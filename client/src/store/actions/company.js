@@ -1,31 +1,26 @@
 import { company } from '../../api';
+import { normalizedData } from '../../utils/normalized';
 
-export const CREATE_COMPANY = 'CREATE_COMPANY';
+export const ADD_COMPANY = 'ADD_COMPANY';
 export const SET_CURRENT_COMPANY_ID = 'SET_CURRENT_COMPANY_ID';
-export const GET_COMPANIES = 'GET_COMPANIES';
-export const UPDATE_COMPANIES = 'UPDATE_COMPANIES';
+export const SET_COMPANIES = 'SET_COMPANIES';
+export const DELETE_COMPANY = 'DELETE_COMPANY';
 
 export const createCompanyAction = (newCompany) => async (dispatch) => {
   const data = await company.createCompany(newCompany);
 
   if (data.isSuccess) {
-    dispatch({
-      type: CREATE_COMPANY,
-      payload: data.company,
-    });
+    dispatch({ type: ADD_COMPANY, payload: data.company });
   }
 
   return data;
 };
 
-export const deleteCompanyAction = (login) => async (dispatch, getState) => {
-  const {
-    companies: { list = [] },
-  } = getState();
+export const deleteCompanyAction = (login) => async (dispatch) => {
   const data = await company.deleteCompany(login);
 
   if (data.isSuccess) {
-    dispatch({ type: UPDATE_COMPANIES, payload: list.filter(({ login }) => login !== data.login) });
+    dispatch({ type: DELETE_COMPANY, payload: data.id });
   }
 
   return data;
@@ -34,7 +29,7 @@ export const deleteCompanyAction = (login) => async (dispatch, getState) => {
 export const getCompaniesAction = () => async (dispatch) => {
   const companies = await company.getCompanies();
 
-  dispatch({ type: GET_COMPANIES, payload: companies });
+  dispatch({ type: SET_COMPANIES, payload: normalizedData(companies) });
 };
 
 export const setCurrentCompanyIdAction = (id) => async (dispatch) => {

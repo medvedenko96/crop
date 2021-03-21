@@ -10,35 +10,31 @@ const createCompany = ({ body: { login, companyName, password } }, res) => {
   const salt = generateSalt();
   const hash = generateHah(password, salt);
 
-  return pool.query(
-    'INSERT INTO company (login, company_name, hash, salt) SELECT $1, $2, $3, $4 WHERE NOT EXISTS (SELECT login FROM company WHERE login=$5)',
-    [login, companyName, hash, salt, login],
-    (error, result) => {
-      if (error) {
-        return responseJSON(res, 500, { message: 'Server error', error });
-      }
+  const query = `INSERT INTO company (login, company_name, hash, salt)
+    SELECT $1, $2, $3, $4
+    WHERE NOT EXISTS
+        (SELECT login
+         FROM company
+         WHERE login=$5)
+           RETURNING id, login, company_name AS name`;
 
-      const { rowCount } = result;
+  return pool.query(query, [login, companyName, hash, salt, login], (error, result) => {
+    if (error) {
+      return responseJSON(res, 500, { message: 'Server error', error });
+    }
 
-      if (rowCount) {
-        return pool.query('SELECT * FROM company WHERE login=$1 ', [login], (error, result) => {
-          if (error) {
-            return responseJSON(res, 500, { message: 'Server error', error });
-          }
+    const { rowCount, rows } = result;
 
-          const { rows } = result;
+    if (rowCount) {
+      return responseJSON(res, 200, {
+        message: 'Company added',
+        company: rows[0],
+        isSuccess: true,
+      });
+    }
 
-          return responseJSON(res, 200, {
-            message: 'Company added',
-            company: { id: rows[0].id, login: rows[0].login, name: rows[0].company_name },
-            isSuccess: true,
-          });
-        });
-      }
-
-      return responseJSON(res, 300, { message: 'Company exists', isSuccess: false });
-    },
-  );
+    return responseJSON(res, 300, { message: 'Company exists', isSuccess: false });
+  });
 };
 
 const getCompanies = (req, res) => {
@@ -65,12 +61,14 @@ const deleteCompany = ({ body }, res) => {
       return responseJSON(res, 200, { message: 'The company does not exist', isSuccess: false });
     }
 
-    return pool.query('DELETE FROM company WHERE login=$1', [login], (error) => {
+    return pool.query('DELETE FROM company WHERE login=$1 RETURNING id', [login], (error, result) => {
       if (error) {
-        return responseJSON(res, 500, 'Server error');
+        return responseJSON(res, 500, { message: 'Server error', error });
       }
 
-      return responseJSON(res, 200, { message: 'Success', isSuccess: true, login });
+      const { rows } = result;
+
+      return responseJSON(res, 200, { message: 'Success', isSuccess: true, ...rows[0] });
     });
   });
 };
