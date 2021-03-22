@@ -30,9 +30,9 @@ const DashboardContentContainer = ({ company }) => {
               <div className={styles.regionsListWrapper}>
                 <RegionsList />
               </div>
-              {/*              <div className={styles.fieldsListWrapper}>
+              <div className={styles.fieldsListWrapper}>
                 <FieldsList />
-              </div>*/}
+              </div>
             </div>
           </div>
         ) : (

@@ -10,10 +10,6 @@ import App from './components/App';
 /* @Store */
 import configureStore from './store';
 
-/* @Styles */
-import 'antd/dist/antd.less';
-import './index.css';
-
 const history = createBrowserHistory();
 const Store = configureStore(history);
 

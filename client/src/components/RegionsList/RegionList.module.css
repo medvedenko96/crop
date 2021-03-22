@@ -1,6 +1,4 @@
 .listWrapper {
-    margin-top: 30px;
-    max-width: 400px;
     width: 100%;
 }
 
@@ -19,6 +17,10 @@
 
 .buttonWrapper {
     margin-top: 20px;
+}
+
+.listItem > ul.ant-list-item-action {
+    margin-left: 8px !important;
 }
 
 .listItem:hover {
