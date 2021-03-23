@@ -8,7 +8,7 @@ export default {
   },
 
   async getRegionsByCompanyId(companyId) {
-    const { data } = await axios.post('/api/get-company-regions', { companyId });
+    const { data } = await axios.post('/api/get-regions', { companyId });
 
     return data;
   },

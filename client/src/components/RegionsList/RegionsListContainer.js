@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { func, number, shape, string, object } from 'prop-types';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { push } from 'connected-react-router';
 
 /* @Components */
@@ -20,7 +19,7 @@ import {
 } from '../../store/actions/region';
 
 /* @Selectors */
-import { getCurrentCompanySelector, getRegionsSelector } from '../../store/selectors/company';
+import { getCurrentCompanySelector, getRegionsSelector } from '../../store/selectors';
 
 const notification = (type, message) => antdMessage[type](message);
 
@@ -53,13 +52,11 @@ const RegionsListContainer = ({
   regionsIds,
 }) => {
   const { id: currentCompanyId = null } = company;
-  const { regionId } = useParams();
 
   useEffect(() => {
     if (!!currentCompanyId && !regionsIds[currentCompanyId]) {
       getRegionsByCompanyId(currentCompanyId);
     }
-    regionId && setCurrentRegionId(+regionId);
   }, [currentCompanyId]);
 
   const [isShowCreateRegionModal, setIsShowCreateRegionModal] = useState(false);
@@ -69,7 +66,7 @@ const RegionsListContainer = ({
     setIsShowCreateRegionModal(true);
   };
 
-  const handleSubmitCreateCompanyModal = async (values) => {
+  const handleSubmitCreateRegionModal = async (values) => {
     const { message, isSuccess } = await createRegion({ ...values, companyId: company.id });
 
     if (isSuccess) {
@@ -81,7 +78,7 @@ const RegionsListContainer = ({
     notification('warning', message);
   };
 
-  const handleUpdateCreateCompanyModal = async (values) => {
+  const handleUpdateRegionModal = async (values) => {
     if (!currentRegionId) {
       notification('error', 'error');
       return;
@@ -135,8 +132,8 @@ const RegionsListContainer = ({
       isShowCreateRegionModal={isShowCreateRegionModal}
       isShowUpdateRegionModal={isShowUpdateRegionModal}
       onOpenCreateRegionModal={handleOpenCreateRegionModal}
-      onSubmitCreateCompanyModal={handleSubmitCreateCompanyModal}
-      onUpdateCreateCompanyModal={handleUpdateCreateCompanyModal}
+      onSubmitCreateRegionModal={handleSubmitCreateRegionModal}
+      onUpdateRegionModal={handleUpdateRegionModal}
       onDeleteRegion={handleDeleteRegion}
       onEditRegionClick={handleEditRegionClick}
       onRegionClick={handleRegionClick}

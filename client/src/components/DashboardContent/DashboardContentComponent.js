@@ -7,6 +7,7 @@ import { Divider, Empty } from 'antd';
 /* @Components */
 import RegionsList from '../RegionsList';
 import FieldsList from '../FieldsList';
+import YearsList from '../YearsList';
 
 /* @Styles */
 import styles from './DashboardContent.module.css';
@@ -32,6 +33,9 @@ const DashboardContentContainer = ({ company }) => {
               </div>
               <div className={styles.fieldsListWrapper}>
                 <FieldsList />
+              </div>
+              <div className={styles.fieldsListWrapper}>
+                <YearsList />
               </div>
             </div>
           </div>

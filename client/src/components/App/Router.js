@@ -14,7 +14,11 @@ const Router = () => {
     <BrowserRouter>
       <Switch>
         <Route exect path="/manager" render={(props) => <MangerLogin {...props} />} />
-        <PrivateRoute exect path="/dashboard/:companyId?/:regionId?" render={(props) => <Dashboard {...props} />} />
+        <PrivateRoute
+          exect
+          path="/dashboard/:companyId?/:regionId?/:fieldId?"
+          render={(props) => <Dashboard {...props} />}
+        />
         <Route render={(props) => <NotFound {...props} />} />
       </Switch>
     </BrowserRouter>

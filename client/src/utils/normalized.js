@@ -6,14 +6,7 @@ export const arrayToObject = (array) =>
 
 export const getAllIds = (array = []) => array.map(({ id }) => id);
 
-export const union = (arr1, arr2) => [...new Set([...arr1, ...arr2])];
-
-export const normalizedData = (array = []) => ({
+export const normalizedData = (array = [], id) => ({
   byId: arrayToObject(array),
-  allIds: getAllIds(array),
-});
-
-export const normalizedRegionData = (array = [], id) => ({
-  byId: arrayToObject(array),
-  allIds: { [id]: getAllIds(array) },
+  allIds: id ? { [id]: getAllIds(array) } : getAllIds(array),
 });

@@ -2,7 +2,7 @@ import merge from 'lodash/merge';
 import { SET_REGIONS, CREATE_REGION, DELETE_REGION, UPDATE_REGION, SET_CURRENT_REGION_ID } from '../actions/region';
 
 const setRegions = ({ currentRegionId, byId, allIds }, payload) => ({
-  currentRegionId: currentRegionId,
+  currentRegionId,
   byId: merge({}, byId, payload.byId),
   allIds: merge({}, allIds, payload.allIds),
 });

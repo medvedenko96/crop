@@ -17,8 +17,8 @@ const propTypes = {
   isShowCreateRegionModal: bool,
   isShowUpdateRegionModal: bool,
   onOpenCreateRegionModal: func,
-  onSubmitCreateCompanyModal: func,
-  onUpdateCreateCompanyModal: func,
+  onSubmitCreateRegionModal: func,
+  onUpdateRegionModal: func,
   onCancel: func,
   onDeleteRegion: func,
   onEditRegionClick: func,
@@ -32,9 +32,9 @@ const propTypes = {
 const RegionsListComponent = ({
   isShowCreateRegionModal,
   isShowUpdateRegionModal,
-  onSubmitCreateCompanyModal,
+  onSubmitCreateRegionModal,
   onOpenCreateRegionModal,
-  onUpdateCreateCompanyModal,
+  onUpdateRegionModal,
   onCancel,
   onDeleteRegion,
   onEditRegionClick,
@@ -86,14 +86,10 @@ const RegionsListComponent = ({
       </div>
       <CreateRegionModal
         isShowModal={isShowCreateRegionModal}
-        onOk={onSubmitCreateCompanyModal}
+        onOk={onSubmitCreateRegionModal}
         handleCancel={onCancel}
       />
-      <UpdateRegionModal
-        isShowModal={isShowUpdateRegionModal}
-        onOk={onUpdateCreateCompanyModal}
-        handleCancel={onCancel}
-      />
+      <UpdateRegionModal isShowModal={isShowUpdateRegionModal} onOk={onUpdateRegionModal} handleCancel={onCancel} />
     </>
   );
 };
@@ -102,8 +98,6 @@ RegionsListComponent.propTypes = propTypes;
 
 RegionsListComponent.displayName = 'RegionsListComponent';
 
-RegionsListComponent.defaultProps = {
-  regionIds: [],
-};
+RegionsListComponent.defaultProps = {};
 
 export default RegionsListComponent;

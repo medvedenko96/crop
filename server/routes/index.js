@@ -23,12 +23,12 @@ router.post('/delete-company', companyController.deleteCompany);
 
 // region
 router.post('/create-region', regionController.createRegion);
-router.post('/get-company-regions', regionController.getRegionsByCompanyId);
+router.post('/get-regions', regionController.getRegionsByCompanyId);
 router.post('/delete-region', regionController.deleteRegionById);
 router.post('/update-region', regionController.updateRegionById);
 
 // field
 router.post('/create-field', fieldController.createField);
-router.post('/get-company-regions', fieldController.getFieldsByRegionId);
+router.post('/get-fields', fieldController.getFieldsByRegionId);
 
 module.exports = router;

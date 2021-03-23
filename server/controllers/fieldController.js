@@ -44,9 +44,9 @@ const getFieldsByRegionId = ({ body }, res) => {
     if (error) {
       return res.status(500).send({ message: 'Server error', error });
     }
-    const regions = (!!result && result.rows) || [];
+    const fields = (!!result && result.rows) || [];
 
-    return responseJSON(res, 200, { regions, isSuccess: true });
+    return responseJSON(res, 200, { fields, isSuccess: true });
   });
 };
 

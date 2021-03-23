@@ -16,3 +16,36 @@
 .buttonWrapper {
     margin-top: 20px;
 }
+
+.listItem > ul.ant-list-item-action {
+    margin-left: 8px !important;
+}
+
+.listItem:hover {
+    background-color: #f0f0f0;
+}
+
+.listItemActive {
+    background-color: #d8e6df !important;
+}
+
+.listItemActive:before {
+
+}
+
+.actionItem {
+    color: #1DA57A;
+    cursor: pointer;
+}
+
+.listActionText:hover {
+    cursor: pointer;
+}
+
+.listActionText {
+    width: 100%;
+}
+
+.listActionTextActive {
+    color: #1DA57A;
+}

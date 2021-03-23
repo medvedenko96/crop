@@ -1,5 +1,5 @@
 import { region } from '../../api';
-import { normalizedRegionData } from '../../utils/normalized';
+import { normalizedData } from '../../utils/normalized';
 
 const REGION = 'REGION';
 const REGIONS = 'REGIONS';
@@ -23,7 +23,7 @@ export const getRegionsByCompanyIdAction = (companyId) => async (dispatch) => {
   const { regions, isSuccess } = await region.getRegionsByCompanyId(companyId);
 
   if (isSuccess) {
-    dispatch({ type: SET_REGIONS, payload: normalizedRegionData(regions, companyId) });
+    dispatch({ type: SET_REGIONS, payload: normalizedData(regions, companyId) });
   }
 };
 
