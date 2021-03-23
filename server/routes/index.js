@@ -19,16 +19,18 @@ router.post('/login-manger', authController.MangerLogin);
 // company
 router.post('/create-company', companyController.createCompany);
 router.get('/get-companies', companyController.getCompanies);
-router.post('/delete-company', companyController.deleteCompany);
+router.delete('/delete-company', companyController.deleteCompany);
 
 // region
 router.post('/create-region', regionController.createRegion);
-router.post('/get-regions', regionController.getRegionsByCompanyId);
-router.post('/delete-region', regionController.deleteRegionById);
-router.post('/update-region', regionController.updateRegionById);
+router.get('/get-regions', regionController.getRegions);
+router.delete('/delete-region', regionController.deleteRegion);
+router.post('/update-region', regionController.updateRegion);
 
 // field
 router.post('/create-field', fieldController.createField);
-router.post('/get-fields', fieldController.getFieldsByRegionId);
+router.get('/get-fields', fieldController.getFields);
+router.delete('/delete-field', fieldController.deleteField);
+router.post('/update-field', fieldController.updateField);
 
 module.exports = router;

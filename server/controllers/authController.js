@@ -6,7 +6,7 @@ const MangerLogin = ({ body }, res) => {
   const { login, password } = body;
 
   if (!login || !password) {
-    return responseJSON(res, 400, { error: 'All fields required.' });
+    return responseJSON(res, 400, { massage: 'All fields required.' });
   }
 
   return pool.query('SELECT * FROM manager WHERE login=$1 ', [login], (error, result) => {

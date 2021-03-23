@@ -8,13 +8,21 @@ export default {
   },
 
   async getRegionsByCompanyId(companyId) {
-    const { data } = await axios.post('/api/get-regions', { companyId });
+    const { data } = await axios.get('/api/get-regions', {
+      params: {
+        id: companyId,
+      },
+    });
 
     return data;
   },
 
   async deleteRegionById(regionId) {
-    const { data } = await axios.post('/api/delete-region', { regionId });
+    const { data } = await axios.delete('/api/delete-region', {
+      params: {
+        id: regionId,
+      },
+    });
 
     return data;
   },

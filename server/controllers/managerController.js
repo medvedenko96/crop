@@ -6,7 +6,7 @@ const { generateSalt, generateHah } = require('../utils/generators');
 
 const createManager = ({ body: { login, password } }, res) => {
   if (!login || !password) {
-    return responseJSON(res, 400, { error: 'All fields required.' });
+    return responseJSON(res, 400, { message: 'All fields required.' });
   }
 
   const salt = generateSalt();

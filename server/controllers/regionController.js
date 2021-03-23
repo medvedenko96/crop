@@ -33,8 +33,8 @@ const createRegion = ({ body }, res) => {
   });
 };
 
-const getRegionsByCompanyId = ({ body }, res) => {
-  const { companyId } = body;
+const getRegions = ({ query }, res) => {
+  const { id: companyId } = query;
 
   if (!companyId) {
     return responseJSON(res, 400, { message: 'All fields required.' });
@@ -50,8 +50,8 @@ const getRegionsByCompanyId = ({ body }, res) => {
   });
 };
 
-const deleteRegionById = ({ body }, res) => {
-  const { regionId } = body;
+const deleteRegion = ({ query }, res) => {
+  const { id: regionId } = query;
 
   if (!regionId) {
     return responseJSON(res, 400, { message: 'All fields required.' });
@@ -72,7 +72,7 @@ const deleteRegionById = ({ body }, res) => {
   });
 };
 
-const updateRegionById = ({ body }, res) => {
+const updateRegion = ({ body }, res) => {
   const { regionId, regionName, companyId } = body;
 
   if (!regionId || !regionName || !companyId) {
@@ -84,7 +84,7 @@ const updateRegionById = ({ body }, res) => {
     [regionName, companyId],
     (error, result) => {
       if (error) {
-        return responseJSON(res, 500, 'Server error');
+        return responseJSON(res, 500, { message: 'Server error', error });
       }
 
       const { rowCount } = result;
@@ -95,7 +95,7 @@ const updateRegionById = ({ body }, res) => {
 
       return pool.query('UPDATE region SET region_name=$1 WHERE id=$2', [regionName, regionId], (error, result) => {
         if (error) {
-          return responseJSON(res, 500, 'Server error');
+          return responseJSON(res, 500, { message: 'Server error', error });
         }
 
         const { rowCount } = result;
@@ -117,8 +117,8 @@ const updateRegionById = ({ body }, res) => {
 };
 
 module.exports = {
+  getRegions,
   createRegion,
-  getRegionsByCompanyId,
-  deleteRegionById,
-  updateRegionById,
+  deleteRegion,
+  updateRegion,
 };

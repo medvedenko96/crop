@@ -12,8 +12,8 @@ export default {
   },
 
   async deleteCompany({ login }) {
-    const { data } = await axios.post('/api/delete-company', {
-      login,
+    const { data } = await axios.delete('/api/delete-company', {
+      params: { login },
     });
 
     return data;

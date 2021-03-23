@@ -4,7 +4,7 @@ const { generateSalt, generateHah } = require('../utils/generators');
 
 const createCompany = ({ body: { login, companyName, password } }, res) => {
   if (!login || !password || !companyName) {
-    return responseJSON(res, 400, { error: 'All fields required.' });
+    return responseJSON(res, 400, { massage: 'All fields required.' });
   }
 
   const salt = generateSalt();
@@ -40,7 +40,7 @@ const createCompany = ({ body: { login, companyName, password } }, res) => {
 const getCompanies = (req, res) => {
   return pool.query('SELECT id, login, company_name as name FROM company', (error, result) => {
     if (error) {
-      return responseJSON(res, 500, 'Server error');
+      return responseJSON(res, 500, { message: 'Server error', error });
     }
 
     const companies = (!!result && result.rows) || [];
@@ -49,8 +49,8 @@ const getCompanies = (req, res) => {
   });
 };
 
-const deleteCompany = ({ body }, res) => {
-  const { login } = body;
+const deleteCompany = ({ query }, res) => {
+  const { login } = query;
 
   return pool.query('SELECT * FROM company WHERE login=$1 ', [login], (error, result) => {
     if (error) {
