@@ -10,7 +10,13 @@ import { message as antdMessage } from 'antd';
 import FieldsListComponent from './FieldsListComponent';
 
 /* @Actions */
-import { createFieldAction, getFieldsAction, setCurrentFieldIdAction } from '../../store/actions/field';
+import {
+  createFieldAction,
+  getFieldsAction,
+  setCurrentFieldIdAction,
+  deleteFieldAction,
+  updateFieldAction,
+} from '../../store/actions/field';
 
 /* @Selectors */
 import { getRegionsSelector, getFieldsSelector, getCurrentCompanyIdSelector } from '../../store/selectors';
@@ -21,6 +27,8 @@ const propTypes = {
   createField: func,
   getFields: func,
   setCurrentFieldId: func,
+  deleteField: func,
+  updateField: func,
   currentCompanyId: number,
   currentRegionId: number,
   currentFieldId: number,
@@ -32,6 +40,8 @@ const FieldsListContainer = ({
   createField,
   getFields,
   setCurrentFieldId,
+  deleteField,
+  updateField,
   goTo,
   currentCompanyId,
   currentRegionId,
@@ -44,21 +54,49 @@ const FieldsListContainer = ({
   }, [currentRegionId]);
 
   const [isShowCreateFieldModal, setIsShowCreateFieldModal] = useState(false);
+  const [isShowUpdateFieldModal, setIsShowUpdateFieldModal] = useState(false);
 
   const handleOpenCreateFieldModal = () => {
     setIsShowCreateFieldModal(true);
   };
 
-  const handleCancelModal = () => {
-    setIsShowCreateFieldModal(false);
+  const handleOpenUpdateFieldModal = (id) => {
+    setCurrentFieldId(id);
+    setIsShowUpdateFieldModal(true);
   };
 
-  const handleSubmitCreateCompanyModal = async (values) => {
+  const handleCancelModal = () => {
+    setIsShowCreateFieldModal(false);
+    setIsShowUpdateFieldModal(false);
+  };
+
+  const handleSubmitCreateFieldModal = async (values) => {
     const { message, isSuccess } = await createField({ ...values, regionId: currentRegionId });
 
     if (isSuccess) {
       notification('success', message);
       setIsShowCreateFieldModal(false);
+      return;
+    }
+
+    notification('warning', message);
+  };
+
+  const handleUpdateField = async (values) => {
+    if (!currentRegionId) {
+      notification('error', 'error');
+      return;
+    }
+
+    const { message, isSuccess } = await updateField({
+      ...values,
+      fieldId: currentFieldId,
+      regionId: currentRegionId,
+    });
+
+    if (isSuccess) {
+      notification('success', message);
+      setIsShowUpdateFieldModal(false);
       return;
     }
 
@@ -72,6 +110,12 @@ const FieldsListContainer = ({
     goTo(url);
   };
 
+  const handleDeleteField = async (id) => {
+    const isSuccess = await deleteField(id, currentRegionId);
+
+    isSuccess ? notification('success', 'success') : notification('warning', 'warning');
+  };
+
   return (
     <FieldsListComponent
       regionId={currentRegionId}
@@ -79,10 +123,14 @@ const FieldsListContainer = ({
       fieldsIds={fieldsIds}
       currentFieldId={currentFieldId}
       isShowCreateFieldModal={isShowCreateFieldModal}
-      onSubmitCreateCompanyModal={handleSubmitCreateCompanyModal}
+      isShowUpdateFieldModal={isShowUpdateFieldModal}
+      onSubmitCreateFieldModal={handleSubmitCreateFieldModal}
       onCancelModal={handleCancelModal}
       onOpenCreateFieldModal={handleOpenCreateFieldModal}
       onFieldClick={handleFieldClick}
+      onDeleteField={handleDeleteField}
+      onUpdateField={handleUpdateField}
+      onOpenUpdateFieldModal={handleOpenUpdateFieldModal}
     />
   );
 };
@@ -95,6 +143,8 @@ const mapDispatchToProps = {
   createField: createFieldAction,
   getFields: getFieldsAction,
   setCurrentFieldId: setCurrentFieldIdAction,
+  deleteField: deleteFieldAction,
+  updateField: updateFieldAction,
   goTo: push,
 };
 

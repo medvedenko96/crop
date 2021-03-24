@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import { Button, List } from 'antd';
 
 /* @Components */
-import { CreateFieldModal } from '../Modals';
+import { CreateFieldModal, UpdateFieldModal } from '../Modals';
 
 /* @Styles */
 import styles from './FieldsList.module.css';
@@ -16,25 +16,33 @@ const cx = classNames.bind(styles);
 const propTypes = {
   regionId: number,
   isShowCreateFieldModal: bool,
+  isShowUpdateFieldModal: bool,
   onCancelModal: func,
   onOpenCreateFieldModal: func,
-  onSubmitCreateCompanyModal: func,
+  onSubmitCreateFieldModal: func,
   fieldsById: object,
   fieldsIds: object,
   currentFieldId: number,
   onFieldClick: func,
+  onDeleteField: func,
+  onUpdateField: func,
+  onOpenUpdateFieldModal: func,
 };
 
 const FieldsListComponent = ({
   regionId,
   isShowCreateFieldModal,
+  isShowUpdateFieldModal,
   onCancelModal,
   onOpenCreateFieldModal,
-  onSubmitCreateCompanyModal,
+  onSubmitCreateFieldModal,
   fieldsById,
   fieldsIds,
   currentFieldId,
   onFieldClick,
+  onDeleteField,
+  onUpdateField,
+  onOpenUpdateFieldModal,
 }) => {
   const currentFieldsIds = fieldsIds[regionId] || [];
 
@@ -54,10 +62,14 @@ const FieldsListComponent = ({
                 className={cx(styles.listItem, { listItemActive: activeItem })}
                 key={id}
                 actions={[
-                  <span onClick={() => id} className={styles.actionItem} key="list-loadmore-edit">
+                  <span
+                    onClick={() => onOpenUpdateFieldModal(id)}
+                    className={styles.actionItem}
+                    key="list-loadmore-edit"
+                  >
                     edit
                   </span>,
-                  <span onClick={() => id} className={styles.actionItem} key="list-loadmore-more">
+                  <span onClick={() => onDeleteField(id)} className={styles.actionItem} key="list-loadmore-more">
                     deleted
                   </span>,
                 ]}
@@ -84,9 +96,10 @@ const FieldsListComponent = ({
       </div>
       <CreateFieldModal
         isShowModal={isShowCreateFieldModal}
-        onOk={onSubmitCreateCompanyModal}
+        onOk={onSubmitCreateFieldModal}
         handleCancel={onCancelModal}
       />
+      <UpdateFieldModal isShowModal={isShowUpdateFieldModal} onOk={onUpdateField} handleCancel={onCancelModal} />
     </>
   );
 };

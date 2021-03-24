@@ -13,8 +13,14 @@ export default {
     return data;
   },
 
-  async deleteField({ regionId }) {
-    const { data } = await axios.delete('/api/delete-field', { params: { id: regionId } });
+  async deleteField({ fieldId }) {
+    const { data } = await axios.delete('/api/delete-field', { params: { id: fieldId } });
+
+    return data;
+  },
+
+  async updateField({ fieldId, fieldName, regionId }) {
+    const { data } = await axios.post('/api//update-field', { fieldId, fieldName, regionId });
 
     return data;
   },
