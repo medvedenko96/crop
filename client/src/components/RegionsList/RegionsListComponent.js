@@ -61,6 +61,7 @@ const RegionsListComponent = ({
               <List.Item
                 className={cx(styles.listItem, { listItemActive: activeItem })}
                 key={id}
+                onClick={() => onRegionClick(id)}
                 actions={[
                   <span onClick={() => onEditRegionClick(id)} className={styles.actionItem} key="list-loadmore-edit">
                     edit
@@ -70,10 +71,7 @@ const RegionsListComponent = ({
                   </span>,
                 ]}
               >
-                <span
-                  onClick={() => onRegionClick(id)}
-                  className={cx(styles.listActionText, { listActionTextActive: activeItem })}
-                >
+                <span className={cx(styles.listActionText, { listActionTextActive: activeItem })}>
                   {regionsById[id].name}
                 </span>
               </List.Item>

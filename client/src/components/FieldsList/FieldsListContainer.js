@@ -50,7 +50,9 @@ const FieldsListContainer = ({
   fieldsIds,
 }) => {
   useEffect(() => {
-    !!currentRegionId && getFields(currentRegionId);
+    if (!!currentRegionId && !fieldsIds[currentRegionId]) {
+      getFields(currentRegionId);
+    }
   }, [currentRegionId]);
 
   const [isShowCreateFieldModal, setIsShowCreateFieldModal] = useState(false);

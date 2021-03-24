@@ -19,16 +19,16 @@ export const createRegionAction = (regionInfo) => async (dispatch) => {
   return { message, isSuccess };
 };
 
-export const getRegionsByCompanyIdAction = (companyId) => async (dispatch) => {
-  const { regions, isSuccess } = await region.getRegionsByCompanyId(companyId);
+export const getRegionsAction = (companyId) => async (dispatch) => {
+  const { regions, isSuccess } = await region.getRegions(companyId);
 
   if (isSuccess) {
     dispatch({ type: SET_REGIONS, payload: normalizedData(regions, companyId) });
   }
 };
 
-export const deleteRegionByIdAction = (regionId, currentCompanyId) => async (dispatch) => {
-  const { isSuccess } = await region.deleteRegionById(regionId);
+export const deleteRegionAction = (regionId, currentCompanyId) => async (dispatch) => {
+  const { isSuccess } = await region.deleteRegion(regionId);
 
   if (isSuccess) {
     dispatch({ type: DELETE_REGION, payload: { regionId, currentCompanyId } });
@@ -37,8 +37,8 @@ export const deleteRegionByIdAction = (regionId, currentCompanyId) => async (dis
   return isSuccess;
 };
 
-export const updateRegionByIdAction = (regionInfo) => async (dispatch) => {
-  const { message, isSuccess } = await region.updateRegionById(regionInfo);
+export const updateRegionAction = (regionInfo) => async (dispatch) => {
+  const { message, isSuccess } = await region.updateRegion(regionInfo);
 
   if (isSuccess) {
     dispatch({ type: UPDATE_REGION, payload: regionInfo });

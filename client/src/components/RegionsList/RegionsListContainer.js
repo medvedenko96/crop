@@ -12,9 +12,9 @@ import { message as antdMessage } from 'antd';
 /* @Actions */
 import {
   createRegionAction,
-  deleteRegionByIdAction,
-  getRegionsByCompanyIdAction,
-  updateRegionByIdAction,
+  deleteRegionAction,
+  getRegionsAction,
+  updateRegionAction,
   setCurrentRegionIdAction,
 } from '../../store/actions/region';
 
@@ -25,9 +25,9 @@ const notification = (type, message) => antdMessage[type](message);
 
 const propTypes = {
   createRegion: func,
-  getRegionsByCompanyId: func,
-  deleteRegionById: func,
-  updateRegionById: func,
+  getRegions: func,
+  deleteRegion: func,
+  updateRegion: func,
   setCurrentRegionId: func,
   goTo: func,
   company: shape({
@@ -41,9 +41,9 @@ const propTypes = {
 
 const RegionsListContainer = ({
   createRegion,
-  getRegionsByCompanyId,
-  deleteRegionById,
-  updateRegionById,
+  getRegions,
+  deleteRegion,
+  updateRegion,
   setCurrentRegionId,
   goTo,
   company,
@@ -55,7 +55,7 @@ const RegionsListContainer = ({
 
   useEffect(() => {
     if (!!currentCompanyId && !regionsIds[currentCompanyId]) {
-      getRegionsByCompanyId(currentCompanyId);
+      getRegions(currentCompanyId);
     }
   }, [currentCompanyId]);
 
@@ -84,7 +84,7 @@ const RegionsListContainer = ({
       return;
     }
 
-    const { message, isSuccess } = await updateRegionById({
+    const { message, isSuccess } = await updateRegion({
       ...values,
       regionId: currentRegionId,
       companyId: currentCompanyId,
@@ -105,7 +105,7 @@ const RegionsListContainer = ({
   };
 
   const handleDeleteRegion = async (id) => {
-    const isSuccess = await deleteRegionById(id, currentCompanyId);
+    const isSuccess = await deleteRegion(id, currentCompanyId);
 
     isSuccess ? notification('success', 'success') : notification('warning', 'warning');
   };
@@ -148,9 +148,9 @@ RegionsListContainer.displayName = 'RegionsListContainer';
 
 const mapDispatchToProps = {
   createRegion: createRegionAction,
-  getRegionsByCompanyId: getRegionsByCompanyIdAction,
-  deleteRegionById: deleteRegionByIdAction,
-  updateRegionById: updateRegionByIdAction,
+  getRegions: getRegionsAction,
+  deleteRegion: deleteRegionAction,
+  updateRegion: updateRegionAction,
   setCurrentRegionId: setCurrentRegionIdAction,
   goTo: push,
 };
