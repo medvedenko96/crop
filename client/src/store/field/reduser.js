@@ -1,5 +1,7 @@
 import merge from 'lodash/merge';
-import { SET_CURRENT_FIELD_ID, SET_FIELDS, CREATE_FIELD, DELETE_FIELD, UPDATE_FIELD } from '../actions/field';
+
+/* @Constants */
+import { SET_CURRENT_FIELD_ID, SET_FIELDS, CREATE_FIELD, DELETE_FIELD, UPDATE_FIELD } from './constants';
 
 const setFields = ({ currentFieldId, byId, allIds }, payload) => ({
   currentFieldId,

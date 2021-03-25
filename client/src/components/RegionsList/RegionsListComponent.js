@@ -1,5 +1,5 @@
 import React from 'react';
-import { object, bool, func, number, array } from 'prop-types';
+import { object, bool, func, number } from 'prop-types';
 import classNames from 'classnames/bind';
 
 /* @Antd */

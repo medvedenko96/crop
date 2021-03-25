@@ -1,10 +1,11 @@
+/* @Api */
 import { company } from '../../api';
-import { normalizedData } from '../../utils/normalized';
 
-export const ADD_COMPANY = 'ADD_COMPANY';
-export const SET_CURRENT_COMPANY_ID = 'SET_CURRENT_COMPANY_ID';
-export const SET_COMPANIES = 'SET_COMPANIES';
-export const DELETE_COMPANY = 'DELETE_COMPANY';
+/* @Constants */
+import { DELETE_COMPANY, SET_COMPANIES, ADD_COMPANY, SET_CURRENT_COMPANY_ID } from './constants';
+
+/* @Utils */
+import { normalizedData } from '../../utils/normalized';
 
 export const createCompanyAction = (newCompany) => async (dispatch) => {
   const data = await company.createCompany(newCompany);

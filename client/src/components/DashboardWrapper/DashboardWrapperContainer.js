@@ -12,7 +12,7 @@ import DashboardWrapperComponent from './DashboardWrapperComponent';
 import { message as antdMessage } from 'antd';
 
 /* @Actions */
-import { createCompanyAction, deleteCompanyAction } from '../../store/actions/company';
+import { createCompanyAction, deleteCompanyAction } from '../../store/company/actions';
 
 /* @Styles */
 import styles from './DashboardWrapper.module.css';

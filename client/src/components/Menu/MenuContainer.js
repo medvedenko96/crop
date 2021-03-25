@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import MenuComponent from './MenuComponent';
 
 /* @Actions */
-import { getCompaniesAction, setCurrentCompanyIdAction } from '../../store/actions/company';
+import { getCompaniesAction, setCurrentCompanyIdAction } from '../../store/company/actions';
 
 const propTypes = {
   getCompanies: func,

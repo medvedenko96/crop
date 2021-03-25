@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import LoginFormComponent from './LoginFormComponent';
 
 /* @Actions */
-import { loginManagerActions } from '../../store/actions/auth';
+import { loginManagerActions } from '../../store/manager/actions';
 
 const propTypes = {
   login: func,

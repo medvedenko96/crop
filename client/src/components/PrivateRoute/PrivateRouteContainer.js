@@ -3,7 +3,7 @@ import { func, number, string, bool } from 'prop-types';
 import { connect } from 'react-redux';
 
 /* @Actions */
-import { getManagerInfoActions } from '../../store/actions/manager';
+import { getManagerInfoActions } from '../../store/manager/actions';
 
 /* @Component */
 import PrivateRouteComponent from './PrivateRouteComponent';

@@ -16,10 +16,11 @@ import {
   getRegionsAction,
   updateRegionAction,
   setCurrentRegionIdAction,
-} from '../../store/actions/region';
+} from '../../store/region/actions';
 
 /* @Selectors */
-import { getCurrentCompanySelector, getRegionsSelector } from '../../store/selectors';
+import { getRegionsSelector } from '../../store/region/selectors';
+import { getCurrentCompanySelector } from '../../store/company/selectors';
 
 const notification = (type, message) => antdMessage[type](message);
 

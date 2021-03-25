@@ -1,4 +1,5 @@
-import { DELETE_COMPANY, SET_COMPANIES, ADD_COMPANY, SET_CURRENT_COMPANY_ID } from '../actions/company';
+/* @Constants */
+import { DELETE_COMPANY, SET_COMPANIES, ADD_COMPANY, SET_CURRENT_COMPANY_ID } from './constants';
 
 const addCompany = (company, state) => {
   const { byId, allIds, currentCompanyId } = state;

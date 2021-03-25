@@ -1,5 +1,7 @@
 import merge from 'lodash/merge';
-import { SET_REGIONS, CREATE_REGION, DELETE_REGION, UPDATE_REGION, SET_CURRENT_REGION_ID } from '../actions/region';
+
+/* @Constants */
+import { SET_REGIONS, CREATE_REGION, DELETE_REGION, UPDATE_REGION, SET_CURRENT_REGION_ID } from './constants';
 
 const setRegions = ({ currentRegionId, byId, allIds }, payload) => ({
   currentRegionId,

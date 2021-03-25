@@ -1,13 +1,11 @@
+/* @Api */
 import { field } from '../../api';
+
+/* @Utils */
 import { normalizedData } from '../../utils/normalized';
 
-const FIELD = 'FIELD';
-const FIELDS = 'FIELDS';
-export const SET_FIELDS = `SET_${FIELDS}`;
-export const CREATE_FIELD = `CREATE_${FIELD}`;
-export const DELETE_FIELD = `DELETE_${FIELD}`;
-export const UPDATE_FIELD = `UPDATE_${FIELD}`;
-export const SET_CURRENT_FIELD_ID = `SET_CURRENT_${FIELD}_ID`;
+/* @Constants */
+import { SET_CURRENT_FIELD_ID, SET_FIELDS, CREATE_FIELD, DELETE_FIELD, UPDATE_FIELD } from './constants';
 
 export const createFieldAction = (fieldInfo) => async (dispatch) => {
   const { message, isSuccess, newField } = await field.createField(fieldInfo);

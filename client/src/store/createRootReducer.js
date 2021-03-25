@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
-import user from './manager';
-import companies from './company';
-import regions from './region';
-import fields from './field';
+import user from './manager/reduser';
+import companies from './company/reduser';
+import regions from './region/reduser';
+import fields from './field/reduser';
 
 export default (history) => combineReducers({ router: connectRouter(history), user, companies, regions, fields });
