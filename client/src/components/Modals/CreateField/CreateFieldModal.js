@@ -36,7 +36,7 @@ const CreateFieldModal = ({ isShowModal, onOk, handleCancel }) => {
 
   return (
     <Modal title="Create field" visible={isShowModal} onOk={handleSubmit} onCancel={onCancel}>
-      <form>
+      <Form>
         <Item
           name="fieldName"
           label="Field name"
@@ -50,7 +50,7 @@ const CreateFieldModal = ({ isShowModal, onOk, handleCancel }) => {
         >
           <Input />
         </Item>
-      </form>
+      </Form>
     </Modal>
   );
 };

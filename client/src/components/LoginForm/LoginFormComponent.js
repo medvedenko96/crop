@@ -37,7 +37,7 @@ const LoginFormComponent = ({ onSubmitButtonClick, serverError }) => {
 
   return (
     <div className={styles.wrapper}>
-      <form onSubmit={handleSubmit}>
+      <Form onFinish={handleSubmit}>
         <Item
           name="login"
           wrapperCol={{ span: 24, offset: 0 }}
@@ -70,7 +70,7 @@ const LoginFormComponent = ({ onSubmitButtonClick, serverError }) => {
             Submit
           </Button>
         </Item>
-      </form>
+      </Form>
     </div>
   );
 };

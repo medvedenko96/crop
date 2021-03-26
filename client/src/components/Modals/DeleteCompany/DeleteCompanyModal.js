@@ -36,7 +36,7 @@ const DeleteCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
 
   return (
     <Modal title="Delete company" visible={isShowModal} onOk={handleSubmit} onCancel={onCancel}>
-      <form>
+      <Form>
         <Item
           name="login"
           label="Company login"
@@ -50,7 +50,7 @@ const DeleteCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
         >
           <Input />
         </Item>
-      </form>
+      </Form>
     </Modal>
   );
 };

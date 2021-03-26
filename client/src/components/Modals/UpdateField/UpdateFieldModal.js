@@ -36,7 +36,7 @@ const UpdateFieldModal = ({ isShowModal, onOk, handleCancel }) => {
 
   return (
     <Modal title="Update field" visible={isShowModal} onOk={handleSubmit} onCancel={onCancel}>
-      <form>
+      <Form>
         <Item
           name="fieldName"
           label="New field name"
@@ -50,7 +50,7 @@ const UpdateFieldModal = ({ isShowModal, onOk, handleCancel }) => {
         >
           <Input />
         </Item>
-      </form>
+      </Form>
     </Modal>
   );
 };

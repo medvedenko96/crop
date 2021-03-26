@@ -36,7 +36,7 @@ const CreateRegionModal = ({ isShowModal, onOk, handleCancel }) => {
 
   return (
     <Modal title="Create region" visible={isShowModal} onOk={handleSubmit} onCancel={onCancel}>
-      <form>
+      <Form>
         <Item
           name="regionName"
           label="Region name"
@@ -50,7 +50,7 @@ const CreateRegionModal = ({ isShowModal, onOk, handleCancel }) => {
         >
           <Input />
         </Item>
-      </form>
+      </Form>
     </Modal>
   );
 };

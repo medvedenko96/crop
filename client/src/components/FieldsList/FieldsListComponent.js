@@ -61,6 +61,7 @@ const FieldsListComponent = ({
               <List.Item
                 className={cx(styles.listItem, { listItemActive: activeItem })}
                 key={id}
+                onClick={() => onFieldClick(id)}
                 actions={[
                   <span
                     onClick={() => onOpenUpdateFieldModal(id)}
@@ -74,10 +75,7 @@ const FieldsListComponent = ({
                   </span>,
                 ]}
               >
-                <span
-                  onClick={() => onFieldClick(id)}
-                  className={cx(styles.listActionText, { listActionTextActive: activeItem })}
-                >
+                <span className={cx(styles.listActionText, { listActionTextActive: activeItem })}>
                   {fieldsById[id].name}
                 </span>
               </List.Item>

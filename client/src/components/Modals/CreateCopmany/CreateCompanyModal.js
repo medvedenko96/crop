@@ -40,7 +40,7 @@ const CreateCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
 
   return (
     <Modal title="Create company" visible={isShowModal} onOk={handleSubmit} onCancel={onCancel}>
-      <form>
+      <Form>
         <Item
           name="login"
           label="Company login"
@@ -80,7 +80,7 @@ const CreateCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
         >
           <Input />
         </Item>
-      </form>
+      </Form>
     </Modal>
   );
 };

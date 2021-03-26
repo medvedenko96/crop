@@ -17,6 +17,7 @@ import {
   updateRegionAction,
   setCurrentRegionIdAction,
 } from '../../store/region/actions';
+import { setCurrentFieldIdAction } from '../../store/field/actions';
 
 /* @Selectors */
 import { getRegionsSelector } from '../../store/region/selectors';
@@ -46,6 +47,7 @@ const RegionsListContainer = ({
   deleteRegion,
   updateRegion,
   setCurrentRegionId,
+  setCurrentFieldId,
   goTo,
   company,
   currentRegionId,
@@ -119,6 +121,7 @@ const RegionsListContainer = ({
   const handleRegionClick = (id) => {
     const url = `/dashboard/${currentCompanyId}/${id}`;
 
+    setCurrentFieldId(null);
     setCurrentRegionId(id);
     goTo(url);
   };
@@ -153,6 +156,7 @@ const mapDispatchToProps = {
   deleteRegion: deleteRegionAction,
   updateRegion: updateRegionAction,
   setCurrentRegionId: setCurrentRegionIdAction,
+  setCurrentFieldId: setCurrentFieldIdAction,
   goTo: push,
 };
 
