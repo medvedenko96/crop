@@ -7,7 +7,7 @@ import DashboardPage from './DashboardPage';
 const propTypes = {};
 
 const DashboardContainer = () => {
-  return <DashboardPage />;
+    return <DashboardPage />;
 };
 
 DashboardContainer.propTypes = propTypes;

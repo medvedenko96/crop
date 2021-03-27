@@ -15,38 +15,38 @@ import { setCurrentRegionIdAction } from '../../store/region/actions';
 import { getCurrentCompanySelector } from '../../store/company/selectors';
 
 const propTypes = {
-  company: shape({
-    id: number,
-    name: string,
-  }),
-  setCurrentRegionId: func,
-  setCurrentFieldId: func,
+    company: shape({
+        id: number,
+        name: string
+    }),
+    setCurrentRegionId: func,
+    setCurrentFieldId: func
 };
 
 const DashboardContentContainer = ({ company, setCurrentRegionId, setCurrentFieldId }) => {
-  const { companyId, regionId, fieldId } = useParams();
+    const { companyId, regionId, fieldId } = useParams();
 
-  useEffect(() => {
-    setCurrentRegionId(parseInt(regionId));
-    setCurrentFieldId(parseInt(fieldId));
-  }, [companyId, regionId, fieldId]);
+    useEffect(() => {
+        setCurrentRegionId(parseInt(regionId));
+        setCurrentFieldId(parseInt(fieldId));
+    }, [companyId, regionId, fieldId]);
 
-  return <DashboardContentComponent company={company} />;
+    return <DashboardContentComponent company={company} />;
 };
 
-DashboardContentComponent.propTypes = propTypes;
+DashboardContentContainer.propTypes = propTypes;
 
-DashboardContentComponent.displayName = 'DashboardContentComponent';
+DashboardContentContainer.displayName = 'DashboardContentContainer';
 
 const mapDispatchToProps = {
-  setCurrentRegionId: setCurrentRegionIdAction,
-  setCurrentFieldId: setCurrentFieldIdAction,
+    setCurrentRegionId: setCurrentRegionIdAction,
+    setCurrentFieldId: setCurrentFieldIdAction
 };
 
 const mapStateToProps = (state) => {
-  return {
-    company: getCurrentCompanySelector(state),
-  };
+    return {
+        company: getCurrentCompanySelector(state)
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContentContainer);

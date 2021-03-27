@@ -3,23 +3,24 @@ import { func, string, number, bool } from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
 const propTypes = {
-  render: func,
-  id: number,
-  login: string,
-  isLoaded: bool,
+    render: func,
+    id: number,
+    login: string,
+    isLoaded: bool,
+    isAuth: bool
 };
 
 const PrivateRouteComponent = ({ render: renderPage, isAuth, isLoaded, ...props }) => {
-  const redirect = ({ location }) => (
-    <Redirect
-      to={{
-        pathname: '/login',
-        state: { from: location },
-      }}
-    />
-  );
+    const redirect = ({ location }) => (
+        <Redirect
+            to={{
+                pathname: '/login',
+                state: { from: location }
+            }}
+        />
+    );
 
-  return <Route {...props} render={isLoaded || isAuth ? renderPage : redirect} />;
+    return <Route {...props} render={isLoaded || isAuth ? renderPage : redirect} />;
 };
 
 PrivateRouteComponent.propTypes = propTypes;

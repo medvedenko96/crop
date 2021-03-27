@@ -7,7 +7,7 @@ import Router from './Router';
 import './index.less';
 
 const App = () => {
-  return <Router />;
+    return <Router />;
 };
 
 export default App;

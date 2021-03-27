@@ -9,18 +9,23 @@ import LoginFormComponent from './LoginFormComponent';
 import { loginManagerActions } from '../../store/manager/actions';
 
 const propTypes = {
-  login: func,
+    login: func
 };
 
 const LoginFormContainer = ({ login }) => {
-  const [serverError, setServerError] = useState('');
+    const [serverError, setServerError] = useState('');
 
-  const handleSubmitButtonClick = async (values) => {
-    const { isAuth = false, massage = '' } = await login(values);
-    isAuth && setServerError(massage);
-  };
+    const handleSubmitButtonClick = async (values) => {
+        const { isAuth = false, massage = '' } = await login(values);
+        isAuth && setServerError(massage);
+    };
 
-  return <LoginFormComponent onSubmitButtonClick={handleSubmitButtonClick} serverError={serverError} />;
+    return (
+        <LoginFormComponent
+            onSubmitButtonClick={handleSubmitButtonClick}
+            serverError={serverError}
+        />
+    );
 };
 
 LoginFormContainer.propTypes = propTypes;
@@ -28,7 +33,7 @@ LoginFormContainer.propTypes = propTypes;
 LoginFormContainer.displayName = 'LoginFormContainer';
 
 const mapDispatchToProps = {
-  login: loginManagerActions,
+    login: loginManagerActions
 };
 
 export default connect(null, mapDispatchToProps)(LoginFormContainer);

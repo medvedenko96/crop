@@ -10,34 +10,39 @@ import MenuComponent from './MenuComponent';
 import { getCompaniesAction, setCurrentCompanyIdAction } from '../../store/company/actions';
 
 const propTypes = {
-  getCompanies: func,
-  setCurrentCompanyId: func,
-  companiesIds: array,
-  companiesById: object,
+    getCompanies: func,
+    setCurrentCompanyId: func,
+    companiesIds: array,
+    companiesById: object
 };
 
 const MenuContainer = ({ getCompanies, setCurrentCompanyId, companiesIds, companiesById }) => {
-  const { companyId } = useParams();
+    const { companyId } = useParams();
 
-  useEffect(() => {
-    getCompanies();
-    !!companyId && setCurrentCompanyId(companyId);
-  }, []);
+    useEffect(() => {
+        getCompanies();
+        !!companyId && setCurrentCompanyId(companyId);
+    }, []);
 
-  const handleClick = ({ key }) => {
-    setCurrentCompanyId(key);
-  };
+    const handleClick = ({ key }) => {
+        setCurrentCompanyId(key);
+    };
 
-  const menuItem = [
-    {
-      title: 'Companies',
-      items: companiesIds,
-    },
-  ];
+    const menuItem = [
+        {
+            title: 'Companies',
+            items: companiesIds
+        }
+    ];
 
-  return (
-    <MenuComponent menuItem={menuItem} onClick={handleClick} companyId={companyId} companiesById={companiesById} />
-  );
+    return (
+        <MenuComponent
+            menuItem={menuItem}
+            onClick={handleClick}
+            companyId={companyId}
+            companiesById={companiesById}
+        />
+    );
 };
 
 MenuContainer.propTypes = propTypes;
@@ -45,17 +50,17 @@ MenuContainer.propTypes = propTypes;
 MenuContainer.displayName = 'MenuContainer';
 
 MenuContainer.defaultProps = {
-  companies: [],
+    companies: []
 };
 
 const mapStateToProps = ({ companies }) => ({
-  companiesById: companies.byId,
-  companiesIds: companies.allIds,
+    companiesById: companies.byId,
+    companiesIds: companies.allIds
 });
 
 const mapDispatchToProps = {
-  getCompanies: getCompaniesAction,
-  setCurrentCompanyId: setCurrentCompanyIdAction,
+    getCompanies: getCompaniesAction,
+    setCurrentCompanyId: setCurrentCompanyIdAction
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuContainer);

@@ -12,33 +12,33 @@ import PrivateRouteComponent from './PrivateRouteComponent';
 import useToken from '../../helpers/useToken';
 
 const propTypes = {
-  id: number,
-  login: string,
-  isManagerInfoLoaded: bool,
-  getManagerInfoActions: func,
+    id: number,
+    login: string,
+    isManagerInfoLoaded: bool,
+    getManagerInfo: func
 };
 
 const PrivateRouteContainer = ({ id, login, isManagerInfoLoaded, getManagerInfo, ...props }) => {
-  if (!id) {
-    useEffect(getManagerInfo, []);
-  }
+    if (!id) {
+        useEffect(getManagerInfo, []);
+    }
 
-  const { checkToken } = useToken();
-  const isAuth = checkToken({ login, id });
+    const { checkToken } = useToken();
+    const isAuth = checkToken({ login, id });
 
-  return <PrivateRouteComponent isLoaded={isManagerInfoLoaded} isAuth={isAuth} {...props} />;
+    return <PrivateRouteComponent isLoaded={isManagerInfoLoaded} isAuth={isAuth} {...props} />;
 };
 
 PrivateRouteContainer.propTypes = propTypes;
 
 const mapStateToProps = ({ user }) => ({
-  id: user.id,
-  login: user.login,
-  isManagerInfoLoaded: user.isManagerInfoLoaded,
+    id: user.id,
+    login: user.login,
+    isManagerInfoLoaded: user.isManagerInfoLoaded
 });
 
 const mapDispatchToProps = {
-  getManagerInfo: getManagerInfoActions,
+    getManagerInfo: getManagerInfoActions
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PrivateRouteContainer);

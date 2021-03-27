@@ -12,35 +12,35 @@ import FieldsList from '../FieldsList';
 import styles from './DashboardContent.module.css';
 
 const propTypes = {
-  company: shape({
-    name: string,
-  }),
+    company: shape({
+        name: string
+    })
 };
 
 const DashboardContentContainer = ({ company }) => {
-  const { name } = company;
+    const { name } = company;
 
-  return (
-    <>
-      <div>
-        {!!name ? (
-          <div>
-            <Divider orientation="left">{name?.toUpperCase()}</Divider>
-            <div className={styles.contentWrapper}>
-              <div className={styles.regionsListWrapper}>
-                <RegionsList />
-              </div>
-              <div className={styles.fieldsListWrapper}>
-                <FieldsList />
-              </div>
+    return (
+        <>
+            <div>
+                {name ? (
+                    <div>
+                        <Divider orientation="left">{name?.toUpperCase()}</Divider>
+                        <div className={styles.contentWrapper}>
+                            <div className={styles.regionsListWrapper}>
+                                <RegionsList />
+                            </div>
+                            <div className={styles.fieldsListWrapper}>
+                                <FieldsList />
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    <Empty />
+                )}
             </div>
-          </div>
-        ) : (
-          <Empty />
-        )}
-      </div>
-    </>
-  );
+        </>
+    );
 };
 
 DashboardContentContainer.propTypes = propTypes;
@@ -48,7 +48,7 @@ DashboardContentContainer.propTypes = propTypes;
 DashboardContentContainer.displayName = 'DashboardContentContainer';
 
 DashboardContentContainer.defaultProps = {
-  company: { name: '' },
+    company: { name: '' }
 };
 
 export default DashboardContentContainer;

@@ -6,10 +6,10 @@ import CreateFieldModal from './CreateField';
 import UpdateFieldModal from './UpdateField';
 
 export {
-  CreateCompanyModal,
-  DeleteCompanyModal,
-  CreateRegionModal,
-  UpdateRegionModal,
-  CreateFieldModal,
-  UpdateFieldModal,
+    CreateCompanyModal,
+    DeleteCompanyModal,
+    CreateRegionModal,
+    UpdateRegionModal,
+    CreateFieldModal,
+    UpdateFieldModal
 };
