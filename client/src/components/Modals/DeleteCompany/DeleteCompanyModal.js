@@ -2,6 +2,7 @@ import React from 'react';
 import { func, bool } from 'prop-types';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useIntl } from 'react-intl';
 
 /* @Antd */
 import { Input, Modal, Form } from 'antd';
@@ -15,8 +16,10 @@ const propTypes = {
 };
 
 const DeleteCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
+    const intl = useIntl();
+
     const validationSchema = Yup.object().shape({
-        login: Yup.string().required('Please input company login!')
+        login: Yup.string().required(intl.formatMessage({ id: 'company.validationLoginRequired' }))
     });
 
     const formik = useFormik({
@@ -35,11 +38,17 @@ const DeleteCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
     };
 
     return (
-        <Modal title="Delete company" visible={isShowModal} onOk={handleSubmit} onCancel={onCancel}>
+        <Modal
+            title={intl.formatMessage({ id: 'company.delete' })}
+            visible={isShowModal}
+            onOk={handleSubmit}
+            onCancel={onCancel}
+            okText={intl.formatMessage({ id: 'okModalDeleteText' })}
+            cancelText={intl.formatMessage({ id: 'cancelText' })}>
             <Form>
                 <Item
                     name="login"
-                    label="Company login"
+                    label={intl.formatMessage({ id: 'company.login' })}
                     validateStatus={errors.login}
                     onChange={handleChange}
                     value={values.login}

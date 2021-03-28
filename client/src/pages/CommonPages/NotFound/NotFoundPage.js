@@ -1,15 +1,22 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 
 /* @Antd */
 import { Result, Button } from 'antd';
 
-const NotFoundPage = () => (
-    <Result
-        status="404"
-        title="404"
-        subTitle="Sorry, the page you visited does not exist."
-        extra={<Button type="primary">Back Home</Button>}
-    />
-);
+const NotFoundPage = () => {
+    const intl = useIntl();
+
+    return (
+        <Result
+            status="404"
+            title="404"
+            subTitle={intl.formatMessage({ id: 'notFound.subTitle' })}
+            extra={
+                <Button type="primary">{intl.formatMessage({ id: 'notFound.buttonText' })}</Button>
+            }
+        />
+    );
+};
 
 export default NotFoundPage;

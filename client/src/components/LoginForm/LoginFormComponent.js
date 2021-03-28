@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, string } from 'prop-types';
+import { func, string, object } from 'prop-types';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -13,13 +13,16 @@ const { Item } = Form;
 
 const propTypes = {
     onSubmitButtonClick: func,
-    serverError: string
+    serverError: string,
+    intl: object
 };
 
-const LoginFormComponent = ({ onSubmitButtonClick, serverError }) => {
+const LoginFormComponent = ({ onSubmitButtonClick, serverError, intl }) => {
     const validationSchema = Yup.object().shape({
-        login: Yup.string().required('Please input your login!'),
-        password: Yup.string().required('Please input your password!')
+        login: Yup.string().required(intl.formatMessage({ id: 'auth.validationLoginRequired' })),
+        password: Yup.string().required(
+            intl.formatMessage({ id: 'auth.validationPasswordRequired' })
+        )
     });
 
     const formik = useFormik({
@@ -50,7 +53,7 @@ const LoginFormComponent = ({ onSubmitButtonClick, serverError }) => {
                     })}>
                     <Input
                         prefix={<UserOutlined className={styles.input_icon} />}
-                        placeholder="Login"
+                        placeholder={intl.formatMessage({ id: 'login' })}
                     />
                 </Item>
                 <Item
@@ -66,12 +69,12 @@ const LoginFormComponent = ({ onSubmitButtonClick, serverError }) => {
                     })}>
                     <Input.Password
                         prefix={<LockOutlined className={styles.input_icon} />}
-                        placeholder="Password"
+                        placeholder={intl.formatMessage({ id: 'password' })}
                     />
                 </Item>
                 <Item>
                     <Button className="login-form-button" type="primary" htmlType="submit">
-                        Submit
+                        {intl.formatMessage({ id: 'auth.enter' })}
                     </Button>
                 </Item>
             </Form>

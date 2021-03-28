@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { func } from 'prop-types';
 import { connect } from 'react-redux';
+import { useIntl } from 'react-intl';
 
 /* @Icons */
 import { AppstoreAddOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -25,6 +26,7 @@ const propTypes = {
 };
 
 const DashboardWrapperContainer = ({ createCompany, deleteCompany }) => {
+    const intl = useIntl();
     const [isShowCreateCompanyModal, setIsShowCreateCompanyModal] = useState(false);
     const [isShowDeleteCompanyModal, setIsShowDeleteCompanyModal] = useState(false);
 
@@ -61,11 +63,11 @@ const DashboardWrapperContainer = ({ createCompany, deleteCompany }) => {
     const menuNodes = [
         <div className={styles.nodeWrapper} key="1" onClick={showCreateCompanyModal}>
             <AppstoreAddOutlined />
-            <div className={styles.nodeTitle}>Add Company</div>
+            <div className={styles.nodeTitle}>{intl.formatMessage({ id: 'company.create' })}</div>
         </div>,
         <div className={styles.nodeWrapper} key="2" onClick={showDeleteCompanyModal}>
             <DeleteOutlined />
-            <div className={styles.nodeTitle}>Delete Company</div>
+            <div className={styles.nodeTitle}>{intl.formatMessage({ id: 'company.delete' })}</div>
         </div>
     ];
 

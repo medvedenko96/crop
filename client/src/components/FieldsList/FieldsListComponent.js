@@ -14,6 +14,7 @@ import styles from './FieldsList.module.css';
 const cx = classNames.bind(styles);
 
 const propTypes = {
+    intl: object,
     regionId: number,
     isShowCreateFieldModal: bool,
     isShowUpdateFieldModal: bool,
@@ -30,6 +31,7 @@ const propTypes = {
 };
 
 const FieldsListComponent = ({
+    intl,
     regionId,
     isShowCreateFieldModal,
     isShowUpdateFieldModal,
@@ -50,7 +52,11 @@ const FieldsListComponent = ({
         <>
             <div className={styles.listWrapper}>
                 <List
-                    header={<div className={styles.listTitle}>Fields</div>}
+                    header={
+                        <div className={styles.listTitle}>
+                            {intl.formatMessage({ id: 'fields' })}
+                        </div>
+                    }
                     dataSource={currentFieldsIds}
                     size="small"
                     className={styles.fieldsList}
@@ -67,13 +73,13 @@ const FieldsListComponent = ({
                                         onClick={() => onOpenUpdateFieldModal(id)}
                                         className={styles.actionItem}
                                         key="list-loadmore-edit">
-                                        edit
+                                        {intl.formatMessage({ id: 'edit' })}
                                     </span>,
                                     <span
                                         onClick={() => onDeleteField(id)}
                                         className={styles.actionItem}
                                         key="list-loadmore-more">
-                                        deleted
+                                        {intl.formatMessage({ id: 'delete' })}
                                     </span>
                                 ]}>
                                 <span
@@ -92,7 +98,7 @@ const FieldsListComponent = ({
                     size="large"
                     onClick={onOpenCreateFieldModal}
                     disabled={!regionId}>
-                    Create field
+                    {intl.formatMessage({ id: 'field.add' })}
                 </Button>
             </div>
             <CreateFieldModal

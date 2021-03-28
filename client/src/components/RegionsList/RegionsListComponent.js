@@ -14,6 +14,7 @@ import styles from './RegionList.module.css';
 const cx = classNames.bind(styles);
 
 const propTypes = {
+    intl: object,
     isShowCreateRegionModal: bool,
     isShowUpdateRegionModal: bool,
     onOpenCreateRegionModal: func,
@@ -30,6 +31,7 @@ const propTypes = {
 };
 
 const RegionsListComponent = ({
+    intl,
     isShowCreateRegionModal,
     isShowUpdateRegionModal,
     onSubmitCreateRegionModal,
@@ -50,7 +52,11 @@ const RegionsListComponent = ({
         <>
             <div className={styles.listWrapper}>
                 <List
-                    header={<div className={styles.listTitle}>Regions</div>}
+                    header={
+                        <div className={styles.listTitle}>
+                            {intl.formatMessage({ id: 'regions' })}
+                        </div>
+                    }
                     className={styles.regionList}
                     size="small"
                     dataSource={currentRegionIds}
@@ -69,7 +75,7 @@ const RegionsListComponent = ({
                                         onClick={() => onEditRegionClick(id)}
                                         className={styles.actionItem}
                                         key="list-loadmore-edit">
-                                        edit
+                                        {intl.formatMessage({ id: 'edit' })}
                                     </span>,
                                     <span
                                         role="button"
@@ -77,7 +83,7 @@ const RegionsListComponent = ({
                                         onClick={() => onDeleteRegion(id)}
                                         className={styles.actionItem}
                                         key="list-loadmore-more">
-                                        deleted
+                                        {intl.formatMessage({ id: 'delete' })}
                                     </span>
                                 ]}>
                                 <span
@@ -95,7 +101,7 @@ const RegionsListComponent = ({
                     block
                     size="large"
                     onClick={onOpenCreateRegionModal}>
-                    Create region
+                    {intl.formatMessage({ id: 'region.add' })}
                 </Button>
             </div>
             <CreateRegionModal

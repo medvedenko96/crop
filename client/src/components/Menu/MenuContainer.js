@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { array, func, object } from 'prop-types';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useIntl } from 'react-intl';
 
 /* @Components */
 import MenuComponent from './MenuComponent';
@@ -17,6 +18,7 @@ const propTypes = {
 };
 
 const MenuContainer = ({ getCompanies, setCurrentCompanyId, companiesIds, companiesById }) => {
+    const intl = useIntl();
     const { companyId } = useParams();
 
     useEffect(() => {
@@ -30,7 +32,7 @@ const MenuContainer = ({ getCompanies, setCurrentCompanyId, companiesIds, compan
 
     const menuItem = [
         {
-            title: 'Companies',
+            title: intl.formatMessage({ id: 'companies' }),
             items: companiesIds
         }
     ];

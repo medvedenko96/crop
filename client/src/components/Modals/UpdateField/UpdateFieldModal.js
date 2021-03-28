@@ -2,6 +2,7 @@ import React from 'react';
 import { func, bool } from 'prop-types';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useIntl } from 'react-intl';
 
 /* @Antd */
 import { Input, Modal, Form } from 'antd';
@@ -15,8 +16,12 @@ const propTypes = {
 };
 
 const UpdateFieldModal = ({ isShowModal, onOk, handleCancel }) => {
+    const intl = useIntl();
+
     const validationSchema = Yup.object().shape({
-        fieldName: Yup.string().required('Please input new field name!')
+        fieldName: Yup.string().required(
+            intl.formatMessage({ id: 'field.validationNewFieldNameRequired' })
+        )
     });
 
     const formik = useFormik({
@@ -35,11 +40,17 @@ const UpdateFieldModal = ({ isShowModal, onOk, handleCancel }) => {
     };
 
     return (
-        <Modal title="Update field" visible={isShowModal} onOk={handleSubmit} onCancel={onCancel}>
+        <Modal
+            title={intl.formatMessage({ id: 'field.updateName' })}
+            visible={isShowModal}
+            onOk={handleSubmit}
+            onCancel={onCancel}
+            okText={intl.formatMessage({ id: 'okModalSaveText' })}
+            cancelText={intl.formatMessage({ id: 'cancelText' })}>
             <Form>
                 <Item
                     name="fieldName"
-                    label="New field name"
+                    label={intl.formatMessage({ id: 'field.newName' })}
                     validateStatus={errors.login}
                     onChange={handleChange}
                     value={values.login}

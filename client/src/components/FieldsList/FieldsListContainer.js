@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { func, number, object } from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
+import { useIntl } from 'react-intl';
 
 /* @Antd */
 import { message as antdMessage } from 'antd';
@@ -57,6 +58,8 @@ const FieldsListContainer = ({
             getFields(currentRegionId);
         }
     }, [currentRegionId]);
+
+    const intl = useIntl();
 
     const [isShowCreateFieldModal, setIsShowCreateFieldModal] = useState(false);
     const [isShowUpdateFieldModal, setIsShowUpdateFieldModal] = useState(false);
@@ -123,6 +126,7 @@ const FieldsListContainer = ({
 
     return (
         <FieldsListComponent
+            intl={intl}
             regionId={currentRegionId}
             fieldsById={fieldsById}
             fieldsIds={fieldsIds}

@@ -2,6 +2,7 @@ import React from 'react';
 import { func, bool } from 'prop-types';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useIntl } from 'react-intl';
 
 /* @Antd */
 import { Input, Modal, Form } from 'antd';
@@ -15,10 +16,16 @@ const propTypes = {
 };
 
 const CreateCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
+    const intl = useIntl();
+
     const validationSchema = Yup.object().shape({
-        login: Yup.string().required('Please input company login!'),
-        companyName: Yup.string().required('Please input company name!'),
-        password: Yup.string().required('Please input company password!')
+        login: Yup.string().required(intl.formatMessage({ id: 'company.validationLoginRequired' })),
+        companyName: Yup.string().required(
+            intl.formatMessage({ id: 'company.validationCompanyNameRequired' })
+        ),
+        password: Yup.string().required(
+            intl.formatMessage({ id: 'company.validationPasswordRequired' })
+        )
     });
 
     const formik = useFormik({
@@ -39,23 +46,17 @@ const CreateCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
     };
 
     return (
-        <Modal title="Create company" visible={isShowModal} onOk={handleSubmit} onCancel={onCancel}>
+        <Modal
+            title={intl.formatMessage({ id: 'company.create' })}
+            visible={isShowModal}
+            onOk={handleSubmit}
+            onCancel={onCancel}
+            okText={intl.formatMessage({ id: 'okModalCreateText' })}
+            cancelText={intl.formatMessage({ id: 'cancelText' })}>
             <Form>
                 <Item
-                    name="login"
-                    label="Company login"
-                    validateStatus={errors.login}
-                    onChange={handleChange}
-                    value={values.login}
-                    {...(errors.login && {
-                        validateStatus: 'error',
-                        help: errors.login
-                    })}>
-                    <Input />
-                </Item>
-                <Item
                     name="companyName"
-                    label="Company name"
+                    label={intl.formatMessage({ id: 'company.name' })}
                     validateStatus={errors.companyName}
                     onChange={handleChange}
                     value={values.companyName}
@@ -66,8 +67,20 @@ const CreateCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
                     <Input />
                 </Item>
                 <Item
+                    name="login"
+                    label={intl.formatMessage({ id: 'login' })}
+                    validateStatus={errors.login}
+                    onChange={handleChange}
+                    value={values.login}
+                    {...(errors.login && {
+                        validateStatus: 'error',
+                        help: errors.login
+                    })}>
+                    <Input />
+                </Item>
+                <Item
                     name="password"
-                    label="Password"
+                    label={intl.formatMessage({ id: 'password' })}
                     validateStatus={errors.password}
                     onChange={handleChange}
                     value={values.password}

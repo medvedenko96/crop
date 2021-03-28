@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { func } from 'prop-types';
 import { connect } from 'react-redux';
+import { useIntl } from 'react-intl';
 
 /* @Component */
 import LoginFormComponent from './LoginFormComponent';
@@ -14,6 +15,7 @@ const propTypes = {
 
 const LoginFormContainer = ({ login }) => {
     const [serverError, setServerError] = useState('');
+    const intl = useIntl();
 
     const handleSubmitButtonClick = async (values) => {
         const { isAuth = false, massage = '' } = await login(values);
@@ -24,6 +26,7 @@ const LoginFormContainer = ({ login }) => {
         <LoginFormComponent
             onSubmitButtonClick={handleSubmitButtonClick}
             serverError={serverError}
+            intl={intl}
         />
     );
 };

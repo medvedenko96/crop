@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { func, number, shape, string, object } from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
+import { useIntl } from 'react-intl';
 
 /* @Components */
 import RegionsListComponent from './RegionsListComponent';
@@ -55,6 +56,7 @@ const RegionsListContainer = ({
     regionsById,
     regionsIds
 }) => {
+    const intl = useIntl();
     const { id: currentCompanyId = null } = company;
 
     useEffect(() => {
@@ -129,6 +131,7 @@ const RegionsListContainer = ({
 
     return (
         <RegionsListComponent
+            intl={intl}
             regionsIds={regionsIds}
             regionsById={regionsById}
             currentRegionId={currentRegionId}
