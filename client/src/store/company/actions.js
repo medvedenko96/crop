@@ -2,26 +2,44 @@
 import { company } from '../../api';
 
 /* @Constants */
-import { DELETE_COMPANY, SET_COMPANIES, ADD_COMPANY, SET_CURRENT_COMPANY_ID } from './constants';
+import {
+    DELETE_COMPANY,
+    SET_COMPANIES,
+    ADD_COMPANY,
+    SET_CURRENT_COMPANY_ID,
+    UPDATE_COMPANY
+} from './constants';
 
 /* @Utils */
 import { normalizedData } from '../../utils/normalized';
 
-export const createCompanyAction = (newCompany) => async (dispatch) => {
-    const data = await company.createCompany(newCompany);
+export const createCompanyAction = (companyInfo) => async (dispatch) => {
+    const { company: newCompany, isSuccess, message } = await company.createCompany(companyInfo);
 
-    if (data.isSuccess) {
-        dispatch({ type: ADD_COMPANY, payload: data.company });
+    if (isSuccess) {
+        dispatch({ type: ADD_COMPANY, payload: newCompany });
     }
 
-    return data;
+    return { isSuccess, message };
 };
 
-export const deleteCompanyAction = (login) => async (dispatch) => {
-    const data = await company.deleteCompany(login);
+export const updateCompanyAction = (companyInfo) => async (dispatch) => {
+    const { company: updatedCompany, isSuccess, message } = await company.updateCompany(
+        companyInfo
+    );
+
+    if (isSuccess) {
+        dispatch({ type: UPDATE_COMPANY, payload: updatedCompany });
+    }
+
+    return { isSuccess, message };
+};
+
+export const deleteCompanyAction = (id) => async (dispatch) => {
+    const data = await company.deleteCompany({ id });
 
     if (data.isSuccess) {
-        dispatch({ type: DELETE_COMPANY, payload: data.id });
+        dispatch({ type: DELETE_COMPANY, payload: id });
     }
 
     return data;

@@ -18,6 +18,7 @@ router.post('/login-manger', authController.MangerLogin);
 
 // company
 router.post('/create-company', companyController.createCompany);
+router.post('/update-company', companyController.updateCompany);
 router.get('/get-companies', companyController.getCompanies);
 router.delete('/delete-company', companyController.deleteCompany);
 

@@ -1,5 +1,11 @@
 /* @Constants */
-import { DELETE_COMPANY, SET_COMPANIES, ADD_COMPANY, SET_CURRENT_COMPANY_ID } from './constants';
+import {
+    DELETE_COMPANY,
+    SET_COMPANIES,
+    ADD_COMPANY,
+    SET_CURRENT_COMPANY_ID,
+    UPDATE_COMPANY
+} from './constants';
 
 const addCompany = (company, state) => {
     const { byId, allIds, currentCompanyId } = state;
@@ -23,6 +29,12 @@ const deleteCompany = (companyId, state) => {
     };
 };
 
+const updateCompany = (updateCompany, { currentCompanyId, byId, allIds }) => ({
+    currentCompanyId,
+    byId: { ...byId, [updateCompany.id]: updateCompany },
+    allIds
+});
+
 const initialState = {
     byId: {},
     allIds: [],
@@ -41,6 +53,9 @@ export default (state = initialState, action = {}) => {
 
         case ADD_COMPANY:
             return addCompany(payload, state);
+
+        case UPDATE_COMPANY:
+            return updateCompany(payload, state);
 
         case SET_CURRENT_COMPANY_ID:
             return { ...state, currentCompanyId: payload };

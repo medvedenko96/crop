@@ -11,9 +11,19 @@ export default {
         return data;
     },
 
-    async deleteCompany({ login }) {
+    async updateCompany({ companyName, login, id }) {
+        const { data } = await axios.post('/api/update-company', {
+            companyName,
+            login,
+            id
+        });
+
+        return data;
+    },
+
+    async deleteCompany({ id }) {
         const { data } = await axios.delete('/api/delete-company', {
-            params: { login }
+            params: { id }
         });
 
         return data;

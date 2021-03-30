@@ -1,0 +1,31 @@
+.itemWrapper {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.iconWrapper {
+    transform: rotate(90deg);
+}
+
+.iconWrapper:hover {
+    display: block;
+    transform: rotate(90deg);
+}
+
+.titleMenu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.titleMenuIcon:hover {
+    color: #1DA57A !important;
+}
+
+.titleMenuIcon {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.45) !important;
+}
