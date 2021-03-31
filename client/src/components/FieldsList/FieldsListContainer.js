@@ -116,9 +116,14 @@ const FieldsListContainer = ({
     const handleDeleteField = async (id) => {
         const { isSuccess, message } = await deleteField(id, currentRegionId);
 
-        isSuccess
-            ? notification('success', intl.formatMessage({ id: message }))
-            : notification('warning', intl.formatMessage({ id: message }));
+        if (isSuccess) {
+            notification('success', intl.formatMessage({ id: message }));
+            setCurrentFieldId(null);
+            goTo(`/dashboard/${currentCompanyId}/${currentRegionId}`);
+            return;
+        }
+
+        notification('warning', intl.formatMessage({ id: message }));
     };
 
     return (

@@ -105,14 +105,6 @@ const RegionsListContainer = ({
         setIsShowUpdateRegionModal(false);
     };
 
-    const handleDeleteRegion = async (id) => {
-        const { isSuccess, message } = await deleteRegion(id, currentCompanyId);
-
-        isSuccess
-            ? notification('success', intl.formatMessage({ id: message }))
-            : notification('warning', intl.formatMessage({ id: message }));
-    };
-
     const handleEditRegionClick = (id) => {
         setIsShowUpdateRegionModal(true);
         setCurrentRegionId(id);
@@ -124,6 +116,20 @@ const RegionsListContainer = ({
         setCurrentFieldId(null);
         setCurrentRegionId(id);
         goTo(url);
+    };
+
+    const handleDeleteRegion = async (id) => {
+        const { isSuccess, message } = await deleteRegion(id, currentCompanyId);
+
+        if (isSuccess) {
+            notification('success', intl.formatMessage({ id: message }));
+            setCurrentFieldId(null);
+            setCurrentRegionId(null);
+            goTo(`/dashboard/${currentCompanyId}`);
+            return;
+        }
+
+        notification('warning', intl.formatMessage({ id: message }));
     };
 
     return (
