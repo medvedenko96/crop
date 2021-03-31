@@ -32,13 +32,13 @@ export const getRegionsAction = (companyId) => async (dispatch) => {
 };
 
 export const deleteRegionAction = (regionId, currentCompanyId) => async (dispatch) => {
-    const { isSuccess } = await region.deleteRegion(regionId);
+    const { isSuccess, message } = await region.deleteRegion(regionId);
 
     if (isSuccess) {
         dispatch({ type: DELETE_REGION, payload: { regionId, currentCompanyId } });
     }
 
-    return isSuccess;
+    return { isSuccess, message };
 };
 
 export const updateRegionAction = (regionInfo) => async (dispatch) => {

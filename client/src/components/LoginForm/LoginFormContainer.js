@@ -18,15 +18,15 @@ const LoginFormContainer = ({ login }) => {
     const intl = useIntl();
 
     const handleSubmitButtonClick = async (values) => {
-        const { isAuth = false, massage = '' } = await login(values);
-        isAuth && setServerError(massage);
+        const { isAuth, message = '' } = await login(values);
+        !!isAuth && setServerError(message && intl.formatMessage({ id: message }));
     };
 
     return (
         <LoginFormComponent
+            intl={intl}
             onSubmitButtonClick={handleSubmitButtonClick}
             serverError={serverError}
-            intl={intl}
         />
     );
 };

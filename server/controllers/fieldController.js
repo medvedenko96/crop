@@ -20,20 +20,20 @@ const createField = ({ body }, res) => {
 
     return pool.query(query, value, (error, result) => {
         if (error) {
-            return responseJSON(res, 500, { message: 'Server error', error });
+            return responseJSON(res, 500, { message: 'serverError', error });
         }
 
         const { rowCount, rows } = result;
 
         if (rowCount) {
             return responseJSON(res, 200, {
-                message: 'Field added',
+                message: 'field.added',
                 isSuccess: true,
                 newField: rows[0]
             });
         }
 
-        return responseJSON(res, 200, { message: 'Field exists', isSuccess: false });
+        return responseJSON(res, 200, { message: 'field.exists' });
     });
 };
 
@@ -49,7 +49,7 @@ const getFields = ({ query }, res) => {
         [regionId],
         (error, result) => {
             if (error) {
-                return responseJSON(res, 500, { message: 'Server error', error });
+                return responseJSON(res, 500, { message: 'serverError', error });
             }
             const fields = (!!result && result.rows) || [];
 
@@ -67,16 +67,16 @@ const deleteField = ({ query }, res) => {
 
     return pool.query('DELETE FROM field WHERE id=$1', [fieldId], (error, result) => {
         if (error) {
-            return responseJSON(res, 500, { message: 'Server error', error });
+            return responseJSON(res, 500, { message: 'serverError', error });
         }
 
         const { rowCount } = result;
 
         if (rowCount) {
-            return responseJSON(res, 200, { isSuccess: true });
+            return responseJSON(res, 200, { isSuccess: true, message: 'field.delete' });
         }
 
-        return responseJSON(res, 200, { isSuccess: false });
+        return responseJSON(res, 200, { message: 'field.notDelete' });
     });
 };
 
@@ -92,13 +92,13 @@ const updateField = ({ body }, res) => {
         [fieldName, regionId],
         (error, result) => {
             if (error) {
-                return responseJSON(res, 500, { message: 'Server error', error });
+                return responseJSON(res, 500, { message: 'serverError', error });
             }
 
             const { rowCount } = result;
 
             if (rowCount) {
-                return responseJSON(res, 200, { isSuccess: false, message: 'Field exists' });
+                return responseJSON(res, 200, { isSuccess: false, message: 'field.exists' });
             }
 
             return pool.query(
@@ -106,7 +106,7 @@ const updateField = ({ body }, res) => {
                 [fieldName, fieldId],
                 (error, result) => {
                     if (error) {
-                        return responseJSON(res, 500, { message: 'Server error', error });
+                        return responseJSON(res, 500, { message: 'serverError', error });
                     }
 
                     const { rowCount } = result;
@@ -114,13 +114,13 @@ const updateField = ({ body }, res) => {
                     if (rowCount) {
                         return responseJSON(res, 200, {
                             isSuccess: true,
-                            message: 'Field updated'
+                            message: 'field.updated'
                         });
                     }
 
                     return responseJSON(res, 200, {
                         isSuccess: false,
-                        message: 'Field not updated'
+                        message: 'field.notUpdated'
                     });
                 }
             );

@@ -82,20 +82,15 @@ const FieldsListContainer = ({
         const { message, isSuccess } = await createField({ ...values, regionId: currentRegionId });
 
         if (isSuccess) {
-            notification('success', message);
+            notification('success', intl.formatMessage({ id: message }));
             setIsShowCreateFieldModal(false);
             return;
         }
 
-        notification('warning', message);
+        notification('warning', intl.formatMessage({ id: message }));
     };
 
     const handleUpdateField = async (values) => {
-        if (!currentRegionId) {
-            notification('error', 'error');
-            return;
-        }
-
         const { message, isSuccess } = await updateField({
             ...values,
             fieldId: currentFieldId,
@@ -103,12 +98,12 @@ const FieldsListContainer = ({
         });
 
         if (isSuccess) {
-            notification('success', message);
+            notification('success', intl.formatMessage({ id: message }));
             setIsShowUpdateFieldModal(false);
             return;
         }
 
-        notification('warning', message);
+        notification('warning', intl.formatMessage({ id: message }));
     };
 
     const handleFieldClick = (id) => {
@@ -119,9 +114,11 @@ const FieldsListContainer = ({
     };
 
     const handleDeleteField = async (id) => {
-        const isSuccess = await deleteField(id, currentRegionId);
+        const { isSuccess, message } = await deleteField(id, currentRegionId);
 
-        isSuccess ? notification('success', 'success') : notification('warning', 'warning');
+        isSuccess
+            ? notification('success', intl.formatMessage({ id: message }))
+            : notification('warning', intl.formatMessage({ id: message }));
     };
 
     return (

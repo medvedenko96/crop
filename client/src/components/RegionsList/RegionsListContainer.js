@@ -76,20 +76,15 @@ const RegionsListContainer = ({
         const { message, isSuccess } = await createRegion({ ...values, companyId: company.id });
 
         if (isSuccess) {
-            notification('success', message);
+            notification('success', intl.formatMessage({ id: message }));
             setIsShowCreateRegionModal(false);
             return;
         }
 
-        notification('warning', message);
+        notification('warning', intl.formatMessage({ id: message }));
     };
 
     const handleUpdateRegionModal = async (values) => {
-        if (!currentRegionId) {
-            notification('error', 'error');
-            return;
-        }
-
         const { message, isSuccess } = await updateRegion({
             ...values,
             regionId: currentRegionId,
@@ -97,12 +92,12 @@ const RegionsListContainer = ({
         });
 
         if (isSuccess) {
-            notification('success', message);
+            notification('success', intl.formatMessage({ id: message }));
             setIsShowUpdateRegionModal(false);
             return;
         }
 
-        notification('warning', message);
+        notification('warning', intl.formatMessage({ id: message }));
     };
 
     const handleCancel = () => {
@@ -111,9 +106,11 @@ const RegionsListContainer = ({
     };
 
     const handleDeleteRegion = async (id) => {
-        const isSuccess = await deleteRegion(id, currentCompanyId);
+        const { isSuccess, message } = await deleteRegion(id, currentCompanyId);
 
-        isSuccess ? notification('success', 'success') : notification('warning', 'warning');
+        isSuccess
+            ? notification('success', intl.formatMessage({ id: message }))
+            : notification('warning', intl.formatMessage({ id: message }));
     };
 
     const handleEditRegionClick = (id) => {

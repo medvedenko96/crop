@@ -4,6 +4,9 @@ import { IntlProvider, ReactIntlErrorCode } from 'react-intl';
 /* @Router */
 import Router from './Router';
 
+/* @Utils */
+import { flattenMessages } from '../../utils/flattenMessages';
+
 /* @locales */
 import locales from './locales';
 
@@ -25,7 +28,11 @@ const onIntlError = (error) => {
 
 const App = () => {
     return (
-        <IntlProvider messages={locales[UA]} locale={UA} defaultLocale={UA} onError={onIntlError}>
+        <IntlProvider
+            messages={flattenMessages(locales[UA])}
+            locale={UA}
+            defaultLocale={UA}
+            onError={onIntlError}>
             <Router />
         </IntlProvider>
     );

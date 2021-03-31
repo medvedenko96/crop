@@ -20,20 +20,20 @@ const createRegion = ({ body }, res) => {
 
     return pool.query(query, value, (error, result) => {
         if (error) {
-            return responseJSON(res, 500, { message: 'Server error', error });
+            return responseJSON(res, 500, { message: 'serverError', error });
         }
 
         const { rowCount, rows } = result;
 
         if (rowCount) {
             return responseJSON(res, 200, {
-                message: 'Region added',
+                message: 'region.added',
                 isSuccess: true,
                 newRegion: rows[0]
             });
         }
 
-        return responseJSON(res, 200, { message: 'Region exists', isSuccess: false });
+        return responseJSON(res, 200, { message: 'region.exists' });
     });
 };
 
@@ -49,7 +49,7 @@ const getRegions = ({ query }, res) => {
         [companyId],
         (error, result) => {
             if (error) {
-                return res.status(500).send({ message: 'Server error', error });
+                return res.status(500).send({ message: 'serverError', error });
             }
             const regions = (!!result && result.rows) || [];
 
@@ -67,16 +67,16 @@ const deleteRegion = ({ query }, res) => {
 
     return pool.query('DELETE FROM region WHERE id=$1', [regionId], (error, result) => {
         if (error) {
-            return responseJSON(res, 500, 'Server error');
+            return responseJSON(res, 500, 'serverError');
         }
 
         const { rowCount } = result;
 
         if (rowCount) {
-            return responseJSON(res, 200, { isSuccess: true });
+            return responseJSON(res, 200, { isSuccess: true, message: 'region.delete' });
         }
 
-        return responseJSON(res, 200, { isSuccess: false });
+        return responseJSON(res, 200, { message: 'region.notDelete' });
     });
 };
 
@@ -84,7 +84,7 @@ const updateRegion = ({ body }, res) => {
     const { regionId, regionName, companyId } = body;
 
     if (!regionId || !regionName || !companyId) {
-        return responseJSON(res, 400, { error: 'All fields required.' });
+        return responseJSON(res, 400, { message: 'All fields required.' });
     }
 
     return pool.query(
@@ -92,13 +92,13 @@ const updateRegion = ({ body }, res) => {
         [regionName, companyId],
         (error, result) => {
             if (error) {
-                return responseJSON(res, 500, { message: 'Server error', error });
+                return responseJSON(res, 500, { message: 'serverError', error });
             }
 
             const { rowCount } = result;
 
             if (rowCount) {
-                return responseJSON(res, 200, { isSuccess: false, message: 'Region exists' });
+                return responseJSON(res, 200, { message: 'region.exists' });
             }
 
             return pool.query(
@@ -106,7 +106,7 @@ const updateRegion = ({ body }, res) => {
                 [regionName, regionId],
                 (error, result) => {
                     if (error) {
-                        return responseJSON(res, 500, { message: 'Server error', error });
+                        return responseJSON(res, 500, { message: 'serverError', error });
                     }
 
                     const { rowCount } = result;
@@ -114,13 +114,12 @@ const updateRegion = ({ body }, res) => {
                     if (rowCount) {
                         return responseJSON(res, 200, {
                             isSuccess: true,
-                            message: 'Region updated'
+                            message: 'region.updated'
                         });
                     }
 
                     return responseJSON(res, 200, {
-                        isSuccess: false,
-                        message: 'Region not updated'
+                        message: 'region.notUpdated'
                     });
                 }
             );

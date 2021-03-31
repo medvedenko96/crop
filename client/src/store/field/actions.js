@@ -32,13 +32,13 @@ export const getFieldsAction = (currentRegionId) => async (dispatch) => {
 };
 
 export const deleteFieldAction = (fieldId, currentRegionId) => async (dispatch) => {
-    const { isSuccess } = await field.deleteField({ fieldId });
+    const { isSuccess, message } = await field.deleteField({ fieldId });
 
     if (isSuccess) {
         dispatch({ type: DELETE_FIELD, payload: { fieldId, currentRegionId } });
     }
 
-    return isSuccess;
+    return { isSuccess, message };
 };
 
 export const updateFieldAction = ({ fieldId, fieldName, regionId }) => async (dispatch) => {

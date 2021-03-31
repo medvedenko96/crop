@@ -40,7 +40,7 @@ const createCompany = ({ body: { login, companyName, password } }, res) => {
 const getCompanies = (req, res) => {
     return pool.query('SELECT id, login, company_name as name FROM company', (error, result) => {
         if (error) {
-            return responseJSON(res, 500, { message: 'Server error', error });
+            return responseJSON(res, 500, { message: 'serverError', error });
         }
 
         const companies = (!!result && result.rows) || [];

@@ -17,7 +17,7 @@ const createManager = ({ body: { login, password } }, res) => {
         [login, hash, salt, login],
         (error, result) => {
             if (error) {
-                return res.status(500).send({ message: 'Server error', error });
+                return res.status(500).send({ message: 'serverError', error });
             }
 
             const { rowCount } = result;
@@ -34,7 +34,7 @@ const createManager = ({ body: { login, password } }, res) => {
 const deleteManger = ({ body: { login } }, res) => {
     pool.query('DELETE FROM manager WHERE login = $1', [login], (error) => {
         if (error) {
-            return res.status(500).send({ message: 'Server error', error });
+            return res.status(500).send({ message: 'serverError', error });
         }
 
         res.status(200).send({ message: 'User deleted' });
@@ -57,7 +57,7 @@ const getManagerByJWT = (req, res) => {
                     [user.id],
                     (error, result) => {
                         if (error) {
-                            return responseJSON(res, 500, { message: 'Server error', error });
+                            return responseJSON(res, 500, { message: 'serverError', error });
                         }
                         const { rowCount, rows } = result;
 
@@ -65,7 +65,7 @@ const getManagerByJWT = (req, res) => {
                             return responseJSON(res, 200, rows[0]);
                         }
 
-                        return responseJSON(res, 500, { message: 'Server error' });
+                        return responseJSON(res, 500, { message: 'serverError' });
                     }
                 );
             }
