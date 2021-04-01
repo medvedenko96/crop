@@ -1,37 +1,37 @@
 import axios from 'axios';
 
 export default {
-    async createCompany({ companyName, login, password }) {
-        const { data } = await axios.post('/api/create-company', {
-            companyName,
-            password,
-            login
-        });
+	async createCompany({ companyName, login, password }) {
+		const { data } = await axios.post('/api/create-company', {
+			companyName,
+			password,
+			login,
+		});
 
-        return data;
-    },
+		return data;
+	},
 
-    async updateCompany({ companyName, login, id }) {
-        const { data } = await axios.post('/api/update-company', {
-            companyName,
-            login,
-            id
-        });
+	async updateCompany({ companyName, login, id }) {
+		const { data } = await axios.post('/api/update-company', {
+			companyName,
+			login,
+			id,
+		});
 
-        return data;
-    },
+		return data;
+	},
 
-    async deleteCompany({ id }) {
-        const { data } = await axios.delete('/api/delete-company', {
-            params: { id }
-        });
+	async deleteCompany({ id }) {
+		const { data } = await axios.delete('/api/delete-company', {
+			params: { id },
+		});
 
-        return data;
-    },
+		return data;
+	},
 
-    async getCompanies() {
-        const { data } = await axios.get('/api/get-companies');
+	async getCompanies() {
+		const { data } = await axios.get('/api/get-companies');
 
-        return data;
-    }
+		return data;
+	},
 };

@@ -7,15 +7,15 @@ import { Redirect } from 'react-router-dom';
 import LoginForm from '../../../components/LoginForm';
 
 const propTypes = {
-    isAuth: bool
+	isAuth: bool,
 };
 
 const LoginPage = ({ isAuth }) => {
-    if (isAuth) {
-        return <Redirect to="/dashboard" />;
-    }
+	if (isAuth) {
+		return <Redirect to="/dashboard" />;
+	}
 
-    return <LoginForm />;
+	return <LoginForm />;
 };
 
 LoginPage.propTypes = propTypes;
@@ -23,7 +23,7 @@ LoginPage.propTypes = propTypes;
 LoginPage.displayName = 'LoginPage';
 
 const mapStateToProps = ({ user }) => ({
-    isAuth: user.isAuth
+	isAuth: user.isAuth,
 });
 
 export default connect(mapStateToProps, null)(LoginPage);

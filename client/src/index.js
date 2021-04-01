@@ -14,13 +14,13 @@ const history = createBrowserHistory();
 const Store = configureStore(history);
 
 const WrapperApp = () => {
-    return (
-        <Provider store={Store}>
-            <ConnectedRouter history={history}>
-                <App />
-            </ConnectedRouter>
-        </Provider>
-    );
+	return (
+		<Provider store={Store}>
+			<ConnectedRouter history={history}>
+				<App />
+			</ConnectedRouter>
+		</Provider>
+	);
 };
 
 ReactDOM.render(<WrapperApp />, document.getElementById('root'));

@@ -4,7 +4,7 @@ import React from 'react';
 import DashboardWrapperComponent from './DashboardWrapperComponent';
 
 const DashboardWrapperContainer = () => {
-    return <DashboardWrapperComponent />;
+	return <DashboardWrapperComponent />;
 };
 
 DashboardWrapperContainer.displayName = 'DashboardWrapperContainer';

@@ -3,53 +3,53 @@ const { responseJSON } = require('../utils/response');
 const { validationPassword, generateJwt } = require('../utils/generators');
 
 const MangerLogin = ({ body }, res) => {
-    const { login, password } = body;
+	const { login, password } = body;
 
-    if (!login || !password) {
-        return responseJSON(res, 400, { message: 'All fields required.' });
-    }
+	if (!login || !password) {
+		return responseJSON(res, 400, { message: 'All fields required.' });
+	}
 
-    return pool.query('SELECT * FROM manager WHERE login=$1 ', [login], (error, result) => {
-        if (error) {
-            return responseJSON(res, 500, { message: 'serverError', error });
-        }
+	return pool.query('SELECT * FROM manager WHERE login=$1 ', [login], (error, result) => {
+		if (error) {
+			return responseJSON(res, 500, { message: 'serverError', error });
+		}
 
-        if (!result.rows.length) {
-            return responseJSON(res, 200, {
-                message: 'auth.validationIncorrectUsernameOrPassword'
-            });
-        }
+		if (!result.rows.length) {
+			return responseJSON(res, 200, {
+				message: 'auth.validationIncorrectUsernameOrPassword',
+			});
+		}
 
-        const user = result.rows[0];
-        const isValidPassword = validationPassword(password, user);
+		const user = result.rows[0];
+		const isValidPassword = validationPassword(password, user);
 
-        if (user.login === login && isValidPassword) {
-            // secure: false, // set to true if your using https
-            res.cookie('token', generateJwt(user.id, user.login), {
-                maxAge: 86400000,
-                httpOnly: true
-            });
+		if (user.login === login && isValidPassword) {
+			// secure: false, // set to true if your using https
+			res.cookie('token', generateJwt(user.id, user.login), {
+				maxAge: 86400000,
+				httpOnly: true,
+			});
 
-            return responseJSON(res, 200, {
-                id: user.id,
-                login: user.login,
-                isAuth: true
-            });
-        }
+			return responseJSON(res, 200, {
+				id: user.id,
+				login: user.login,
+				isAuth: true,
+			});
+		}
 
-        return responseJSON(res, 200, {
-            message: 'auth.validationIncorrectUsernameOrPassword'
-        });
-    });
+		return responseJSON(res, 200, {
+			message: 'auth.validationIncorrectUsernameOrPassword',
+		});
+	});
 };
 
 const logout = (req, res) => {
-    res.clearCookie('token');
-    res.clearCookie('tokeN');
-    responseJSON(res, 200);
+	res.clearCookie('token');
+	res.clearCookie('tokeN');
+	responseJSON(res, 200);
 };
 
 module.exports = {
-    MangerLogin,
-    logout
+	MangerLogin,
+	logout,
 };

@@ -7,11 +7,11 @@ import DashboardContent from '../DashboardContent';
 import styles from './DashboardWrapper.module.css';
 
 const DashboardWrapperComponent = () => (
-    <>
-        <div className={styles.dashboardWrapper}>
-            <DashboardContent />
-        </div>
-    </>
+	<>
+		<div className={styles.dashboardWrapper}>
+			<DashboardContent />
+		</div>
+	</>
 );
 
 export default DashboardWrapperComponent;
