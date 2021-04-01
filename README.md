@@ -9,3 +9,12 @@
  - update company fix (one field) (підтягувати поля з сайта)
  - add update company password
  - validation
+
+
+
+
+
+
+
+**husky**
+`npx mrm lint-staged`
