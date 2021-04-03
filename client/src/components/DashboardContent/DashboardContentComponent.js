@@ -22,7 +22,7 @@ const DashboardContentContainer = ({ company }) => {
 
 	return (
 		<>
-			<div>
+			<div className={styles.dashboard}>
 				{name ? (
 					<div>
 						<Divider orientation="left">{name?.toUpperCase()}</Divider>
