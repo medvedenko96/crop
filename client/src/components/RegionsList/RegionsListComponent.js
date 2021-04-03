@@ -120,6 +120,7 @@ const RegionsListComponent = ({
 				isShowModal={isShowUpdateRegionModal}
 				onOk={onUpdateRegionModal}
 				handleCancel={onCancel}
+				regionInfo={regionsById[currentRegionId]}
 			/>
 		</>
 	);

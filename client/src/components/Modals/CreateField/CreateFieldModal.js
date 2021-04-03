@@ -17,47 +17,50 @@ const propTypes = {
 
 const CreateFieldModal = ({ isShowModal, onOk, handleCancel }) => {
 	const intl = useIntl();
+	const [form] = Form.useForm();
+
+	const initialValues = {
+		fieldName: '',
+	};
 
 	const validationSchema = Yup.object().shape({
-		fieldName: Yup.string().required(
-			intl.formatMessage({ id: 'field.validationFieldNameRequired' })
-		),
+		fieldName: Yup.string()
+			.required(intl.formatMessage({ id: 'validation.fieldNameRequired' }))
+			.min(4, intl.formatMessage({ id: 'validation.min' }, { count: 4 }))
+			.max(50, intl.formatMessage({ id: 'validation.max' }, { count: 50 })),
 	});
 
 	const formik = useFormik({
-		initialValues: {
-			fieldName: '',
-		},
+		initialValues,
 		validationSchema,
-		onSubmit: (values) => onOk(values),
+		validateOnChange: false,
+		onSubmit: (values) => {
+			onOk(values);
+			form.resetFields();
+		},
 	});
 
-	const { handleSubmit, errors, values, handleChange, handleReset } = formik;
-
-	const onCancel = () => {
-		handleReset();
-		handleCancel();
-	};
+	const { handleSubmit, errors, values, handleChange } = formik;
 
 	return (
 		<Modal
 			title={intl.formatMessage({ id: 'field.create' })}
 			visible={isShowModal}
-			onOk={handleSubmit}
-			onCancel={onCancel}
+			onCancel={handleCancel}
+			okButtonProps={{ form: 'create-field', key: 'submit', htmlType: 'submit' }}
 			okText={intl.formatMessage({ id: 'okModalCreateText' })}
 			cancelText={intl.formatMessage({ id: 'cancelText' })}
 		>
-			<Form>
+			<Form form={form} id="create-field" onFinish={handleSubmit}>
 				<Item
 					name="fieldName"
 					label={intl.formatMessage({ id: 'field.name' })}
-					validateStatus={errors.login}
+					validateStatus={errors.fieldName}
 					onChange={handleChange}
-					value={values.login}
-					{...(errors.login && {
+					value={values.fieldName}
+					{...(errors.fieldName && {
 						validateStatus: 'error',
-						help: errors.login,
+						help: errors.fieldName,
 					})}
 				>
 					<Input />

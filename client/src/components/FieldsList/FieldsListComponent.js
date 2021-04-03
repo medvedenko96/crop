@@ -117,6 +117,7 @@ const FieldsListComponent = ({
 				isShowModal={isShowUpdateFieldModal}
 				onOk={onUpdateField}
 				handleCancel={onCancelModal}
+				fieldInfo={fieldsById[currentFieldId]}
 			/>
 		</>
 	);

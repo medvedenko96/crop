@@ -1,5 +1,5 @@
-import React from 'react';
-import { func, bool } from 'prop-types';
+import React, { useEffect } from 'react';
+import { func, bool, shape, string } from 'prop-types';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useIntl } from 'react-intl';
@@ -13,44 +13,70 @@ const propTypes = {
 	isShowModal: bool,
 	onOk: func,
 	handleCancel: func,
+	companyInfo: shape({
+		login: string,
+		name: string,
+	}),
 };
 
-const UpdateCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
+const UpdateCompanyModal = ({ isShowModal, onOk, handleCancel, companyInfo }) => {
 	const intl = useIntl();
+	const [form] = Form.useForm();
 
 	const validationSchema = Yup.object().shape({
-		login: Yup.string().required(intl.formatMessage({ id: 'company.validationLoginRequired' })),
-		companyName: Yup.string().required(
-			intl.formatMessage({ id: 'company.validationCompanyNameRequired' })
-		),
+		login: Yup.string()
+			.required(intl.formatMessage({ id: 'validation.companyLoginRequired' }))
+			.min(4, intl.formatMessage({ id: 'validation.min' }, { count: 4 }))
+			.max(20, intl.formatMessage({ id: 'validation.max' }, { count: 20 })),
+		companyName: Yup.string()
+			.required(intl.formatMessage({ id: 'validation.companyNameRequired' }))
+			.min(2, intl.formatMessage({ id: 'validation.min' }, { count: 2 }))
+			.max(30, intl.formatMessage({ id: 'validation.max' }, { count: 30 })),
 	});
 
+	const initialValues = {
+		login: '',
+		companyName: '',
+	};
+
 	const formik = useFormik({
-		initialValues: {
-			login: '',
-			companyName: '',
-		},
+		initialValues,
 		validationSchema,
+		validateOnChange: false,
 		onSubmit: (values) => onOk(values),
 	});
 
-	const { handleSubmit, errors, values, handleChange, handleReset } = formik;
+	const { handleSubmit, errors, values, handleChange, setValues } = formik;
 
-	const onCancel = () => {
-		handleReset();
-		handleCancel();
-	};
+	useEffect(() => {
+		form.setFieldsValue({
+			login: companyInfo.login,
+			companyName: companyInfo.name,
+		});
+
+		setValues({
+			login: companyInfo.login,
+			companyName: companyInfo.name,
+		});
+	}, [companyInfo]);
 
 	return (
 		<Modal
 			title={intl.formatMessage({ id: 'company.update' })}
 			visible={isShowModal}
-			onOk={handleSubmit}
-			onCancel={onCancel}
+			onCancel={handleCancel}
+			okButtonProps={{
+				form: 'update-company',
+				key: 'submit',
+				htmlType: 'submit',
+				disabled:
+					companyInfo.name === values.companyName && companyInfo.login === values.login,
+			}}
 			okText={intl.formatMessage({ id: 'okModalCreateText' })}
 			cancelText={intl.formatMessage({ id: 'cancelText' })}
+			forceRender
 		>
-			<Form>
+			<Form form={form} id="update-company" onFinish={handleSubmit}>
 				<Item
 					name="companyName"
 					label={intl.formatMessage({ id: 'company.name' })}
@@ -83,5 +109,9 @@ const UpdateCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
 };
 
 UpdateCompanyModal.propTypes = propTypes;
+
+UpdateCompanyModal.defaultProps = {
+	companyInfo: { name: '', login: '' },
+};
 
 export default UpdateCompanyModal;

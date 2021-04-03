@@ -17,44 +17,51 @@ const propTypes = {
 
 const CreateCompanyModal = ({ isShowModal, onOk, handleCancel }) => {
 	const intl = useIntl();
+	const [form] = Form.useForm();
+
+	const initialValues = {
+		login: '',
+		companyName: '',
+		password: '',
+	};
 
 	const validationSchema = Yup.object().shape({
-		login: Yup.string().required(intl.formatMessage({ id: 'company.validationLoginRequired' })),
-		companyName: Yup.string().required(
-			intl.formatMessage({ id: 'company.validationCompanyNameRequired' })
-		),
-		password: Yup.string().required(
-			intl.formatMessage({ id: 'company.validationPasswordRequired' })
-		),
+		login: Yup.string()
+			.required(intl.formatMessage({ id: 'validation.companyLoginRequired' }))
+			.min(4, intl.formatMessage({ id: 'validation.min' }, { count: 4 }))
+			.max(20, intl.formatMessage({ id: 'validation.max' }, { count: 20 })),
+		companyName: Yup.string()
+			.required(intl.formatMessage({ id: 'validation.companyNameRequired' }))
+			.min(2, intl.formatMessage({ id: 'validation.min' }, { count: 2 }))
+			.max(30, intl.formatMessage({ id: 'validation.max' }, { count: 30 })),
+		password: Yup.string()
+			.required(intl.formatMessage({ id: 'validation.companyPasswordRequired' }))
+			.min(8, intl.formatMessage({ id: 'validation.min' }, { count: 8 }))
+			.max(20, intl.formatMessage({ id: 'validation.max' }, { count: 20 })),
 	});
 
 	const formik = useFormik({
-		initialValues: {
-			login: '',
-			companyName: '',
-			password: '',
-		},
+		initialValues,
 		validationSchema,
-		onSubmit: (values) => onOk(values),
+		validateOnChange: false,
+		onSubmit: async (values) => {
+			onOk(values);
+			form.resetFields();
+		},
 	});
 
-	const { handleSubmit, errors, values, handleChange, handleReset } = formik;
-
-	const onCancel = () => {
-		handleReset();
-		handleCancel();
-	};
+	const { handleSubmit, errors, values, handleChange } = formik;
 
 	return (
 		<Modal
 			title={intl.formatMessage({ id: 'company.create' })}
 			visible={isShowModal}
-			onOk={handleSubmit}
-			onCancel={onCancel}
+			onCancel={handleCancel}
+			okButtonProps={{ form: 'create-company', key: 'submit', htmlType: 'submit' }}
 			okText={intl.formatMessage({ id: 'okModalCreateText' })}
 			cancelText={intl.formatMessage({ id: 'cancelText' })}
 		>
-			<Form>
+			<Form form={form} id="create-company" onFinish={handleSubmit}>
 				<Item
 					name="companyName"
 					label={intl.formatMessage({ id: 'company.name' })}

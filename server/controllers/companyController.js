@@ -83,9 +83,9 @@ const updateCompany = ({ body: { login, companyName, id } }, res) => {
 			return responseJSON(res, 500, { message: 'serverError', error });
 		}
 
-		const { rowCount } = result;
+		const { rowCount, rows } = result;
 
-		if (rowCount) {
+		if (rowCount && rows[0].id !== id) {
 			return responseJSON(res, 200, {
 				message: 'company.exist',
 			});

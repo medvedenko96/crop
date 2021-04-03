@@ -86,6 +86,7 @@ const MenuComponent = ({
 				isShowModal={showUpdateCompanyModal}
 				onOk={onSubmitUpdateCompanyModal}
 				handleCancel={onCloseUpdateCompanyModal}
+				companyInfo={companiesById[companyId]}
 			/>
 		</>
 	);

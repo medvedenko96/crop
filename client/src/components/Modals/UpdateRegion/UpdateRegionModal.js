@@ -1,8 +1,8 @@
-import React from 'react';
-import { func, bool } from 'prop-types';
+import React, { useEffect } from 'react';
+import { func, bool, shape, string } from 'prop-types';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { useIntl } from 'react-intl';
+import * as Yup from 'yup';
 
 /* @Antd */
 import { Input, Modal, Form } from 'antd';
@@ -13,51 +13,70 @@ const propTypes = {
 	isShowModal: bool,
 	onOk: func,
 	handleCancel: func,
+	regionInfo: shape({
+		name: string,
+	}),
 };
 
-const UpdateRegionModal = ({ isShowModal, onOk, handleCancel }) => {
+const UpdateRegionModal = ({ isShowModal, onOk, handleCancel, regionInfo }) => {
 	const intl = useIntl();
+	const [form] = Form.useForm();
+
+	const initialValues = {
+		regionName: '',
+	};
 
 	const validationSchema = Yup.object().shape({
-		regionName: Yup.string().required(
-			intl.formatMessage({ id: 'region.validationNewRegionNameRequired' })
-		),
+		regionName: Yup.string()
+			.required(intl.formatMessage({ id: 'validation.newRegionNameRequired' }))
+			.min(4, intl.formatMessage({ id: 'validation.min' }, { count: 4 }))
+			.max(50, intl.formatMessage({ id: 'validation.max' }, { count: 50 })),
 	});
 
 	const formik = useFormik({
-		initialValues: {
-			regionName: '',
-		},
+		initialValues,
 		validationSchema,
+		validateOnChange: false,
 		onSubmit: (values) => onOk(values),
 	});
 
-	const { handleSubmit, errors, values, handleChange, handleReset } = formik;
+	const { handleSubmit, errors, values, handleChange, setValues } = formik;
 
-	const onCancel = () => {
-		handleReset();
-		handleCancel();
-	};
+	useEffect(() => {
+		form.setFieldsValue({
+			regionName: regionInfo.name,
+		});
+
+		setValues({
+			regionName: regionInfo.name,
+		});
+	}, [regionInfo]);
 
 	return (
 		<Modal
 			title={intl.formatMessage({ id: 'region.updateName' })}
 			visible={isShowModal}
-			onOk={handleSubmit}
-			onCancel={onCancel}
+			onCancel={handleCancel}
+			okButtonProps={{
+				form: 'update-region',
+				key: 'submit',
+				htmlType: 'submit',
+				disabled: regionInfo.name === values.regionName,
+			}}
 			okText={intl.formatMessage({ id: 'okModalSaveText' })}
 			cancelText={intl.formatMessage({ id: 'cancelText' })}
+			forceRender
 		>
-			<Form>
+			<Form form={form} id="update-region" onFinish={handleSubmit}>
 				<Item
 					name="regionName"
 					label={intl.formatMessage({ id: 'region.newName' })}
-					validateStatus={errors.login}
+					validateStatus={errors.regionName}
 					onChange={handleChange}
-					value={values.login}
-					{...(errors.login && {
+					value={values.regionName}
+					{...(errors.regionName && {
 						validateStatus: 'error',
-						help: errors.login,
+						help: errors.regionName,
 					})}
 				>
 					<Input />
@@ -68,5 +87,9 @@ const UpdateRegionModal = ({ isShowModal, onOk, handleCancel }) => {
 };
 
 UpdateRegionModal.propTypes = propTypes;
+
+UpdateRegionModal.defaultProps = {
+	regionInfo: { name: '' },
+};
 
 export default UpdateRegionModal;

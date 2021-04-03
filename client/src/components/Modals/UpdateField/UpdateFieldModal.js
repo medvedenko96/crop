@@ -1,8 +1,8 @@
-import React from 'react';
-import { func, bool } from 'prop-types';
+import React, { useEffect } from 'react';
+import { func, bool, shape, string } from 'prop-types';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { useIntl } from 'react-intl';
+import * as Yup from 'yup';
 
 /* @Antd */
 import { Input, Modal, Form } from 'antd';
@@ -13,51 +13,70 @@ const propTypes = {
 	isShowModal: bool,
 	onOk: func,
 	handleCancel: func,
+	fieldInfo: shape({
+		name: string,
+	}),
 };
 
-const UpdateFieldModal = ({ isShowModal, onOk, handleCancel }) => {
+const UpdateFieldModal = ({ isShowModal, onOk, handleCancel, fieldInfo }) => {
 	const intl = useIntl();
+	const [form] = Form.useForm();
+
+	const initialValues = {
+		fieldName: '',
+	};
 
 	const validationSchema = Yup.object().shape({
-		fieldName: Yup.string().required(
-			intl.formatMessage({ id: 'field.validationNewFieldNameRequired' })
-		),
+		fieldName: Yup.string()
+			.required(intl.formatMessage({ id: 'validation.newFieldNameRequired' }))
+			.min(4, intl.formatMessage({ id: 'validation.min' }, { count: 4 }))
+			.max(50, intl.formatMessage({ id: 'validation.max' }, { count: 50 })),
 	});
 
 	const formik = useFormik({
-		initialValues: {
-			fieldName: '',
-		},
+		initialValues,
 		validationSchema,
+		validateOnChange: false,
 		onSubmit: (values) => onOk(values),
 	});
 
-	const { handleSubmit, errors, values, handleChange, handleReset } = formik;
+	const { handleSubmit, errors, values, handleChange, setValues } = formik;
 
-	const onCancel = () => {
-		handleReset();
-		handleCancel();
-	};
+	useEffect(() => {
+		form.setFieldsValue({
+			fieldName: fieldInfo.name,
+		});
+
+		setValues({
+			fieldName: fieldInfo.name,
+		});
+	}, [fieldInfo]);
 
 	return (
 		<Modal
 			title={intl.formatMessage({ id: 'field.updateName' })}
 			visible={isShowModal}
-			onOk={handleSubmit}
-			onCancel={onCancel}
+			onCancel={handleCancel}
+			okButtonProps={{
+				form: 'update-field',
+				key: 'submit',
+				htmlType: 'submit',
+				disabled: fieldInfo.name === values.fieldName,
+			}}
 			okText={intl.formatMessage({ id: 'okModalSaveText' })}
 			cancelText={intl.formatMessage({ id: 'cancelText' })}
+			forceRender
 		>
-			<Form>
+			<Form form={form} id="update-field" onFinish={handleSubmit}>
 				<Item
 					name="fieldName"
 					label={intl.formatMessage({ id: 'field.newName' })}
-					validateStatus={errors.login}
+					validateStatus={errors.fieldName}
 					onChange={handleChange}
-					value={values.login}
-					{...(errors.login && {
+					value={values.fieldName}
+					{...(errors.fieldName && {
 						validateStatus: 'error',
-						help: errors.login,
+						help: errors.fieldName,
 					})}
 				>
 					<Input />
@@ -68,5 +87,9 @@ const UpdateFieldModal = ({ isShowModal, onOk, handleCancel }) => {
 };
 
 UpdateFieldModal.propTypes = propTypes;
+
+UpdateFieldModal.defaultProps = {
+	fieldInfo: { name: '' },
+};
 
 export default UpdateFieldModal;
