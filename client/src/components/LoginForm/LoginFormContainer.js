@@ -7,7 +7,7 @@ import { useIntl } from 'react-intl';
 import LoginFormComponent from './LoginFormComponent';
 
 /* @Actions */
-import { loginManagerActions } from '../../store/manager/actions';
+import { loginManagerActions } from 'store/manager/actions';
 
 const propTypes = {
 	login: func,
@@ -19,7 +19,7 @@ const LoginFormContainer = ({ login }) => {
 
 	const handleSubmitButtonClick = async (values) => {
 		const { isAuth, message = '' } = await login(values);
-		!!isAuth && setServerError(message && intl.formatMessage({ id: message }));
+		!isAuth && setServerError(message && intl.formatMessage({ id: message }));
 	};
 
 	return (

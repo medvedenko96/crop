@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { func, bool, shape, string } from 'prop-types';
+import { func, bool, shape, string, object } from 'prop-types';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useIntl } from 'react-intl';
 
 /* @Antd */
 import { Input, Modal, Form } from 'antd';
@@ -10,6 +9,7 @@ import { Input, Modal, Form } from 'antd';
 const { Item } = Form;
 
 const propTypes = {
+	intl: object,
 	isShowModal: bool,
 	onOk: func,
 	handleCancel: func,
@@ -19,8 +19,7 @@ const propTypes = {
 	}),
 };
 
-const UpdateCompanyModal = ({ isShowModal, onOk, handleCancel, companyInfo }) => {
-	const intl = useIntl();
+const UpdateCompanyModal = ({ intl, isShowModal, onOk, handleCancel, companyInfo }) => {
 	const [form] = Form.useForm();
 
 	const validationSchema = Yup.object().shape({

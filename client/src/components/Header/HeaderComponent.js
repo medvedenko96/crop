@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 
 /* @Antd */
 import { Row, Col } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+
+/* @Icons */
+import UserOutlined from '@ant-design/icons/UserOutlined';
 
 import styles from './Header.module.css';
 

@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import { Button, List } from 'antd';
 
 /* @Components */
-import { CreateRegionModal, UpdateRegionModal } from '../Modals';
+import { CreateRegionModal, UpdateRegionModal } from 'components/Modals';
 
 /* @Styles */
 import styles from './RegionList.module.css';
@@ -112,11 +112,13 @@ const RegionsListComponent = ({
 				</Button>
 			</div>
 			<CreateRegionModal
+				intl={intl}
 				isShowModal={isShowCreateRegionModal}
 				onOk={onSubmitCreateRegionModal}
 				handleCancel={onCancel}
 			/>
 			<UpdateRegionModal
+				intl={intl}
 				isShowModal={isShowUpdateRegionModal}
 				onOk={onUpdateRegionModal}
 				handleCancel={onCancel}

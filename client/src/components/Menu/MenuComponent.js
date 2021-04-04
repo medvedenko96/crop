@@ -6,10 +6,12 @@ import { Link } from 'react-router-dom';
 import { Menu, Dropdown } from 'antd';
 
 /* @Components */
-import { CreateCompanyModal, UpdateCompanyModal } from '../Modals';
+import { CreateCompanyModal, UpdateCompanyModal } from 'components/Modals';
 
 /* @Icons */
-import { AppstoreAddOutlined, DeleteOutlined, EllipsisOutlined } from '@ant-design/icons';
+import AppstoreAddOutlined from '@ant-design/icons/AppstoreAddOutlined';
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
+import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined';
 
 /* @Styles */
 import styles from './Menu.module.css';
@@ -78,11 +80,13 @@ const MenuComponent = ({
 				))}
 			</Menu>
 			<CreateCompanyModal
+				intl={intl}
 				isShowModal={showCreateCompanyModal}
 				onOk={onSubmitCreateCompanyModal}
 				handleCancel={onCloseCreateCompanyModal}
 			/>
 			<UpdateCompanyModal
+				intl={intl}
 				isShowModal={showUpdateCompanyModal}
 				onOk={onSubmitUpdateCompanyModal}
 				handleCancel={onCloseUpdateCompanyModal}

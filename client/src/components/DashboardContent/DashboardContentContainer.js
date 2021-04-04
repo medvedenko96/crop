@@ -8,11 +8,11 @@ import parseInt from 'lodash/parseInt';
 import DashboardContentComponent from './DashboardContentComponent';
 
 /* @Actions */
-import { setCurrentFieldIdAction } from '../../store/field/actions';
-import { setCurrentRegionIdAction } from '../../store/region/actions';
+import { setCurrentFieldIdAction } from 'store/field/actions';
+import { setCurrentRegionIdAction } from 'store/region/actions';
 
 /* @Selectors */
-import { getCurrentCompanySelector } from '../../store/company/selectors';
+import { getCurrentCompanySelector } from 'store/company/selectors';
 
 const propTypes = {
 	company: shape({

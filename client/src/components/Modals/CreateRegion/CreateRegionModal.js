@@ -1,8 +1,7 @@
 import React from 'react';
-import { func, bool } from 'prop-types';
+import { func, bool, object } from 'prop-types';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useIntl } from 'react-intl';
 
 /* @Antd */
 import { Input, Modal, Form } from 'antd';
@@ -10,13 +9,13 @@ import { Input, Modal, Form } from 'antd';
 const { Item } = Form;
 
 const propTypes = {
+	intl: object,
 	isShowModal: bool,
 	onOk: func,
 	handleCancel: func,
 };
 
-const CreateRegionModal = ({ isShowModal, onOk, handleCancel }) => {
-	const intl = useIntl();
+const CreateRegionModal = ({ intl, isShowModal, onOk, handleCancel }) => {
 	const [form] = Form.useForm();
 
 	const initialValues = {

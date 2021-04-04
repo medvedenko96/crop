@@ -3,13 +3,13 @@ import { func, number, string, bool } from 'prop-types';
 import { connect } from 'react-redux';
 
 /* @Actions */
-import { getManagerInfoActions } from '../../store/manager/actions';
+import { getManagerInfoActions } from 'store/manager/actions';
 
 /* @Component */
 import PrivateRouteComponent from './PrivateRouteComponent';
 
 /* @Helpers */
-import useToken from '../../helpers/useToken';
+import useToken from 'helpers/useToken';
 
 const propTypes = {
 	id: number,

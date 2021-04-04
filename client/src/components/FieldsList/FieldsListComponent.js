@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import { Button, List } from 'antd';
 
 /* @Components */
-import { CreateFieldModal, UpdateFieldModal } from '../Modals';
+import { CreateFieldModal, UpdateFieldModal } from 'components/Modals';
 
 /* @Styles */
 import styles from './FieldsList.module.css';
@@ -109,11 +109,13 @@ const FieldsListComponent = ({
 				</Button>
 			</div>
 			<CreateFieldModal
+				intl={intl}
 				isShowModal={isShowCreateFieldModal}
 				onOk={onSubmitCreateFieldModal}
 				handleCancel={onCancelModal}
 			/>
 			<UpdateFieldModal
+				intl={intl}
 				isShowModal={isShowUpdateFieldModal}
 				onOk={onUpdateField}
 				handleCancel={onCancelModal}

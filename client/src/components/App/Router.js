@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 /* @Components */
-import PrivateRoute from '../PrivateRoute';
-import MangerLogin from '../../pages/MangerPages/Login';
+import PrivateRoute from 'components/PrivateRoute';
+import MangerLogin from 'pages/MangerPages/Login';
 
 /* @Pages */
 import Dashboard from '../../pages/MangerPages/Dashboard';

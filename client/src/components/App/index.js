@@ -5,7 +5,7 @@ import { IntlProvider, ReactIntlErrorCode } from 'react-intl';
 import Router from './Router';
 
 /* @Utils */
-import { flattenMessages } from '../../utils/flattenMessages';
+import { flattenMessages } from 'utils/flattenMessages';
 
 /* @locales */
 import locales from './locales';

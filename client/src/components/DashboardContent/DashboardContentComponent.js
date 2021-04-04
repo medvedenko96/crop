@@ -5,8 +5,8 @@ import { shape, string } from 'prop-types';
 import { Divider, Empty } from 'antd';
 
 /* @Components */
-import RegionsList from '../RegionsList';
-import FieldsList from '../FieldsList';
+import RegionsList from 'components/RegionsList';
+import FieldsList from 'components/FieldsList';
 
 /* @Styles */
 import styles from './DashboardContent.module.css';

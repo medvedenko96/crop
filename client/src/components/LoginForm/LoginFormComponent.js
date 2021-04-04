@@ -5,7 +5,10 @@ import * as Yup from 'yup';
 
 /* @Antd */
 import { Form, Input, Button } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+
+/* @Icons */
+import UserOutlined from '@ant-design/icons/UserOutlined';
+import LockOutlined from '@ant-design/icons/LockOutlined';
 
 import styles from './LoginForm.module.css';
 
@@ -18,6 +21,8 @@ const propTypes = {
 };
 
 const LoginFormComponent = ({ onSubmitButtonClick, serverError, intl }) => {
+	const [form] = Form.useForm();
+
 	const validationSchema = Yup.object().shape({
 		login: Yup.string().required(intl.formatMessage({ id: 'auth.validationLoginRequired' })),
 		password: Yup.string().required(
@@ -30,17 +35,16 @@ const LoginFormComponent = ({ onSubmitButtonClick, serverError, intl }) => {
 			login: '',
 			password: '',
 		},
+		validateOnChange: false,
 		validationSchema,
-		onSubmit: (values) => {
-			onSubmitButtonClick(values);
-		},
+		onSubmit: (values) => onSubmitButtonClick(values),
 	});
 
 	const { handleSubmit, errors, values, handleChange } = formik;
 
 	return (
 		<div className={styles.wrapper}>
-			<Form onFinish={handleSubmit}>
+			<Form form={form} id="login-manager" onFinish={handleSubmit}>
 				<Item
 					name="login"
 					wrapperCol={{ span: 24, offset: 0 }}
@@ -72,13 +76,17 @@ const LoginFormComponent = ({ onSubmitButtonClick, serverError, intl }) => {
 					<Input.Password
 						prefix={<LockOutlined className={styles.input_icon} />}
 						placeholder={intl.formatMessage({ id: 'password' })}
+						autoComplete="on"
 					/>
 				</Item>
-				<Item>
-					<Button className="login-form-button" type="primary" htmlType="submit">
-						{intl.formatMessage({ id: 'auth.enter' })}
-					</Button>
-				</Item>
+				<Button
+					className="login-form-button"
+					form="login-manager"
+					type="primary"
+					htmlType="submit"
+				>
+					{intl.formatMessage({ id: 'auth.enter' })}
+				</Button>
 			</Form>
 		</div>
 	);

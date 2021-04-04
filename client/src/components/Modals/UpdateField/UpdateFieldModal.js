@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import { func, bool, shape, string } from 'prop-types';
+import { func, bool, shape, string, object } from 'prop-types';
 import { useFormik } from 'formik';
-import { useIntl } from 'react-intl';
 import * as Yup from 'yup';
 
 /* @Antd */
@@ -10,6 +9,7 @@ import { Input, Modal, Form } from 'antd';
 const { Item } = Form;
 
 const propTypes = {
+	intl: object,
 	isShowModal: bool,
 	onOk: func,
 	handleCancel: func,
@@ -18,8 +18,7 @@ const propTypes = {
 	}),
 };
 
-const UpdateFieldModal = ({ isShowModal, onOk, handleCancel, fieldInfo }) => {
-	const intl = useIntl();
+const UpdateFieldModal = ({ intl, isShowModal, onOk, handleCancel, fieldInfo }) => {
 	const [form] = Form.useForm();
 
 	const initialValues = {

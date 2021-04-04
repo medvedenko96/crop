@@ -17,12 +17,12 @@ import {
 	setCurrentFieldIdAction,
 	deleteFieldAction,
 	updateFieldAction,
-} from '../../store/field/actions';
+} from 'store/field/actions';
 
 /* @Selectors */
-import { getFieldsSelector } from '../../store/field/selectors';
-import { getRegionsSelector } from '../../store/region/selectors';
-import { getCurrentCompanyIdSelector } from '../../store/company/selectors';
+import { getFieldsSelector } from 'store/field/selectors';
+import { getRegionsSelector } from 'store/region/selectors';
+import { getCurrentCompanyIdSelector } from 'store/company/selectors';
 
 const notification = (type, message) => antdMessage[type](message);
 

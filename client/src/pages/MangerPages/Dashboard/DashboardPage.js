@@ -4,9 +4,9 @@ import React from 'react';
 import { Row, Col } from 'antd';
 
 /* @Components */
-import Menu from '../../../components/Menu';
-import Dashboard from '../../../components/DashboardContent';
-import Header from '../../../components/Header';
+import Menu from 'components/Menu';
+import Dashboard from 'components/DashboardContent';
+import Header from 'components/Header';
 
 /* @Styles */
 import styles from './DashboardPage.module.css';

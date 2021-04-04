@@ -1,5 +1,5 @@
 /* @Api */
-import { company } from '../../api';
+import { company } from 'api';
 
 /* @Constants */
 import {
@@ -11,7 +11,7 @@ import {
 } from './constants';
 
 /* @Utils */
-import { normalizedData } from '../../utils/normalized';
+import { normalizedData } from 'utils/normalized';
 
 export const createCompanyAction = (companyInfo) => async (dispatch) => {
 	const { company: newCompany, isSuccess, message } = await company.createCompany(companyInfo);

@@ -5,10 +5,10 @@ import { ConnectedRouter } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 
 /* @Components */
-import App from './components/App';
+import App from 'components/App';
 
 /* @Store */
-import configureStore from './store';
+import configureStore from 'store';
 
 const history = createBrowserHistory();
 const Store = configureStore(history);

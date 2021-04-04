@@ -12,7 +12,7 @@ import MenuComponent from './MenuComponent';
 import { message as antdMessage } from 'antd';
 
 /* @Icons */
-import { ControlOutlined } from '@ant-design/icons';
+import ControlOutlined from '@ant-design/icons/ControlOutlined';
 
 /* @Actions */
 import {

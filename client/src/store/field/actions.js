@@ -1,8 +1,8 @@
 /* @Api */
-import { field } from '../../api';
+import { field } from 'api';
 
 /* @Utils */
-import { normalizedData } from '../../utils/normalized';
+import { normalizedData } from 'utils/normalized';
 
 /* @Constants */
 import {

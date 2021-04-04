@@ -1,8 +1,8 @@
 /* @Api */
-import { region } from '../../api';
+import { region } from 'api';
 
 /* @Utils */
-import { normalizedData } from '../../utils/normalized';
+import { normalizedData } from 'utils/normalized';
 
 /* @Constants */
 import {

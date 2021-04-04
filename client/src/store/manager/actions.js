@@ -1,10 +1,10 @@
 /* @Api */
-import { auth, manager } from '../../api';
+import { auth, manager } from 'api';
 /* @Constants */
 import { SET_MANAGER_INFO, LOGIN_MANAGER, LOGOUT } from './constants';
 
 /* @Helpers */
-import useToken from '../../helpers/useToken';
+import useToken from 'helpers/useToken';
 
 export const setManagerInfoActions = (managerInfo) => (dispatch) => {
 	dispatch({

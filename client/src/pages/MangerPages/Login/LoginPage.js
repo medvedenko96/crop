@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 /* @Components */
-import LoginForm from '../../../components/LoginForm';
+import LoginForm from 'components/LoginForm';
 
 const propTypes = {
 	isAuth: bool,
