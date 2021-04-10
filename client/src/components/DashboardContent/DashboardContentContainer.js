@@ -27,8 +27,8 @@ const DashboardContentContainer = ({ company, setCurrentRegionId, setCurrentFiel
 	const { companyId, regionId, fieldId } = useParams();
 
 	useEffect(() => {
-		setCurrentRegionId(parseInt(regionId));
-		setCurrentFieldId(parseInt(fieldId));
+		regionId && setCurrentRegionId(parseInt(regionId));
+		fieldId && setCurrentFieldId(parseInt(fieldId));
 	}, [companyId, regionId, fieldId]);
 
 	return <DashboardContentComponent company={company} />;

@@ -1,0 +1,22 @@
+.wrapper {
+
+}
+
+.header {
+    box-shadow: 0 2px 8px #f0f1f2;
+}
+
+.tabsWrapper {
+    width: 100%;
+}
+
+.content {
+    display: flex;
+    padding: 32px;
+}
+
+.fieldsListWrapper {
+    max-width: 400px;
+    width: 100%;
+    padding-right: 32px;
+}

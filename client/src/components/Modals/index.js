@@ -4,6 +4,7 @@ import CreateRegionModal from './CreateRegion';
 import UpdateRegionModal from './UpdateRegion';
 import CreateFieldModal from './CreateField';
 import UpdateFieldModal from './UpdateField';
+import CreateYearModal from './CreateYear';
 
 export {
 	CreateCompanyModal,
@@ -12,4 +13,5 @@ export {
 	UpdateRegionModal,
 	CreateFieldModal,
 	UpdateFieldModal,
+	CreateYearModal,
 };

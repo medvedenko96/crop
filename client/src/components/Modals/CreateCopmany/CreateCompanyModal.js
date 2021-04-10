@@ -28,7 +28,7 @@ const CreateCompanyModal = ({ intl, isShowModal, onOk, handleCancel }) => {
 		login: Yup.string()
 			.required(intl.formatMessage({ id: 'validation.companyLoginRequired' }))
 			.min(4, intl.formatMessage({ id: 'validation.min' }, { count: 4 }))
-			.max(20, intl.formatMessage({ id: 'validation.max' }, { count: 20 })),
+			.max(30, intl.formatMessage({ id: 'validation.max' }, { count: 30 })),
 		companyName: Yup.string()
 			.required(intl.formatMessage({ id: 'validation.companyNameRequired' }))
 			.min(2, intl.formatMessage({ id: 'validation.min' }, { count: 2 }))

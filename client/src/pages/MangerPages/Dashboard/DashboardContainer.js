@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 /* @Components */
-import DashboardPage from './DashboardPage';
+import DashboardPageComponent from './DashboardPageComponent';
 
 const propTypes = {};
 
 const DashboardContainer = () => {
-	return <DashboardPage />;
+	return <DashboardPageComponent />;
 };
 
 DashboardContainer.propTypes = propTypes;

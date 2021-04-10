@@ -1,8 +1,7 @@
 const FIELD = 'FIELD';
-const FIELDS = 'FIELDS';
 
-export const SET_FIELDS = `SET_${FIELDS}`;
-export const CREATE_FIELD = `CREATE_${FIELD}`;
-export const DELETE_FIELD = `DELETE_${FIELD}`;
-export const UPDATE_FIELD = `UPDATE_${FIELD}`;
-export const SET_CURRENT_FIELD_ID = `SET_CURRENT_${FIELD}_ID`;
+export const SET_FIELDS = `${FIELD}_SET_FIELDS`;
+export const CREATE_FIELD = `${FIELD}_CREATE_FIELD`;
+export const DELETE_FIELD = `${FIELD}_DELETE_FIELD`;
+export const UPDATE_FIELD = `${FIELD}_UPDATE_FIELD`;
+export const SET_CURRENT_FIELD_ID = `${FIELD}_SET_CURRENT_FIELD_ID`;

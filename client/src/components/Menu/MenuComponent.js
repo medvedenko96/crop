@@ -1,6 +1,5 @@
 import React from 'react';
 import { array, func, string, object, bool } from 'prop-types';
-import { Link } from 'react-router-dom';
 
 /* @Antd */
 import { Menu, Dropdown } from 'antd';
@@ -61,13 +60,13 @@ const MenuComponent = ({
 
 	return (
 		<>
-			<Menu onClick={onClick} selectedKeys={[companyId]}>
+			<Menu onClick={onClick} selectedKeys={[companyId?.toString()]}>
 				{menuItem.map((el) => (
 					<ItemGroup key={el.title} title={el.title}>
 						{el.items.map((id) => {
 							return (
 								<Item key={id} className={styles.itemWrapper}>
-									<Link to={`/dashboard/${id}`}>{companiesById[id].name}</Link>
+									<div>{companiesById[id].name}</div>
 									{parseInt(companyId) === id && (
 										<Dropdown overlay={menu}>
 											<EllipsisOutlined className={styles.iconWrapper} />

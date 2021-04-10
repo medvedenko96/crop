@@ -87,13 +87,13 @@ const FieldsListComponent = ({
 									</span>,
 								]}
 							>
-								<span
+								<div
 									className={cx(styles.listActionText, {
 										listActionTextActive: activeItem,
 									})}
 								>
 									{fieldsById[id].name}
-								</span>
+								</div>
 							</List.Item>
 						);
 					}}

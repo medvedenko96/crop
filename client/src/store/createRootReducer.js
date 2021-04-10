@@ -5,6 +5,7 @@ import user from './manager/reduser';
 import companies from './company/reduser';
 import regions from './region/reduser';
 import fields from './field/reduser';
+import years from './year/reduser';
 
 export default (history) =>
-	combineReducers({ router: connectRouter(history), user, companies, regions, fields });
+	combineReducers({ router: connectRouter(history), user, companies, regions, fields, years });

@@ -22,6 +22,8 @@ import {
 	createCompanyAction,
 	updateCompanyAction,
 } from '../../store/company/actions';
+import { setCurrentRegionIdAction } from '../../store/region/actions';
+import { setCurrentFieldIdAction } from '../../store/field/actions';
 
 /* @Styles */
 import styles from './Menu.module.css';
@@ -34,6 +36,8 @@ const propTypes = {
 	deleteCompany: func,
 	createCompany: func,
 	updateCompany: func,
+	setCurrentRegionId: func,
+	setCurrentFieldId: func,
 	goTo: func,
 	companiesIds: array,
 	companiesById: object,
@@ -46,6 +50,8 @@ const MenuContainer = ({
 	deleteCompany,
 	createCompany,
 	updateCompany,
+	setCurrentRegionId,
+	setCurrentFieldId,
 	goTo,
 	companiesIds,
 	companiesById,
@@ -66,23 +72,17 @@ const MenuContainer = ({
 	const [showUpdateCompanyModal, setShowUpdateCompanyModal] = useState(false);
 
 	const onOpenCreateCompanyModal = () => setShowCreateCompanyModal(true);
-
-	const menuItem = [
-		{
-			title: (
-				<div className={styles.titleMenu} onClick={onOpenCreateCompanyModal}>
-					<span>{intl.formatMessage({ id: 'companies' })}</span>
-					<ControlOutlined className={styles.titleMenuIcon} />
-				</div>
-			),
-			items: companiesIds,
-		},
-	];
-
 	const handleCloseCreateCompanyModal = () => setShowCreateCompanyModal(false);
 	const handleCloseUpdateCompanyModal = () => setShowUpdateCompanyModal(false);
 
-	const handleClick = ({ key }) => setCurrentCompanyId(parseInt(key));
+	const handleClick = ({ key }) => {
+		const url = `/dashboard/${key}`;
+
+		setCurrentCompanyId(parseInt(key));
+		setCurrentRegionId(null);
+		setCurrentFieldId(null);
+		goTo(url);
+	};
 
 	const handleDeleteClick = async (id) => {
 		const { isSuccess, message } = await deleteCompany(id);
@@ -134,12 +134,24 @@ const MenuContainer = ({
 		}
 	};
 
+	const menuItem = [
+		{
+			title: (
+				<div className={styles.titleMenu} onClick={onOpenCreateCompanyModal}>
+					<span>{intl.formatMessage({ id: 'companies' })}</span>
+					<ControlOutlined className={styles.titleMenuIcon} />
+				</div>
+			),
+			items: companiesIds,
+		},
+	];
+
 	return (
 		<MenuComponent
 			intl={intl}
 			menuItem={menuItem}
 			onClick={handleClick}
-			companyId={companyId}
+			companyId={currentCompanyId}
 			companiesById={companiesById}
 			showCreateCompanyModal={showCreateCompanyModal}
 			showUpdateCompanyModal={showUpdateCompanyModal}
@@ -172,6 +184,8 @@ const mapDispatchToProps = {
 	deleteCompany: deleteCompanyAction,
 	createCompany: createCompanyAction,
 	updateCompany: updateCompanyAction,
+	setCurrentRegionId: setCurrentRegionIdAction,
+	setCurrentFieldId: setCurrentFieldIdAction,
 	goTo: push,
 };
 

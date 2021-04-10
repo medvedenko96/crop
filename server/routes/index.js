@@ -5,6 +5,7 @@ const authController = require('../controllers/authController');
 const companyController = require('../controllers/companyController');
 const regionController = require('../controllers/regionController');
 const fieldController = require('../controllers/fieldController');
+const yearController = require('../controllers/yearController');
 
 const router = express.Router();
 
@@ -33,5 +34,10 @@ router.post('/create-field', fieldController.createField);
 router.get('/get-fields', fieldController.getFields);
 router.delete('/delete-field', fieldController.deleteField);
 router.post('/update-field', fieldController.updateField);
+
+// year
+router.post('/create-year', yearController.createYear);
+router.get('/get-years', yearController.getYears);
+router.delete('/delete-year', yearController.deleteYear);
 
 module.exports = router;

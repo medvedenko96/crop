@@ -22,16 +22,11 @@
 }
 
 .listItem:hover {
-    cursor: pointer;
     background-color: #f0f0f0;
 }
 
 .listItemActive {
     background-color: #d8e6df !important;
-}
-
-.listItemActive:before {
-
 }
 
 .actionItem {
@@ -40,10 +35,10 @@
 }
 
 .listActionText:hover {
-    cursor: pointer;
 }
 
 .listActionText {
+    cursor: pointer;
     width: 100%;
 }
 

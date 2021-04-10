@@ -11,7 +11,7 @@ import Header from 'components/Header';
 /* @Styles */
 import styles from './DashboardPage.module.css';
 
-const DashboardPage = () => (
+const DashboardPageComponent = () => (
 	<div className={styles.wrapper}>
 		<Header />
 		<div className={styles.mainWrapper}>
@@ -27,4 +27,4 @@ const DashboardPage = () => (
 	</div>
 );
 
-export default DashboardPage;
+export default DashboardPageComponent;

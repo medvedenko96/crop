@@ -18,11 +18,13 @@ import {
 	deleteFieldAction,
 	updateFieldAction,
 } from 'store/field/actions';
+import { getYearsAction, setCurrentYearIdAction } from 'store/year/actions';
 
 /* @Selectors */
 import { getFieldsSelector } from 'store/field/selectors';
 import { getRegionsSelector } from 'store/region/selectors';
 import { getCurrentCompanyIdSelector } from 'store/company/selectors';
+import { getYearsSelector } from 'store/year/selectors';
 
 const notification = (type, message) => antdMessage[type](message);
 
@@ -32,12 +34,15 @@ const propTypes = {
 	setCurrentFieldId: func,
 	deleteField: func,
 	updateField: func,
+	getYears: func,
+	setCurrentYearId: func,
 	goTo: func,
 	currentCompanyId: number,
 	currentRegionId: number,
 	currentFieldId: number,
 	fieldsById: object,
 	fieldsIds: object,
+	yearsIds: object,
 };
 
 const FieldsListContainer = ({
@@ -46,12 +51,15 @@ const FieldsListContainer = ({
 	setCurrentFieldId,
 	deleteField,
 	updateField,
+	getYears,
+	setCurrentYearId,
 	goTo,
 	currentCompanyId,
 	currentRegionId,
 	currentFieldId,
 	fieldsById,
 	fieldsIds,
+	yearsIds,
 }) => {
 	useEffect(() => {
 		if (!!currentRegionId && !fieldsIds[currentRegionId]) {
@@ -110,8 +118,10 @@ const FieldsListContainer = ({
 	};
 
 	const handleFieldClick = (id) => {
-		const url = `/dashboard/${currentCompanyId}/${currentRegionId}/${id}`;
+		const url = `/field/${currentRegionId}/${id}`;
 
+		!yearsIds[id] && getYears(id);
+		setCurrentYearId(null);
 		setCurrentFieldId(id);
 		goTo(url);
 	};
@@ -159,12 +169,15 @@ const mapDispatchToProps = {
 	setCurrentFieldId: setCurrentFieldIdAction,
 	deleteField: deleteFieldAction,
 	updateField: updateFieldAction,
+	getYears: getYearsAction,
+	setCurrentYearId: setCurrentYearIdAction,
 	goTo: push,
 };
 
 const mapStateToProps = (state) => {
 	const { currentRegionId } = getRegionsSelector(state);
 	const { fieldsById, fieldsIds, currentFieldId } = getFieldsSelector(state);
+	const { yearsIds } = getYearsSelector(state);
 
 	return {
 		currentCompanyId: getCurrentCompanyIdSelector(state),
@@ -172,6 +185,7 @@ const mapStateToProps = (state) => {
 		fieldsById,
 		fieldsIds,
 		currentFieldId,
+		yearsIds,
 	};
 };
 
