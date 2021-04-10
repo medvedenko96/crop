@@ -34,4 +34,14 @@ export default {
 
 		return data;
 	},
+
+	async updateCompanyPassword({ secretKey, password, id }) {
+		const { data } = await axios.post('/api/update-company-password', {
+			secretKey,
+			password,
+			id,
+		});
+
+		return data;
+	},
 };

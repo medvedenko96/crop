@@ -21,6 +21,7 @@ import {
 	deleteCompanyAction,
 	createCompanyAction,
 	updateCompanyAction,
+	updateCompanyPasswordAction,
 } from '../../store/company/actions';
 import { setCurrentRegionIdAction } from '../../store/region/actions';
 import { setCurrentFieldIdAction } from '../../store/field/actions';
@@ -36,6 +37,7 @@ const propTypes = {
 	deleteCompany: func,
 	createCompany: func,
 	updateCompany: func,
+	updateCompanyPassword: func,
 	setCurrentRegionId: func,
 	setCurrentFieldId: func,
 	goTo: func,
@@ -50,6 +52,7 @@ const MenuContainer = ({
 	deleteCompany,
 	createCompany,
 	updateCompany,
+	updateCompanyPassword,
 	setCurrentRegionId,
 	setCurrentFieldId,
 	goTo,
@@ -70,10 +73,12 @@ const MenuContainer = ({
 
 	const [showCreateCompanyModal, setShowCreateCompanyModal] = useState(false);
 	const [showUpdateCompanyModal, setShowUpdateCompanyModal] = useState(false);
+	const [showUpdateCompanyPasswordModal, setShowUpdateCompanyPasswordModal] = useState(false);
 
 	const onOpenCreateCompanyModal = () => setShowCreateCompanyModal(true);
 	const handleCloseCreateCompanyModal = () => setShowCreateCompanyModal(false);
 	const handleCloseUpdateCompanyModal = () => setShowUpdateCompanyModal(false);
+	const handleCloseUpdateCompanyPasswordModal = () => setShowUpdateCompanyPasswordModal(false);
 
 	const handleClick = ({ key }) => {
 		const url = `/dashboard/${key}`;
@@ -124,13 +129,32 @@ const MenuContainer = ({
 		notification('warning', intl.formatMessage({ id: message }));
 	};
 
+	const handleSubmitUpdateCompanyPasswordModal = async (values) => {
+		const { isSuccess, message } = await updateCompanyPassword({
+			...values,
+			id: currentCompanyId,
+		});
+
+		if (isSuccess) {
+			setShowUpdateCompanyPasswordModal(false);
+			notification('success', intl.formatMessage({ id: message }));
+			return;
+		}
+
+		notification('warning', intl.formatMessage({ id: message }));
+	};
+
 	const handleDropdownMenuClick = ({ key }) => {
 		if (key === 'delete') {
 			handleDeleteClick(currentCompanyId);
 		}
 
-		if (key === 'edit') {
+		if (key === 'update') {
 			setShowUpdateCompanyModal(true);
+		}
+
+		if (key === 'updatePassword') {
+			setShowUpdateCompanyPasswordModal(true);
 		}
 	};
 
@@ -155,10 +179,13 @@ const MenuContainer = ({
 			companiesById={companiesById}
 			showCreateCompanyModal={showCreateCompanyModal}
 			showUpdateCompanyModal={showUpdateCompanyModal}
+			showUpdateCompanyPasswordModal={showUpdateCompanyPasswordModal}
 			onCloseCreateCompanyModal={handleCloseCreateCompanyModal}
 			onCloseUpdateCompanyModal={handleCloseUpdateCompanyModal}
+			onCloseUpdateCompanyPasswordModal={handleCloseUpdateCompanyPasswordModal}
 			onSubmitCreateCompanyModal={handleSubmitCreateCompanyModal}
 			onSubmitUpdateCompanyModal={handleSubmitUpdateCompanyModal}
+			onSubmitUpdateCompanyPasswordModal={handleSubmitUpdateCompanyPasswordModal}
 			onDropdownMenuClick={handleDropdownMenuClick}
 		/>
 	);
@@ -184,6 +211,7 @@ const mapDispatchToProps = {
 	deleteCompany: deleteCompanyAction,
 	createCompany: createCompanyAction,
 	updateCompany: updateCompanyAction,
+	updateCompanyPassword: updateCompanyPasswordAction,
 	setCurrentRegionId: setCurrentRegionIdAction,
 	setCurrentFieldId: setCurrentFieldIdAction,
 	goTo: push,

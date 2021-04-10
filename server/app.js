@@ -2,13 +2,11 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-
+const config = require('./config');
 const { authenticateToken } = require('./middlewares/authenticateToken');
 
-const isProduction = process.env.NODE_ENV === 'production';
-
 const origin = {
-	origin: isProduction ? process.env.DOMEN : '*',
+	origin: config.IS_PRODUCTION ? process.env.DOMEN : '*',
 };
 
 const app = express();
@@ -22,7 +20,7 @@ app.use(cors(origin));
 
 app.use('/api', authenticateToken, require('./routes'));
 
-if (isProduction) {
+if (config.IS_PRODUCTION) {
 	const dirname = __dirname.replace('/server', '');
 	app.use(express.static('client/build'));
 

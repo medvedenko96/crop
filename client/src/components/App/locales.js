@@ -12,6 +12,7 @@ const locales = {
 		okModalDeleteText: 'Видалити',
 		cancelText: 'Скасувати',
 		serverError: 'Помилка сервера',
+		secretKey: 'Ключ',
 		notFound: {
 			subTitle: 'На жаль, відвіданої вами сторінки не існує.',
 			buttonText: 'На головну',
@@ -25,6 +26,7 @@ const locales = {
 		company: {
 			create: 'Створити компанію',
 			update: 'Редагувати компанію',
+			updatePassword: 'Оновити пароль',
 			delete: 'Видалити компанію',
 			login: 'Логін компанії',
 			name: 'Назва',
@@ -34,6 +36,8 @@ const locales = {
 			createSuccess: 'Компанію успішно створнео',
 			updated: 'Компанію успішно оновлено',
 			notUpdated: 'Компанію не оновлено',
+			passwordNotUpdated: 'Пароль не оновлено',
+			passwordUpdated: 'Пароль успішно оновлено',
 		},
 		field: {
 			add: 'Додати поле',
@@ -74,6 +78,7 @@ const locales = {
 			year: 'Рік поля введено не коректно',
 			yearRequired: 'Будь ласка введіть рік посіву!',
 			cropRequired: 'Будь ласка введіть культуру!',
+			secretKey: 'Будь ласка введіть ключ!',
 		},
 		year: {
 			added: 'Рік успішно додано',

@@ -5,12 +5,17 @@ import { array, func, string, object, bool } from 'prop-types';
 import { Menu, Dropdown } from 'antd';
 
 /* @Components */
-import { CreateCompanyModal, UpdateCompanyModal } from 'components/Modals';
+import {
+	CreateCompanyModal,
+	UpdateCompanyModal,
+	UpdateCompanyPasswordModal,
+} from 'components/Modals';
 
 /* @Icons */
 import AppstoreAddOutlined from '@ant-design/icons/AppstoreAddOutlined';
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
 import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined';
+import UnlockOutlined from '@ant-design/icons/UnlockOutlined';
 
 /* @Styles */
 import styles from './Menu.module.css';
@@ -26,10 +31,13 @@ const propTypes = {
 	companiesById: object,
 	showCreateCompanyModal: bool,
 	showUpdateCompanyModal: bool,
+	showUpdateCompanyPasswordModal: bool,
 	onCloseCreateCompanyModal: func,
 	onCloseUpdateCompanyModal: func,
+	onCloseUpdateCompanyPasswordModal: func,
 	onSubmitCreateCompanyModal: func,
 	onSubmitUpdateCompanyModal: func,
+	onSubmitUpdateCompanyPasswordModal: func,
 	onDropdownMenuClick: func,
 };
 
@@ -41,16 +49,22 @@ const MenuComponent = ({
 	companiesById,
 	showCreateCompanyModal,
 	showUpdateCompanyModal,
+	showUpdateCompanyPasswordModal,
 	onCloseCreateCompanyModal,
 	onCloseUpdateCompanyModal,
+	onCloseUpdateCompanyPasswordModal,
 	onSubmitCreateCompanyModal,
 	onSubmitUpdateCompanyModal,
+	onSubmitUpdateCompanyPasswordModal,
 	onDropdownMenuClick,
 }) => {
 	const menu = (
 		<Menu onClick={onDropdownMenuClick}>
-			<Item icon={<AppstoreAddOutlined />} key="edit">
+			<Item icon={<AppstoreAddOutlined />} key="update">
 				<span>{intl.formatMessage({ id: 'company.update' })}</span>
+			</Item>
+			<Item icon={<UnlockOutlined />} key="updatePassword">
+				<span>{intl.formatMessage({ id: 'company.updatePassword' })}</span>
 			</Item>
 			<Item icon={<DeleteOutlined />} key="delete">
 				<span>{intl.formatMessage({ id: 'company.delete' })}</span>
@@ -90,6 +104,12 @@ const MenuComponent = ({
 				onOk={onSubmitUpdateCompanyModal}
 				handleCancel={onCloseUpdateCompanyModal}
 				companyInfo={companiesById[companyId]}
+			/>
+			<UpdateCompanyPasswordModal
+				intl={intl}
+				isShowModal={showUpdateCompanyPasswordModal}
+				onOk={onSubmitUpdateCompanyPasswordModal}
+				handleCancel={onCloseUpdateCompanyPasswordModal}
 			/>
 		</>
 	);

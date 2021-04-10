@@ -36,6 +36,7 @@ const CreateYearModal = ({ intl, isShowModal, onOk, handleCancel }) => {
 		validateOnChange: false,
 		onSubmit: (values) => {
 			onOk(values);
+			form.resetFields();
 		},
 	});
 

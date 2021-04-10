@@ -8,6 +8,7 @@ import {
 	ADD_COMPANY,
 	SET_CURRENT_COMPANY_ID,
 	UPDATE_COMPANY,
+	UPDATE_COMPANY_PASSWORD,
 } from './constants';
 
 /* @Utils */
@@ -53,4 +54,14 @@ export const getCompaniesAction = () => async (dispatch) => {
 
 export const setCurrentCompanyIdAction = (id) => async (dispatch) => {
 	dispatch({ type: SET_CURRENT_COMPANY_ID, payload: +id });
+};
+
+export const updateCompanyPasswordAction = (companyInfo) => async (dispatch) => {
+	const { isSuccess, message } = await company.updateCompanyPassword(companyInfo);
+
+	if (isSuccess) {
+		dispatch({ type: UPDATE_COMPANY_PASSWORD });
+	}
+
+	return { isSuccess, message };
 };

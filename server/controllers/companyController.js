@@ -1,6 +1,7 @@
 const { pool } = require('../db');
 const { responseJSON } = require('../utils/response');
 const { generateSalt, generateHah } = require('../utils/generators');
+const config = require('../config');
 
 const createCompany = ({ body: { login, companyName, password } }, res) => {
 	if (!login || !password || !companyName) {
@@ -115,9 +116,46 @@ const updateCompany = ({ body: { login, companyName, id } }, res) => {
 	});
 };
 
+const updateCompanyPassword = ({ body: { secretKey, password, id } }, res) => {
+	if (!secretKey || !password || !id) {
+		return responseJSON(res, 200, { massage: 'All fields required.' });
+	}
+
+	if (secretKey !== config.SECRET_KEY) {
+		return responseJSON(res, 200, {
+			message: 'company.passwordNotUpdated',
+		});
+	}
+
+	const salt = generateSalt();
+	const hash = generateHah(password, salt);
+
+	const query = `UPDATE company SET salt=$1, hash=$2 WHERE id=$3`;
+
+	return pool.query(query, [salt, hash, id], (error, result) => {
+		if (error) {
+			return responseJSON(res, 500, { message: 'serverError', error });
+		}
+
+		const { rowCount } = result;
+
+		if (rowCount) {
+			return responseJSON(res, 200, {
+				isSuccess: true,
+				message: 'company.passwordUpdated',
+			});
+		}
+
+		return responseJSON(res, 200, {
+			message: 'company.passwordNotUpdated',
+		});
+	});
+};
+
 module.exports = {
 	createCompany,
 	getCompanies,
 	deleteCompany,
 	updateCompany,
+	updateCompanyPassword,
 };

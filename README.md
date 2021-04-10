@@ -2,11 +2,9 @@
 
 **Todo**
 
- - add update company password
  - notification if delete entity with children ( if delete company with a region or region with a field )
  - first init page
  - edit year
- - back url
 
 **init husky**
 `npx mrm lint-staged`
