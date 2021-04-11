@@ -174,6 +174,8 @@ FieldPageContainer.propTypes = propTypes;
 
 FieldPageContainer.defaultProps = {};
 
+FieldPageContainer.displayName = 'FieldPageContainer';
+
 const mapStateToProps = (state) => {
 	const { currentFieldId, fieldsIds } = getFieldsSelector(state);
 	const { yearsById, yearsIds, currentYearId } = getYearsSelector(state);

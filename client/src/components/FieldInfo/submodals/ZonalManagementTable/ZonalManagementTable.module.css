@@ -1,0 +1,33 @@
+.colorCube {
+    width: 20px;
+    height: 20px;
+}
+
+.iconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.saveIcon, .cancelIcon {
+    padding: 0 5px;
+    font-size: 20px;
+}
+
+.editIcon {
+    padding: 0 20px;
+    font-size: 20px;
+}
+
+.editIcon:hover,
+.saveIcon:hover,
+.cancelIcon:hover {
+    cursor: pointer;
+    color: #1DA57A;
+}
+
+.iconDisabled {
+    cursor: not-allowed;
+    pointer-events:none;
+    color: gray;
+}

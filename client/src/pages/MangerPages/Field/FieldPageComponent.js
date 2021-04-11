@@ -6,6 +6,7 @@ import { Tabs, PageHeader } from 'antd';
 
 /* @Components */
 import FieldsList from 'components/FieldsList';
+import FieldInfo from 'components/FieldInfo';
 import { CreateYearModal } from 'components/Modals';
 
 /* @Styles */
@@ -51,9 +52,9 @@ const FieldPageComponent = ({
 							onChange={onTabClick}
 							activeKey={activeYear}
 						>
-							{years.map(({ year, id, crop }) => (
+							{years.map(({ year, id }) => (
 								<TabPane tab={year} key={id}>
-									{crop}
+									<FieldInfo />
 								</TabPane>
 							))}
 						</Tabs>
@@ -71,6 +72,8 @@ const FieldPageComponent = ({
 };
 
 FieldPageComponent.propTypes = propTypes;
+
+FieldPageComponent.displayName = 'FieldPageComponent';
 
 FieldPageComponent.defaultProps = {
 	activeYear: '',
