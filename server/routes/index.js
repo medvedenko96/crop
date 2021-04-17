@@ -6,6 +6,7 @@ const companyController = require('../controllers/companyController');
 const regionController = require('../controllers/regionController');
 const fieldController = require('../controllers/fieldController');
 const yearController = require('../controllers/yearController');
+const zonalManagement = require('../controllers/zonalManagementController');
 
 const router = express.Router();
 
@@ -40,5 +41,9 @@ router.post('/update-field', fieldController.updateField);
 router.post('/create-year', yearController.createYear);
 router.get('/get-years', yearController.getYears);
 router.delete('/delete-year', yearController.deleteYear);
+
+// zonalManagement
+router.post('/set-zonal-management', zonalManagement.setZonalManagement);
+router.get('/get-zonal-management', zonalManagement.getZonalManagement);
 
 module.exports = router;

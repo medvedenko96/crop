@@ -2,7 +2,16 @@
 import { year } from 'api';
 
 /* @Constants */
-import { CREATE_YEAR, SET_YEARS, SET_CURRENT_YEAR_ID, DELETE_YEAR } from './constants';
+import {
+	CREATE_YEAR,
+	SET_YEARS,
+	SET_CURRENT_YEAR_ID,
+	DELETE_YEAR,
+	UPDATE_ZONAL_MANAGEMENT,
+	SET_ZONAL_MANAGEMENT,
+} from './constants';
+
+import { getYearsSelector } from './selectors';
 
 /* @Utils */
 import { normalizedData } from 'utils/normalized';
@@ -38,4 +47,37 @@ export const deleteYearAction = (yearId, currentFieldId) => async (dispatch) => 
 	}
 
 	return { isSuccess, message };
+};
+
+export const updateZonalManagementAction = (zonalManagementType, zonalManagementFields) => async (
+	dispatch,
+	getState
+) => {
+	const state = getState();
+	const { currentYearId } = getYearsSelector(state);
+
+	const { isSuccess, message } = await year.setZonalManagement({
+		yearId: currentYearId,
+		zonalManagementFields,
+		zonalManagementType,
+	});
+
+	if (isSuccess) {
+		dispatch({
+			type: UPDATE_ZONAL_MANAGEMENT,
+			payload: { yearId: currentYearId, zonalManagementType, zonalManagementFields },
+		});
+	}
+
+	return { isSuccess, message };
+};
+
+export const setZonalManagementAction = (yearId) => async (dispatch) => {
+	const { isSuccess, data } = await year.getZonalManagement(yearId);
+
+	if (isSuccess) {
+		dispatch({ type: SET_ZONAL_MANAGEMENT, payload: { data, yearId } });
+	}
+
+	return { isSuccess };
 };

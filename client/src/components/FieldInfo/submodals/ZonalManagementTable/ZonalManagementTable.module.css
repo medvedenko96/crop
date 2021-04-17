@@ -3,6 +3,19 @@
     height: 20px;
 }
 
+.title {
+    text-align: center;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.value {
+    text-align: center;
+    padding: 1px 0;
+}
+
 .iconWrapper {
     display: flex;
     align-items: center;

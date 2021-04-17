@@ -1,5 +1,5 @@
 import React from 'react';
-import { array, func, string, object, bool } from 'prop-types';
+import { array, func, number, object, bool } from 'prop-types';
 
 /* @Antd */
 import { Menu, Dropdown } from 'antd';
@@ -27,7 +27,7 @@ const propTypes = {
 	intl: object,
 	onClick: func,
 	menuItem: array,
-	companyId: string,
+	companyId: number,
 	companiesById: object,
 	showCreateCompanyModal: bool,
 	showUpdateCompanyModal: bool,

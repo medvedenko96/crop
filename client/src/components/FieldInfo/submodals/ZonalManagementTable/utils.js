@@ -5,11 +5,38 @@ import FormOutlined from '@ant-design/icons/FormOutlined';
 import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
 import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
 
+/* @Utils */
+import { arrayToObject } from 'utils/normalized';
+
+const rows = [
+	'A',
+	'highLevelZoneCheck',
+	'lowLevelZoneCheck',
+	'B',
+	'highLevelZoneCheckB',
+	'lowLevelZoneCheckB',
+	'C',
+	'highLevelZoneCheckC',
+	'lowLevelZoneCheckC',
+];
+
+const mergeRows = (baseRows, initialRows) => {
+	if (!initialRows) {
+		return baseRows;
+	}
+
+	return rows.map((row) => ({
+		...arrayToObject(baseRows, 'key')[row],
+		...initialRows[row],
+	}));
+};
+
 export const getTableStaff = ({
 	cx,
 	intl,
 	styles,
 	editingKey,
+	initialData,
 	isEditing,
 	onEdit,
 	onCancel,
@@ -21,7 +48,7 @@ export const getTableStaff = ({
 			key: 'A',
 			color: 'green',
 			zonalManagement: intl.formatMessage({ id: 'zonalManagement.a' }),
-			yield: 0,
+			yieldCapacity: 0,
 			actualPopulation: 0,
 			plantingDensity: 0,
 			hectares: 0,
@@ -30,7 +57,7 @@ export const getTableStaff = ({
 			key: 'highLevelZoneCheck',
 			color: '#f7f7f7',
 			zonalManagement: intl.formatMessage({ id: 'zonalManagement.highLevelZoneCheck' }),
-			yield: 0,
+			yieldCapacity: 0,
 			actualPopulation: 0,
 			plantingDensity: 0,
 			hectares: 0,
@@ -39,7 +66,7 @@ export const getTableStaff = ({
 			key: 'lowLevelZoneCheck',
 			color: 'orange',
 			zonalManagement: intl.formatMessage({ id: 'zonalManagement.lowLevelZoneCheck' }),
-			yield: 0,
+			yieldCapacity: 0,
 			actualPopulation: 0,
 			plantingDensity: 0,
 			hectares: 0,
@@ -48,7 +75,7 @@ export const getTableStaff = ({
 			key: 'B',
 			color: '#b5db72',
 			zonalManagement: intl.formatMessage({ id: 'zonalManagement.b' }),
-			yield: 0,
+			yieldCapacity: 0,
 			actualPopulation: 0,
 			plantingDensity: 0,
 			hectares: 0,
@@ -57,7 +84,7 @@ export const getTableStaff = ({
 			key: 'highLevelZoneCheckB',
 			color: 'black',
 			zonalManagement: intl.formatMessage({ id: 'zonalManagement.highLevelZoneCheckB' }),
-			yield: 0,
+			yieldCapacity: 0,
 			actualPopulation: 0,
 			plantingDensity: 0,
 			hectares: 0,
@@ -66,7 +93,7 @@ export const getTableStaff = ({
 			key: 'lowLevelZoneCheckB',
 			color: 'grey',
 			zonalManagement: intl.formatMessage({ id: 'zonalManagement.lowLevelZoneCheckB' }),
-			yield: 0,
+			yieldCapacity: 0,
 			actualPopulation: 0,
 			plantingDensity: 0,
 			hectares: 0,
@@ -75,7 +102,7 @@ export const getTableStaff = ({
 			key: 'C',
 			color: '#ff5959',
 			zonalManagement: intl.formatMessage({ id: 'zonalManagement.c' }),
-			yield: 0,
+			yieldCapacity: 0,
 			actualPopulation: 0,
 			plantingDensity: 0,
 			hectares: 0,
@@ -84,7 +111,7 @@ export const getTableStaff = ({
 			key: 'highLevelZoneCheckC',
 			color: '#0c30cf',
 			zonalManagement: intl.formatMessage({ id: 'zonalManagement.highLevelZoneCheckC' }),
-			yield: 0,
+			yieldCapacity: 0,
 			actualPopulation: 0,
 			plantingDensity: 0,
 			hectares: 0,
@@ -93,7 +120,7 @@ export const getTableStaff = ({
 			key: 'lowLevelZoneCheckC',
 			color: '#30d5c8',
 			zonalManagement: intl.formatMessage({ id: 'zonalManagement.lowLevelZoneCheckC' }),
-			yield: 0,
+			yieldCapacity: 0,
 			actualPopulation: 0,
 			plantingDensity: 0,
 			hectares: 0,
@@ -112,26 +139,40 @@ export const getTableStaff = ({
 		{
 			title: intl.formatMessage({ id: 'zonalManagement.name' }),
 			dataIndex: 'zonalManagement',
+			align: 'center',
+			render: (title) => <div className={styles.title}>{title}</div>,
 		},
 		{
-			title: intl.formatMessage({ id: 'yield' }),
-			dataIndex: 'yield',
+			title: intl.formatMessage({ id: 'yieldCapacity' }),
+			dataIndex: 'yieldCapacity',
 			editable: true,
+			width: 200,
+			align: 'center',
+			render: (value) => <div className={styles.value}>{value}</div>,
 		},
 		{
 			title: intl.formatMessage({ id: 'actualPopulation' }),
 			dataIndex: 'actualPopulation',
 			editable: true,
+			width: 200,
+			align: 'center',
+			render: (value) => <div className={styles.value}>{value}</div>,
 		},
 		{
 			title: intl.formatMessage({ id: 'plantingDensity' }),
 			dataIndex: 'plantingDensity',
 			editable: true,
+			width: 200,
+			align: 'center',
+			render: (value) => <div className={styles.value}>{value}</div>,
 		},
 		{
 			title: intl.formatMessage({ id: 'hectares' }),
 			dataIndex: 'hectares',
 			editable: true,
+			width: 200,
+			align: 'center',
+			render: (value) => <div className={styles.value}>{value}</div>,
 		},
 		{
 			title: '',
@@ -177,5 +218,5 @@ export const getTableStaff = ({
 		};
 	});
 
-	return { rows, mergedColumns };
+	return { rows: mergeRows(rows, initialData), mergedColumns };
 };

@@ -21,6 +21,7 @@ import {
 	getYearsAction,
 	setCurrentYearIdAction,
 	deleteYearAction,
+	setZonalManagementAction,
 } from 'store/year/actions';
 import { setCurrentFieldIdAction, getFieldsAction } from 'store/field/actions';
 import { setCurrentRegionIdAction } from 'store/region/actions';
@@ -56,6 +57,7 @@ const propTypes = {
 	deleteYear: func,
 	getFields: func,
 	setCurrentRegionId: func,
+	getZonalManagement: func,
 	goTo: func,
 	yearsById: object,
 	yearsIds: object,
@@ -74,6 +76,7 @@ const FieldPageContainer = ({
 	deleteYear,
 	getFields,
 	setCurrentRegionId,
+	getZonalManagement,
 	goTo,
 	yearsById,
 	yearsIds,
@@ -87,8 +90,12 @@ const FieldPageContainer = ({
 
 	useEffect(() => {
 		currentRegionId || setCurrentRegionId(parseInt(regionId));
-		currentYearId || setCurrentYearId(parseInt(yearId));
 		currentFieldId || setCurrentFieldId(parseInt(fieldId));
+		currentYearId || setCurrentYearId(parseInt(yearId));
+
+		if (yearId) {
+			getZonalManagement(parseInt(yearId));
+		}
 
 		if (currentFieldId && !fieldsIds[currentFieldId]) {
 			getFields(parseInt(regionId));
@@ -101,9 +108,6 @@ const FieldPageContainer = ({
 	const [isShowCreateYearModal, setIsShowCreateYearModal] = useState(false);
 
 	const years = yearsFormat(yearsById, yearsIds, currentFieldId);
-	const activeYear = currentYearId
-		? currentYearId?.toString()
-		: yearsIds[currentFieldId] && yearsIds[currentFieldId][0]?.toString();
 
 	const handleBackClick = () => {
 		const url = currentCompanyId
@@ -135,11 +139,12 @@ const FieldPageContainer = ({
 			: notification('warning', intl.formatMessage({ id: message }));
 	};
 
-	const handleTabClick = (activeKey) => {
+	const handleTabClick = async (activeKey) => {
 		const url = `/field/${currentRegionId}/${currentFieldId}/${activeKey}`;
+		// перевірку чи потрібно запрос робити
+		const { isSuccess } = await getZonalManagement(parseInt(activeKey));
 
-		setCurrentYearId(parseInt(activeKey));
-		goTo(url);
+		isSuccess && goTo(url);
 	};
 
 	const handleActionsOnTab = (targetKey, action) => {
@@ -159,7 +164,7 @@ const FieldPageContainer = ({
 			yearsIds={yearsIds}
 			currentYearId={currentYearId}
 			currentFieldId={currentFieldId}
-			activeYear={activeYear}
+			activeYear={yearId}
 			years={years}
 			onCancel={handleCancel}
 			onActionsOnTab={handleActionsOnTab}
@@ -200,6 +205,7 @@ const mapDispatchToProps = {
 	getYears: getYearsAction,
 	getFields: getFieldsAction,
 	deleteYear: deleteYearAction,
+	getZonalManagement: setZonalManagementAction,
 	goTo: push,
 };
 

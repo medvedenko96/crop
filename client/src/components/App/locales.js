@@ -13,9 +13,11 @@ const locales = {
 		cancelText: 'Скасувати',
 		serverError: 'Помилка сервера',
 		secretKey: 'Ключ',
-		yield: 'Урожайність (тонн / га)',
+		yieldCapacity: 'Урожайність (тонн / га)',
 		actualPopulation: 'Фактичне населення',
 		plantingDensity: 'Густота посіву',
+		save: 'Збережено',
+		notSave: 'Не вдалося зберегти зміни',
 		zonalManagement: {
 			name: 'Зональний менеджмент',
 			a: 'A',

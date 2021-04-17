@@ -33,7 +33,7 @@ CREATE TABLE company (
 <pre>
 CREATE TABLE region (
     ID SERIAL PRIMARY KEY,
-    company_id integer references company(id),
+    company_id integer references company(id) ON DELETE CASCADE,
     region_name VARCHAR(255) NOT NULL
 );
 </pre>
@@ -41,7 +41,7 @@ CREATE TABLE region (
 <pre>
 CREATE TABLE field (
     ID SERIAL PRIMARY KEY,
-    region_id integer references region(id),
+    region_id integer references region(id) ON DELETE CASCADE,
     field_name VARCHAR(255) NOT NULL
 );
 </pre>
@@ -49,9 +49,21 @@ CREATE TABLE field (
 <pre>
 CREATE TABLE year_field (
     ID SERIAL PRIMARY KEY,
-    field_id integer references field(id),
+    field_id integer references field(id) ON DELETE CASCADE,
     year_field smallint NOT NULL,
     crop VARCHAR(255) NOT NULL
+);
+</pre>
+
+<pre>
+CREATE TABLE zonal_management (
+    ID SERIAL PRIMARY KEY,
+    year_id integer references year_field(id) ON DELETE CASCADE,
+    type smallint NOT NULL,
+    yield_capacity integer,
+    actual_population integer,
+    planting_density integer,
+    hectares integer
 );
 </pre>
 

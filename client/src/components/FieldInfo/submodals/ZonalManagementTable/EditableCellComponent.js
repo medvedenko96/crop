@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, string, node } from 'prop-types';
+import { bool, string, node, func } from 'prop-types';
 
 import { InputNumber } from 'antd';
 
@@ -7,7 +7,7 @@ const propTypes = {
 	editing: bool,
 	children: node,
 	dataIndex: string,
-	Item: node,
+	Item: func,
 };
 
 const EditableCell = ({ editing, children, dataIndex, Item }) => {

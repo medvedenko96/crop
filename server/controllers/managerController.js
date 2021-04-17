@@ -31,7 +31,7 @@ const createManager = ({ body: { login, password } }, res) => {
 	);
 };
 
-const deleteManger = ({ body: { login } }, res) => {
+const deleteManger = ({ body: { login } }, res) =>
 	pool.query('DELETE FROM manager WHERE login = $1', [login], (error) => {
 		if (error) {
 			return res.status(500).send({ message: 'serverError', error });
@@ -39,11 +39,8 @@ const deleteManger = ({ body: { login } }, res) => {
 
 		res.status(200).send({ message: 'User deleted' });
 	});
-};
 
-const getManagerByJWT = (req, res) => {
-	const { cookies } = req;
-
+const getManagerByJWT = ({ cookies }, res) => {
 	if (cookies.token) {
 		jwt.verify(cookies.token, config.JWT_SECRET, (err, user) => {
 			if (err) {
@@ -52,7 +49,7 @@ const getManagerByJWT = (req, res) => {
 			}
 
 			if (user && user.id) {
-				pool.query(
+				return pool.query(
 					'SELECT id, login FROM manager WHERE id=$1',
 					[user.id],
 					(error, result) => {
@@ -69,6 +66,8 @@ const getManagerByJWT = (req, res) => {
 					}
 				);
 			}
+
+			return responseJSON(res, 500, { message: 'serverError' });
 		});
 	}
 };

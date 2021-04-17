@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useIntl } from 'react-intl';
+import { func, object } from 'prop-types';
 import classNames from 'classnames/bind';
 
 /* @Antd */
-import { Form, Table } from 'antd';
+import { Form, message as antdMessage, Table } from 'antd';
 
 /* @Components */
 import EditableCell from './EditableCellComponent';
@@ -16,10 +16,15 @@ import styles from './ZonalManagementTable.module.css';
 
 const cx = classNames.bind(styles);
 
-const propTypes = {};
+const notification = (type, message) => antdMessage[type](message);
 
-const ZonalManagementTableComponent = () => {
-	const intl = useIntl();
+const propTypes = {
+	intl: object,
+	updateZonalManagement: func,
+	initialData: object,
+};
+
+const ZonalManagementTableComponent = ({ intl, updateZonalManagement, initialData }) => {
 	const [editingKey, setEditingKey] = useState('');
 	const [form] = Form.useForm();
 
@@ -37,8 +42,18 @@ const ZonalManagementTableComponent = () => {
 
 	const onCancel = () => setEditingKey('');
 
-	const onSave = (key) => {
-		console.log(key);
+	const onSave = async (key) => {
+		const values = await form.validateFields();
+
+		const { isSuccess, message } = await updateZonalManagement(key, values);
+
+		if (isSuccess) {
+			setEditingKey('');
+			notification('success', intl.formatMessage({ id: message }));
+			return;
+		}
+
+		notification('warning', intl.formatMessage({ id: message }));
 	};
 
 	const { rows, mergedColumns } = getTableStaff({
@@ -46,6 +61,7 @@ const ZonalManagementTableComponent = () => {
 		intl,
 		styles,
 		editingKey,
+		initialData,
 		isEditing,
 		onEdit,
 		onCancel,

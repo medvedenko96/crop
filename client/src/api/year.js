@@ -24,4 +24,24 @@ export default {
 
 		return data;
 	},
+
+	async setZonalManagement({ yearId, zonalManagementType, zonalManagementFields }) {
+		const { data } = await axios.post('/api/set-zonal-management', {
+			yearId,
+			zonalManagementType,
+			zonalManagementFields,
+		});
+
+		return data;
+	},
+
+	async getZonalManagement(yearId) {
+		const { data } = await axios.get('/api/get-zonal-management', {
+			params: {
+				id: yearId,
+			},
+		});
+
+		return data;
+	},
 };
