@@ -127,9 +127,31 @@ const updateRegion = ({ body }, res) => {
 	);
 };
 
+const getRegion = ({ query }, res) => {
+	const { id: regionId } = query;
+
+	if (!regionId) {
+		return responseJSON(res, 400, { message: 'All fields required.' });
+	}
+
+	return pool.query(
+		'SELECT id, region_name as name FROM region WHERE id=$1',
+		[regionId],
+		(error, result) => {
+			if (error) {
+				return res.status(500).send({ message: 'serverError', error });
+			}
+			const data = (!!result && result.rows[0]) || {};
+
+			return responseJSON(res, 200, { data, isSuccess: true });
+		}
+	);
+};
+
 module.exports = {
 	getRegions,
 	createRegion,
 	deleteRegion,
 	updateRegion,
+	getRegion,
 };

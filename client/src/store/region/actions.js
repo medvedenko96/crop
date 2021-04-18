@@ -11,6 +11,7 @@ import {
 	DELETE_REGION,
 	UPDATE_REGION,
 	SET_CURRENT_REGION_ID,
+	SET_REGION,
 } from './constants';
 
 export const createRegionAction = (regionInfo) => async (dispatch) => {
@@ -53,4 +54,12 @@ export const updateRegionAction = (regionInfo) => async (dispatch) => {
 
 export const setCurrentRegionIdAction = (currentRegionId) => async (dispatch) => {
 	return dispatch({ type: SET_CURRENT_REGION_ID, payload: currentRegionId });
+};
+
+export const getRegionAction = (regionId) => async (dispatch) => {
+	const { data, isSuccess } = await region.getRegion(regionId);
+
+	if (isSuccess) {
+		dispatch({ type: SET_REGION, payload: { data, regionId } });
+	}
 };

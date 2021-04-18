@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { func, number, object } from 'prop-types';
+import { func, number, object, shape, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useIntl } from 'react-intl';
@@ -24,13 +24,14 @@ import {
 	setZonalManagementAction,
 } from 'store/year/actions';
 import { setCurrentFieldIdAction, getFieldsAction } from 'store/field/actions';
-import { setCurrentRegionIdAction } from 'store/region/actions';
+import { setCurrentRegionIdAction, getRegionAction } from 'store/region/actions';
+import { setCurrentCompanyIdAction, getCompanyAction } from 'store/company/actions';
 
 /* @Selectors */
 import { getRegionsSelector } from 'store/region/selectors';
 import { getFieldsSelector } from 'store/field/selectors';
 import { getYearsSelector } from 'store/year/selectors';
-import { getCurrentCompanyIdSelector } from 'store/company/selectors';
+import { getCurrentCompanyIdSelector, getCurrentCompanySelector } from 'store/company/selectors';
 
 /* @Utils */
 import { yearsFormat } from 'utils/mappers';
@@ -54,14 +55,19 @@ const propTypes = {
 	getYears: func,
 	setCurrentYearId: func,
 	setCurrentFieldId: func,
+	setCurrentCompanyId: func,
 	deleteYear: func,
 	getFields: func,
+	getRegion: func,
+	getCompany: func,
 	setCurrentRegionId: func,
 	getZonalManagement: func,
 	goTo: func,
 	yearsById: object,
 	yearsIds: object,
 	fieldsIds: object,
+	currentRegion: shape({ name: string }),
+	currentCompany: shape({ name: string }),
 	currentCompanyId: number,
 	currentYearId: number,
 	currentRegionId: number,
@@ -73,22 +79,28 @@ const FieldPageContainer = ({
 	getYears,
 	setCurrentYearId,
 	setCurrentFieldId,
+	setCurrentCompanyId,
 	deleteYear,
 	getFields,
+	getRegion,
+	getCompany,
 	setCurrentRegionId,
 	getZonalManagement,
 	goTo,
 	yearsById,
 	yearsIds,
 	fieldsIds,
+	currentRegion,
+	currentCompany,
 	currentCompanyId,
 	currentYearId,
 	currentRegionId,
 	currentFieldId,
 }) => {
-	const { regionId, fieldId, yearId } = useParams();
+	const { companyId, regionId, fieldId, yearId } = useParams();
 
 	useEffect(() => {
+		currentCompanyId || setCurrentCompanyId(parseInt(companyId));
 		currentRegionId || setCurrentRegionId(parseInt(regionId));
 		currentFieldId || setCurrentFieldId(parseInt(fieldId));
 		currentYearId || setCurrentYearId(parseInt(yearId));
@@ -101,6 +113,8 @@ const FieldPageContainer = ({
 			getFields(parseInt(regionId));
 		}
 
+		getCompany(parseInt(companyId));
+		getRegion(parseInt(regionId));
 		getYears(parseInt(fieldId));
 	}, []);
 
@@ -110,9 +124,7 @@ const FieldPageContainer = ({
 	const years = yearsFormat(yearsById, yearsIds, currentFieldId);
 
 	const handleBackClick = () => {
-		const url = currentCompanyId
-			? `/dashboard/${currentCompanyId}/${currentRegionId}/${currentFieldId}`
-			: '/dashboard';
+		const url = `/dashboard/${currentCompanyId}/${currentRegionId}/${currentFieldId}`;
 
 		goTo(url);
 	};
@@ -140,7 +152,7 @@ const FieldPageContainer = ({
 	};
 
 	const handleTabClick = async (activeKey) => {
-		const url = `/field/${currentRegionId}/${currentFieldId}/${activeKey}`;
+		const url = `/field/${currentCompanyId}/${currentRegionId}/${currentFieldId}/${activeKey}`;
 		// перевірку чи потрібно запрос робити
 		const { isSuccess } = await getZonalManagement(parseInt(activeKey));
 
@@ -166,6 +178,8 @@ const FieldPageContainer = ({
 			currentFieldId={currentFieldId}
 			activeYear={yearId}
 			years={years}
+			currentRegion={currentRegion}
+			currentCompany={currentCompany}
 			onCancel={handleCancel}
 			onActionsOnTab={handleActionsOnTab}
 			onSubmitCreateYearModal={handleSubmitCreateYearModal}
@@ -184,10 +198,12 @@ FieldPageContainer.displayName = 'FieldPageContainer';
 const mapStateToProps = (state) => {
 	const { currentFieldId, fieldsIds } = getFieldsSelector(state);
 	const { yearsById, yearsIds, currentYearId } = getYearsSelector(state);
-	const { currentRegionId } = getRegionsSelector(state);
+	const { currentRegionId, regionsById } = getRegionsSelector(state);
 
 	return {
 		currentCompanyId: getCurrentCompanyIdSelector(state),
+		currentCompany: getCurrentCompanySelector(state),
+		currentRegion: regionsById[currentRegionId],
 		currentFieldId,
 		currentYearId,
 		currentRegionId,
@@ -198,12 +214,15 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
+	setCurrentCompanyId: setCurrentCompanyIdAction,
 	setCurrentYearId: setCurrentYearIdAction,
 	setCurrentFieldId: setCurrentFieldIdAction,
 	setCurrentRegionId: setCurrentRegionIdAction,
 	createYear: createYearAction,
 	getYears: getYearsAction,
 	getFields: getFieldsAction,
+	getRegion: getRegionAction,
+	getCompany: getCompanyAction,
 	deleteYear: deleteYearAction,
 	getZonalManagement: setZonalManagementAction,
 	goTo: push,

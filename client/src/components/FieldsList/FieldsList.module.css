@@ -13,6 +13,10 @@
     scroll-behavior: smooth;
 }
 
+.fieldsListHeight {
+    height: 720px;
+}
+
 .buttonWrapper {
     margin-top: 20px;
 }
@@ -44,4 +48,8 @@
 
 .listActionTextActive {
     color: #1DA57A;
+}
+
+.openButton {
+    display: none;
 }

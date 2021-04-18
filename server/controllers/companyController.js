@@ -152,10 +152,28 @@ const updateCompanyPassword = ({ body: { secretKey, password, id } }, res) => {
 	});
 };
 
+const getCompany = ({ query }, res) => {
+	const { id: companyId } = query;
+	return pool.query(
+		'SELECT id, login, company_name as name FROM company WHERE id=$1',
+		[companyId],
+		(error, result) => {
+			if (error) {
+				return responseJSON(res, 500, { message: 'serverError', error });
+			}
+
+			const data = (!!result && result.rows[0]) || {};
+
+			return responseJSON(res, 200, { data, isSuccess: true });
+		}
+	);
+};
+
 module.exports = {
 	createCompany,
 	getCompanies,
 	deleteCompany,
 	updateCompany,
 	updateCompanyPassword,
+	getCompany,
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { func, number, object } from 'prop-types';
+import { func, number, object, bool } from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { useIntl } from 'react-intl';
@@ -43,6 +43,7 @@ const propTypes = {
 	fieldsById: object,
 	fieldsIds: object,
 	yearsIds: object,
+	isFieldPage: bool,
 };
 
 const FieldsListContainer = ({
@@ -60,6 +61,7 @@ const FieldsListContainer = ({
 	fieldsById,
 	fieldsIds,
 	yearsIds,
+	isFieldPage,
 }) => {
 	useEffect(() => {
 		if (!!currentRegionId && !fieldsIds[currentRegionId]) {
@@ -118,7 +120,13 @@ const FieldsListContainer = ({
 	};
 
 	const handleFieldClick = (id) => {
-		const url = `/field/${currentRegionId}/${id}`;
+		!yearsIds[id] && getYears(id);
+		setCurrentYearId(null);
+		setCurrentFieldId(id);
+	};
+
+	const handleOpenFieldClick = (id) => {
+		const url = `/field/${currentCompanyId}/${currentRegionId}/${id}`;
 
 		!yearsIds[id] && getYears(id);
 		setCurrentYearId(null);
@@ -152,9 +160,11 @@ const FieldsListContainer = ({
 			onCancelModal={handleCancelModal}
 			onOpenCreateFieldModal={handleOpenCreateFieldModal}
 			onFieldClick={handleFieldClick}
+			onOpenFieldClick={handleOpenFieldClick}
 			onDeleteField={handleDeleteField}
 			onUpdateField={handleUpdateField}
 			onOpenUpdateFieldModal={handleOpenUpdateFieldModal}
+			isFieldPage={isFieldPage}
 		/>
 	);
 };

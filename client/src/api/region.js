@@ -39,4 +39,14 @@ export default {
 
 		return data;
 	},
+
+	async getRegion(regionId) {
+		const { data } = await axios.get('/api/get-region', {
+			params: {
+				id: regionId,
+			},
+		});
+
+		return data;
+	},
 };

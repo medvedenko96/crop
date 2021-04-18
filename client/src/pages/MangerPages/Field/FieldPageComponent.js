@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, object, bool, array, string } from 'prop-types';
+import { func, object, bool, array, string, shape } from 'prop-types';
 
 /* @Antd */
 import { Tabs, PageHeader } from 'antd';
@@ -16,6 +16,8 @@ const { TabPane } = Tabs;
 
 const propTypes = {
 	intl: object,
+	currentRegion: shape({ name: string }),
+	currentCompany: shape({ name: string }),
 	isShowCreateYearModal: bool,
 	onActionsOnTab: func,
 	onCancel: func,
@@ -28,6 +30,8 @@ const propTypes = {
 
 const FieldPageComponent = ({
 	intl,
+	currentRegion,
+	currentCompany,
 	isShowCreateYearModal,
 	onActionsOnTab,
 	onCancel,
@@ -40,10 +44,25 @@ const FieldPageComponent = ({
 	return (
 		<>
 			<div className={styles.wrapper}>
-				<PageHeader title="Dashboard" className={styles.header} onBack={onBackClick} />
+				<PageHeader title="Dashboard" className={styles.header} onBack={onBackClick}>
+					<div className={styles.subHeader}>
+						<div className={styles.subHeaderItem}>
+							<div className={styles.subHeaderItemTitle}>
+								{intl.formatMessage({ id: 'company._' })}
+							</div>
+							<div className={styles.subHeaderItemText}>{currentCompany.name}</div>
+						</div>
+						<div className={styles.subHeaderItem}>
+							<div className={styles.subHeaderItemTitle}>
+								{intl.formatMessage({ id: 'region._' })}
+							</div>
+							<div className={styles.subHeaderItemText}>{currentRegion.name}</div>
+						</div>
+					</div>
+				</PageHeader>
 				<div className={styles.content}>
 					<div className={styles.fieldsListWrapper}>
-						<FieldsList />
+						<FieldsList isFieldPage />
 					</div>
 					<div className={styles.tabsWrapper}>
 						<Tabs
@@ -77,6 +96,12 @@ FieldPageComponent.displayName = 'FieldPageComponent';
 
 FieldPageComponent.defaultProps = {
 	activeYear: '',
+	currentRegion: {
+		name: '',
+	},
+	currentCompany: {
+		name: '',
+	},
 };
 
 export default FieldPageComponent;

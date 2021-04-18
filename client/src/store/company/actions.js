@@ -9,6 +9,7 @@ import {
 	SET_CURRENT_COMPANY_ID,
 	UPDATE_COMPANY,
 	UPDATE_COMPANY_PASSWORD,
+	SET_COMPANY,
 } from './constants';
 
 /* @Utils */
@@ -64,4 +65,12 @@ export const updateCompanyPasswordAction = (companyInfo) => async (dispatch) => 
 	}
 
 	return { isSuccess, message };
+};
+
+export const getCompanyAction = (companyId) => async (dispatch) => {
+	const { data, isSuccess } = await company.getCompany(companyId);
+
+	if (isSuccess) {
+		dispatch({ type: SET_COMPANY, payload: { companyId, data } });
+	}
 };

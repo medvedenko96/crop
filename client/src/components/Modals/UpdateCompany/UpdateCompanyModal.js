@@ -78,7 +78,7 @@ const UpdateCompanyModal = ({ intl, isShowModal, onOk, handleCancel, companyInfo
 			<Form form={form} id="update-company" onFinish={handleSubmit}>
 				<Item
 					name="companyName"
-					label={intl.formatMessage({ id: 'company.name' })}
+					label={intl.formatMessage({ id: 'name' })}
 					validateStatus={errors.companyName}
 					onChange={handleChange}
 					value={values.companyName}

@@ -7,6 +7,7 @@ import {
 	DELETE_REGION,
 	UPDATE_REGION,
 	SET_CURRENT_REGION_ID,
+	SET_REGION,
 } from './constants';
 
 const setRegions = ({ currentRegionId, byId, allIds }, payload) => ({
@@ -36,6 +37,12 @@ const updateRegion = ({ currentRegionId, byId, allIds }, { regionId, regionName 
 	allIds,
 });
 
+const setRegion = ({ currentRegionId, byId, allIds }, { data, regionId }) => ({
+	currentRegionId,
+	byId: { ...byId, [regionId]: data },
+	allIds,
+});
+
 const initialState = {
 	byId: {},
 	allIds: {},
@@ -60,6 +67,9 @@ export default (state = initialState, action = {}) => {
 
 		case SET_CURRENT_REGION_ID:
 			return { ...state, currentRegionId: payload };
+
+		case SET_REGION:
+			return setRegion(state, payload);
 
 		default:
 			return state;

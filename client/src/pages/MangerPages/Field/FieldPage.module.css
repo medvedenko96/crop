@@ -20,3 +20,21 @@
     width: 100%;
     padding-right: 32px;
 }
+
+.subHeader {
+    display: flex;
+}
+
+.subHeaderItem {
+    display: flex;
+    padding-right: 16px;
+}
+
+.subHeaderItemTitle {
+    padding-right: 4px;
+    font-weight: 600;
+}
+.subHeaderItemText {
+    text-transform: capitalize;
+}
+

@@ -7,6 +7,7 @@ import { Button, List } from 'antd';
 
 /* @Components */
 import { CreateFieldModal, UpdateFieldModal } from 'components/Modals';
+import { actionItemsFieldPage, actionItemsDashboardPage } from './actionsItem';
 
 /* @Styles */
 import styles from './FieldsList.module.css';
@@ -25,9 +26,11 @@ const propTypes = {
 	fieldsIds: object,
 	currentFieldId: number,
 	onFieldClick: func,
+	onOpenFieldClick: func,
 	onDeleteField: func,
 	onUpdateField: func,
 	onOpenUpdateFieldModal: func,
+	isFieldPage: bool,
 };
 
 const FieldsListComponent = ({
@@ -42,11 +45,24 @@ const FieldsListComponent = ({
 	fieldsIds,
 	currentFieldId,
 	onFieldClick,
+	onOpenFieldClick,
 	onDeleteField,
 	onUpdateField,
 	onOpenUpdateFieldModal,
+	isFieldPage,
 }) => {
 	const currentFieldsIds = fieldsIds[regionId] || [];
+
+	const actionsItem = (id) =>
+		isFieldPage
+			? actionItemsFieldPage(id, intl, onOpenUpdateFieldModal, onDeleteField)
+			: actionItemsDashboardPage(
+					id,
+					intl,
+					onOpenFieldClick,
+					onOpenUpdateFieldModal,
+					onDeleteField
+			  );
 
 	return (
 		<>
@@ -59,7 +75,7 @@ const FieldsListComponent = ({
 					}
 					dataSource={currentFieldsIds}
 					size="small"
-					className={styles.fieldsList}
+					className={cx(styles.fieldsList, { fieldsListHeight: isFieldPage })}
 					renderItem={(id) => {
 						const activeItem = currentFieldId === id;
 
@@ -69,23 +85,11 @@ const FieldsListComponent = ({
 									listItemActive: activeItem,
 								})}
 								key={id}
-								onClick={() => onFieldClick(id)}
-								actions={[
-									<span
-										onClick={() => onOpenUpdateFieldModal(id)}
-										className={styles.actionItem}
-										key="list-loadmore-edit"
-									>
-										{intl.formatMessage({ id: 'edit' })}
-									</span>,
-									<span
-										onClick={() => onDeleteField(id)}
-										className={styles.actionItem}
-										key="list-loadmore-more"
-									>
-										{intl.formatMessage({ id: 'delete' })}
-									</span>,
-								]}
+								onDoubleClick={() => onOpenFieldClick(id)}
+								onClick={() =>
+									isFieldPage ? onOpenFieldClick(id) : onFieldClick(id)
+								}
+								actions={actionsItem(id)}
 							>
 								<div
 									className={cx(styles.listActionText, {

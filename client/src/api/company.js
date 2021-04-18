@@ -44,4 +44,14 @@ export default {
 
 		return data;
 	},
+
+	async getCompany(companyId) {
+		const { data } = await axios.get('/api/get-company', {
+			params: {
+				id: companyId,
+			},
+		});
+
+		return data;
+	},
 };

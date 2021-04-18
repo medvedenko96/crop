@@ -5,6 +5,7 @@ import {
 	ADD_COMPANY,
 	SET_CURRENT_COMPANY_ID,
 	UPDATE_COMPANY,
+	SET_COMPANY,
 } from './constants';
 
 const addCompany = (company, state) => {
@@ -35,6 +36,14 @@ const updateCompany = (updateCompany, { currentCompanyId, byId, allIds }) => ({
 	allIds,
 });
 
+const setCompany = ({ byId, allIds, currentCompanyId }, { companyId, data }) => {
+	return {
+		byId: { ...byId, [companyId]: data },
+		allIds,
+		currentCompanyId,
+	};
+};
+
 const initialState = {
 	byId: {},
 	allIds: [],
@@ -59,6 +68,9 @@ export default (state = initialState, action = {}) => {
 
 		case SET_CURRENT_COMPANY_ID:
 			return { ...state, currentCompanyId: payload };
+
+		case SET_COMPANY:
+			return setCompany(state, payload);
 
 		default:
 			return state;

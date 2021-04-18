@@ -63,7 +63,7 @@ const CreateCompanyModal = ({ intl, isShowModal, onOk, handleCancel }) => {
 			<Form form={form} id="create-company" onFinish={handleSubmit}>
 				<Item
 					name="companyName"
-					label={intl.formatMessage({ id: 'company.name' })}
+					label={intl.formatMessage({ id: 'name' })}
 					validateStatus={errors.companyName}
 					onChange={handleChange}
 					value={values.companyName}

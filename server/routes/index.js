@@ -24,12 +24,14 @@ router.post('/update-company', companyController.updateCompany);
 router.post('/update-company-password', companyController.updateCompanyPassword);
 router.get('/get-companies', companyController.getCompanies);
 router.delete('/delete-company', companyController.deleteCompany);
+router.get('/get-company', companyController.getCompany);
 
 // region
 router.post('/create-region', regionController.createRegion);
 router.get('/get-regions', regionController.getRegions);
 router.delete('/delete-region', regionController.deleteRegion);
 router.post('/update-region', regionController.updateRegion);
+router.get('/get-region', regionController.getRegion);
 
 // field
 router.post('/create-field', fieldController.createField);
