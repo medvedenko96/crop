@@ -1,12 +1,15 @@
 import React from 'react';
 
 /* @Icons */
-import FormOutlined from '@ant-design/icons/FormOutlined';
+import EditOutlined from '@ant-design/icons/EditOutlined';
 import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
 import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
 
 /* @Utils */
 import { arrayToObject } from 'utils/normalized';
+
+/* @Styles */
+import styles from './ZonalManagementTable.module.css';
 
 const rows = [
 	'A',
@@ -34,7 +37,6 @@ const mergeRows = (baseRows, initialRows) => {
 export const getTableStaff = ({
 	cx,
 	intl,
-	styles,
 	editingKey,
 	initialData,
 	isEditing,
@@ -195,7 +197,7 @@ export const getTableStaff = ({
 
 				return (
 					<div className={cx(styles.iconWrapper, { iconDisabled: editingKey !== '' })}>
-						<FormOutlined className={styles.editIcon} onClick={() => onEdit(record)} />
+						<EditOutlined className={styles.editIcon} onClick={() => onEdit(record)} />
 					</div>
 				);
 			},

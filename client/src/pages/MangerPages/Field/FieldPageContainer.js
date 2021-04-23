@@ -22,6 +22,7 @@ import {
 	setCurrentYearIdAction,
 	deleteYearAction,
 	setZonalManagementAction,
+	getNormBotAction,
 } from 'store/year/actions';
 import { setCurrentFieldIdAction, getFieldsAction } from 'store/field/actions';
 import { setCurrentRegionIdAction, getRegionAction } from 'store/region/actions';
@@ -62,6 +63,7 @@ const propTypes = {
 	getCompany: func,
 	setCurrentRegionId: func,
 	getZonalManagement: func,
+	getNormBot: func,
 	goTo: func,
 	yearsById: object,
 	yearsIds: object,
@@ -86,6 +88,7 @@ const FieldPageContainer = ({
 	getCompany,
 	setCurrentRegionId,
 	getZonalManagement,
+	getNormBot,
 	goTo,
 	yearsById,
 	yearsIds,
@@ -107,6 +110,7 @@ const FieldPageContainer = ({
 
 		if (yearId) {
 			getZonalManagement(parseInt(yearId));
+			getNormBot(parseInt(yearId));
 		}
 
 		if (currentFieldId && !fieldsIds[currentFieldId]) {
@@ -225,6 +229,7 @@ const mapDispatchToProps = {
 	getCompany: getCompanyAction,
 	deleteYear: deleteYearAction,
 	getZonalManagement: setZonalManagementAction,
+	getNormBot: getNormBotAction,
 	goTo: push,
 };
 

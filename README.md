@@ -67,3 +67,17 @@ CREATE TABLE zonal_management (
 );
 </pre>
 
+<pre>
+CREATE TABLE norm_bot (
+    ID SERIAL PRIMARY KEY,
+    year_id integer references year_field(id) ON DELETE CASCADE,
+    row_key integer NOT NULL,
+    row_number integer,
+    control_norm integer,
+    control_yield integer,
+    control_square integer,
+    experiment_norm integer,
+    experiment_yield integer,
+    experiment_square integer
+);
+</pre>

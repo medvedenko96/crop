@@ -3,6 +3,7 @@ import { number, shape, string, object, func } from 'prop-types';
 
 /* @Components */
 import ZonalManagementTable from './submodals/ZonalManagementTable';
+import NormBotTable from './submodals/NormBotTable';
 
 /* @Styles */
 import styles from './FieldInfo.module.css';
@@ -32,6 +33,7 @@ const FieldInfoComponent = ({ intl, updateZonalManagement, currentField }) => {
 				initialData={currentField.zonalManagement}
 				updateZonalManagement={updateZonalManagement}
 			/>
+			<NormBotTable />
 		</div>
 	);
 };

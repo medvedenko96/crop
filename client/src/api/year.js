@@ -44,4 +44,31 @@ export default {
 
 		return data;
 	},
+
+	async setNormBot({ yearId, normBotRow }) {
+		const { data } = await axios.post('/api/set-norm-bot', {
+			yearId,
+			normBotRow,
+		});
+
+		return data;
+	},
+
+	async getNormBot(yearId) {
+		const { data } = await axios.get('/api/get-norm-bot', {
+			params: {
+				id: yearId,
+			},
+		});
+
+		return data;
+	},
+
+	async deleteNormBotRow(yearId, rowKey) {
+		const { data } = await axios.delete('/api/delete-norm-bot', {
+			data: { id: yearId, row: rowKey },
+		});
+
+		return data;
+	},
 };

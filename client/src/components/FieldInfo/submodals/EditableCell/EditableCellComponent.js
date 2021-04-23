@@ -10,9 +10,9 @@ const propTypes = {
 	Item: func,
 };
 
-const EditableCell = ({ editing, children, dataIndex, Item }) => {
+const EditableCell = ({ editing, children, dataIndex, Item, ...restProps }) => {
 	return (
-		<td>
+		<td {...restProps}>
 			{editing ? (
 				<Item name={dataIndex} style={{ margin: 0 }}>
 					<InputNumber size="small" />

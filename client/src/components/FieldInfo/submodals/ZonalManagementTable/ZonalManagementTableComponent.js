@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import { Form, message as antdMessage, Table } from 'antd';
 
 /* @Components */
-import EditableCell from './EditableCellComponent';
+import EditableCell from '../EditableCell';
 
 /* @Utils */
 import { getTableStaff } from './utils';
@@ -31,12 +31,7 @@ const ZonalManagementTableComponent = ({ intl, updateZonalManagement, initialDat
 	const isEditing = (record) => record.key === editingKey;
 
 	const onEdit = (record) => {
-		form.setFieldsValue({
-			name: '',
-			age: '',
-			address: '',
-			...record,
-		});
+		form.setFieldsValue(record);
 		setEditingKey(record.key);
 	};
 
@@ -44,7 +39,6 @@ const ZonalManagementTableComponent = ({ intl, updateZonalManagement, initialDat
 
 	const onSave = async (key) => {
 		const values = await form.validateFields();
-
 		const { isSuccess, message } = await updateZonalManagement(key, values);
 
 		if (isSuccess) {
@@ -59,7 +53,6 @@ const ZonalManagementTableComponent = ({ intl, updateZonalManagement, initialDat
 	const { rows, mergedColumns } = getTableStaff({
 		cx,
 		intl,
-		styles,
 		editingKey,
 		initialData,
 		isEditing,

@@ -1,0 +1,58 @@
+.wrapper {
+    padding-top: 32PX;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+}
+
+.value {
+    text-align: center;
+    padding: 1px 0;
+}
+
+.title {
+    font-weight: 600;
+}
+
+.iconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.saveIcon, .cancelIcon {
+    padding: 0 5px;
+    font-size: 20px;
+}
+
+.editIcon {
+    padding: 0 5px;
+    font-size: 20px;
+}
+
+.deleteIcon {
+    font-size: 20px;
+}
+
+.deleteIconWrapper {
+    display: flex;
+    padding: 0 5px;
+}
+
+.editIcon:hover,
+.saveIcon:hover,
+.cancelIcon:hover,
+.deleteIconWrapper:hover {
+    cursor: pointer;
+    color: #1DA57A;
+}
+
+.iconDisabled {
+    cursor: not-allowed;
+    pointer-events:none;
+    color: gray;
+}

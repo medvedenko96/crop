@@ -7,8 +7,11 @@ import {
 	SET_YEARS,
 	SET_CURRENT_YEAR_ID,
 	DELETE_YEAR,
-	UPDATE_ZONAL_MANAGEMENT,
+	UPDATE_ZONAL_MANAGEMENT_ROW,
 	SET_ZONAL_MANAGEMENT,
+	UPDATE_NORM_BOT_ROW,
+	SET_NORM_BOT,
+	DELETE_NORM_BOT_ROW,
 } from './constants';
 
 import { getYearsSelector } from './selectors';
@@ -64,7 +67,7 @@ export const updateZonalManagementAction = (zonalManagementType, zonalManagement
 
 	if (isSuccess) {
 		dispatch({
-			type: UPDATE_ZONAL_MANAGEMENT,
+			type: UPDATE_ZONAL_MANAGEMENT_ROW,
 			payload: { yearId: currentYearId, zonalManagementType, zonalManagementFields },
 		});
 	}
@@ -80,4 +83,46 @@ export const setZonalManagementAction = (yearId) => async (dispatch) => {
 	}
 
 	return { isSuccess };
+};
+
+export const setNormBotAction = (normBotRow) => async (dispatch, getState) => {
+	const state = getState();
+	const { currentYearId: yearId } = getYearsSelector(state);
+
+	const { isSuccess, message } = await year.setNormBot({
+		yearId,
+		normBotRow,
+	});
+
+	if (isSuccess) {
+		dispatch({
+			type: UPDATE_NORM_BOT_ROW,
+			payload: { yearId, newRow: normBotRow },
+		});
+	}
+
+	return { isSuccess, message };
+};
+
+export const getNormBotAction = (yearId) => async (dispatch) => {
+	const { isSuccess, data } = await year.getNormBot(yearId);
+
+	if (isSuccess) {
+		dispatch({ type: SET_NORM_BOT, payload: { data, yearId } });
+	}
+
+	return { isSuccess };
+};
+
+export const deleteNormBotRowAction = (rowKey) => async (dispatch, getState) => {
+	const state = getState();
+	const { currentYearId: yearId } = getYearsSelector(state);
+
+	const { isSuccess, message } = await year.deleteNormBotRow(yearId, rowKey);
+
+	if (isSuccess) {
+		dispatch({ type: DELETE_NORM_BOT_ROW, payload: { yearId, rowKey } });
+	}
+
+	return { isSuccess, message };
 };

@@ -7,6 +7,7 @@ const regionController = require('../controllers/regionController');
 const fieldController = require('../controllers/fieldController');
 const yearController = require('../controllers/yearController');
 const zonalManagement = require('../controllers/zonalManagementController');
+const normBot = require('../controllers/normBot');
 
 const router = express.Router();
 
@@ -47,5 +48,10 @@ router.delete('/delete-year', yearController.deleteYear);
 // zonalManagement
 router.post('/set-zonal-management', zonalManagement.setZonalManagement);
 router.get('/get-zonal-management', zonalManagement.getZonalManagement);
+
+// normBot
+router.post('/set-norm-bot', normBot.setNormBotRow);
+router.get('/get-norm-bot', normBot.getNormBot);
+router.delete('/delete-norm-bot', normBot.deleteNormBotRow);
 
 module.exports = router;
