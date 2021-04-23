@@ -7,5 +7,11 @@ export const getYearsSelector = ({ years }) => ({
 export const getNormBot = (state) => {
 	const { yearsById, currentYearId } = getYearsSelector(state);
 
-	return yearsById[currentYearId]?.normBot || [];
+	return yearsById[currentYearId]?.normBot;
+};
+
+export const getZonalManagement = (state) => {
+	const { yearsById, currentYearId } = getYearsSelector(state);
+
+	return yearsById[currentYearId]?.zonalManagement;
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames/bind';
 
 /* @Icons */
 import EditOutlined from '@ant-design/icons/EditOutlined';
@@ -10,6 +11,8 @@ import { arrayToObject } from 'utils/normalized';
 
 /* @Styles */
 import styles from './ZonalManagementTable.module.css';
+
+const cx = classNames.bind(styles);
 
 const rows = [
 	'A',
@@ -35,7 +38,6 @@ const mergeRows = (baseRows, initialRows) => {
 };
 
 export const getTableStaff = ({
-	cx,
 	intl,
 	editingKey,
 	initialData,

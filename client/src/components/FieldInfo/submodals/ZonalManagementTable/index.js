@@ -1,3 +1,3 @@
-import ZonalManagementTableComponent from './ZonalManagementTableComponent';
+import ZonalManagementTable from './ZonalManagementTableContainer';
 
-export default ZonalManagementTableComponent;
+export default ZonalManagementTable;

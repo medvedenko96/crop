@@ -1,38 +1,31 @@
 import React from 'react';
-import { number, shape, string, object, func } from 'prop-types';
+import { shape, string, object } from 'prop-types';
 
 /* @Components */
 import ZonalManagementTable from './submodals/ZonalManagementTable';
 import NormBotTable from './submodals/NormBotTable';
+
+/* @Utils */
+import { capitalizeFirstLetter } from 'utils/capitalizeFirstLetter';
 
 /* @Styles */
 import styles from './FieldInfo.module.css';
 
 const propTypes = {
 	intl: object,
-	updateZonalManagement: func,
-	currentField: shape({
-		id: number,
-		year: number,
-		crop: string,
-		zonalManagement: object,
-	}),
+	currentField: shape({ crop: string }),
 };
 
-const FieldInfoComponent = ({ intl, updateZonalManagement, currentField }) => {
+const FieldInfoComponent = ({ intl, currentField }) => {
 	return (
-		<div>
+		<div className={styles.wrapper}>
 			<div className={styles.cropTitle}>
 				{intl.formatMessage(
 					{ id: 'crop' },
-					{ crop: currentField.crop?.toLocaleLowerCase() }
+					{ crop: capitalizeFirstLetter(currentField.crop) }
 				)}
 			</div>
-			<ZonalManagementTable
-				intl={intl}
-				initialData={currentField.zonalManagement}
-				updateZonalManagement={updateZonalManagement}
-			/>
+			<ZonalManagementTable />
 			<NormBotTable />
 		</div>
 	);

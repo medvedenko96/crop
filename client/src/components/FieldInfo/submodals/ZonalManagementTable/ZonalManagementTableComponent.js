@@ -1,67 +1,19 @@
-import React, { useState } from 'react';
-import { func, object } from 'prop-types';
-import classNames from 'classnames/bind';
+import React from 'react';
+import { array, object } from 'prop-types';
 
 /* @Antd */
-import { Form, message as antdMessage, Table } from 'antd';
+import { Form, Table } from 'antd';
 
 /* @Components */
 import EditableCell from '../EditableCell';
 
-/* @Utils */
-import { getTableStaff } from './utils';
-
-/* @Styles */
-import styles from './ZonalManagementTable.module.css';
-
-const cx = classNames.bind(styles);
-
-const notification = (type, message) => antdMessage[type](message);
-
 const propTypes = {
-	intl: object,
-	updateZonalManagement: func,
-	initialData: object,
+	form: object,
+	mergedColumns: array,
+	rows: object,
 };
 
-const ZonalManagementTableComponent = ({ intl, updateZonalManagement, initialData }) => {
-	const [editingKey, setEditingKey] = useState('');
-	const [form] = Form.useForm();
-
-	const isEditing = (record) => record.key === editingKey;
-
-	const onEdit = (record) => {
-		form.setFieldsValue(record);
-		setEditingKey(record.key);
-	};
-
-	const onCancel = () => setEditingKey('');
-
-	const onSave = async (key) => {
-		const values = await form.validateFields();
-		const { isSuccess, message } = await updateZonalManagement(key, values);
-
-		if (isSuccess) {
-			setEditingKey('');
-			notification('success', intl.formatMessage({ id: message }));
-			return;
-		}
-
-		notification('warning', intl.formatMessage({ id: message }));
-	};
-
-	const { rows, mergedColumns } = getTableStaff({
-		cx,
-		intl,
-		editingKey,
-		initialData,
-		isEditing,
-		onEdit,
-		onCancel,
-		onSave,
-		Item: Form.Item,
-	});
-
+const ZonalManagementTableComponent = ({ form, mergedColumns, rows }) => {
 	return (
 		<Form form={form} component={false}>
 			<Table
@@ -81,10 +33,12 @@ const ZonalManagementTableComponent = ({ intl, updateZonalManagement, initialDat
 	);
 };
 
+ZonalManagementTableComponent.defaultProps = {
+	mergedColumns: [],
+};
+
 ZonalManagementTableComponent.propTypes = propTypes;
 
 ZonalManagementTableComponent.displayName = 'ZonalManagementTableComponent';
-
-ZonalManagementTableComponent.defaultProps = {};
 
 export default ZonalManagementTableComponent;

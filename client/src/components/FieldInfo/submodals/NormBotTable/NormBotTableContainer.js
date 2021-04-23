@@ -106,7 +106,7 @@ const NormBotTableContainer = ({ setNormBot, deleteNormBotRow, normBot }) => {
 };
 
 NormBotTableContainer.defaultProps = {
-	normBot: [],
+	normBot: {},
 };
 
 NormBotTableContainer.propTypes = propTypes;

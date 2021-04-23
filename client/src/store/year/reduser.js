@@ -87,16 +87,6 @@ const updateNormBotRow = ({ byId, allIds, currentYearId }, { yearId, newRow }) =
 	};
 };
 
-// row.rowKey !== rowKey;
-
-/*normBot: byId[yearId].normBot?.filter((row) => {
-	return row.rowKey !== rowKey;
-}),*/
-
-// Object.keys(myObject).map((key, index) {
-//	myObject[key] *= 2;
-//});
-
 const deleteNormBotRow = ({ byId, allIds, currentYearId }, { yearId, rowKey }) => {
 	const currentNormBot = byId[yearId].normBot;
 

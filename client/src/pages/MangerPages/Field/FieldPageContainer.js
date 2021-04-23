@@ -40,6 +40,7 @@ import { yearsFormat } from 'utils/mappers';
 const notification = (type, message) => antdMessage[type](message);
 
 const { confirm } = Modal;
+
 const confirmDeleteYear = (onRemove, intl) =>
 	confirm({
 		icon: <ExclamationCircleOutlined />,
@@ -157,10 +158,18 @@ const FieldPageContainer = ({
 
 	const handleTabClick = async (activeKey) => {
 		const url = `/field/${currentCompanyId}/${currentRegionId}/${currentFieldId}/${activeKey}`;
-		// перевірку чи потрібно запрос робити
-		const { isSuccess } = await getZonalManagement(parseInt(activeKey));
 
-		isSuccess && goTo(url);
+		await setCurrentYearId(parseInt(activeKey));
+
+		if (!yearsById[activeKey].zonalManagement) {
+			await getZonalManagement(parseInt(activeKey));
+		}
+
+		if (!yearsById[activeKey].normBot) {
+			await getNormBot(parseInt(activeKey));
+		}
+
+		goTo(url);
 	};
 
 	const handleActionsOnTab = (targetKey, action) => {

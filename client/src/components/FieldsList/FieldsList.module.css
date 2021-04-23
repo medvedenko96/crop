@@ -8,13 +8,13 @@
 
 .fieldsList {
     border: 1px solid #f0f0f0;
-    height: 650px;
+    height: calc(100vh - 280px);
     overflow-y: scroll;
     scroll-behavior: smooth;
 }
 
 .fieldsListHeight {
-    height: 720px;
+    height: calc(100vh - 220px);
 }
 
 .buttonWrapper {

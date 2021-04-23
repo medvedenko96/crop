@@ -1,46 +1,29 @@
 import React from 'react';
-import { shape, number, string, func, object } from 'prop-types';
+import { shape, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
 
 /* @Components */
 import FieldInfoComponent from './FieldInfoComponent';
 
-/* @Actions */
-import { updateZonalManagementAction } from 'store/year/actions';
-
 /* @Selectors */
 import { getYearsSelector } from 'store/year/selectors';
 
 const propTypes = {
-	updateZonalManagement: func,
-	currentField: shape({
-		id: number,
-		year: number,
-		crop: string,
-		zonalManagement: object,
-	}),
+	currentField: shape({ crop: string }),
 };
 
-const FieldInfoContainer = ({ updateZonalManagement, currentField }) => {
+const FieldInfoContainer = ({ currentField }) => {
 	const intl = useIntl();
 
-	return (
-		<FieldInfoComponent
-			intl={intl}
-			updateZonalManagement={updateZonalManagement}
-			currentField={currentField}
-		/>
-	);
+	return <FieldInfoComponent intl={intl} currentField={currentField} />;
 };
 
 FieldInfoContainer.propTypes = propTypes;
 
 FieldInfoContainer.displayName = 'FieldInfoContainer';
 
-const mapDispatchToProps = {
-	updateZonalManagement: updateZonalManagementAction,
-};
+const mapDispatchToProps = {};
 
 const mapStateToProps = (state) => {
 	const { yearsById, currentYearId } = getYearsSelector(state);

@@ -1,4 +1,11 @@
+.wrapper {
+    height: calc(100vh - 216px);
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    padding-right: 16px;
+}
+
 .cropTitle {
     font-weight: 500;
-    padding-bottom: 8px;
+    padding: 0 0 8px 8px;
 }
