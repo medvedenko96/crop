@@ -52,7 +52,7 @@ const updateRowZonalManagement = (res, yearId, zonalManagementType, zonalManagem
 		],
 		(error, result) => {
 			if (error) {
-				return responseJSON(res, 500, { message: 'serverError', error });
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
 			}
 
 			const { rowCount } = result;
@@ -93,7 +93,7 @@ const createRowZonalManagement = (res, yearId, zonalManagementType, zonalManagem
 		],
 		(error, result) => {
 			if (error) {
-				return responseJSON(res, 500, { message: 'serverError', error });
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
 			}
 
 			const { rowCount } = result;
@@ -122,7 +122,7 @@ const setZonalManagement = ({ body }, res) => {
 		[yearId, zonalManagementIdByTypes[zonalManagementType]],
 		(error, result) => {
 			if (error) {
-				return responseJSON(res, 500, { message: 'serverError', error });
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
 			}
 
 			const { rowCount } = result;
@@ -159,7 +159,7 @@ const getZonalManagement = ({ query }, res) => {
 		[yearId],
 		(error, result) => {
 			if (error) {
-				return responseJSON(res, 500, { message: 'serverError', error });
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
 			}
 
 			const zonalManagementRows = (!!result && result.rows) || [];

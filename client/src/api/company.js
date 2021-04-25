@@ -22,7 +22,7 @@ export default {
 	},
 
 	async deleteCompany({ id }) {
-		const { data } = await axios.delete('/api/delete-company', {
+		const { data } = await axios.delete('/api/company', {
 			params: { id },
 		});
 
@@ -30,7 +30,7 @@ export default {
 	},
 
 	async getCompanies() {
-		const { data } = await axios.get('/api/get-companies');
+		const { data } = await axios.get('/api/companies');
 
 		return data;
 	},
@@ -46,7 +46,7 @@ export default {
 	},
 
 	async getCompany(companyId) {
-		const { data } = await axios.get('/api/get-company', {
+		const { data } = await axios.get('/api/company', {
 			params: {
 				id: companyId,
 			},

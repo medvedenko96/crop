@@ -21,7 +21,7 @@ const createCompany = ({ body: { login, companyName, password } }, res) => {
 
 	return pool.query(query, [login, companyName, hash, salt, login], (error, result) => {
 		if (error) {
-			return responseJSON(res, 500, { message: 'serverError', error });
+			return responseJSON(res, 500, { message: error.message, errorInfo: error });
 		}
 
 		const { rowCount, rows } = result;
@@ -41,7 +41,7 @@ const createCompany = ({ body: { login, companyName, password } }, res) => {
 const getCompanies = (req, res) => {
 	return pool.query('SELECT id, login, company_name as name FROM company', (error, result) => {
 		if (error) {
-			return responseJSON(res, 500, { message: 'serverError', error });
+			return responseJSON(res, 500, { message: error.message, errorInfo: error });
 		}
 
 		const companies = (!!result && result.rows) || [];
@@ -55,7 +55,7 @@ const deleteCompany = ({ query }, res) => {
 
 	return pool.query('SELECT * FROM company WHERE id=$1 ', [id], (error, result) => {
 		if (error) {
-			return responseJSON(res, 500, { message: 'serverError', error });
+			return responseJSON(res, 500, { message: error.message, errorInfo: error });
 		}
 
 		if (result.rows.length === 0) {
@@ -66,7 +66,7 @@ const deleteCompany = ({ query }, res) => {
 
 		return pool.query('DELETE FROM company WHERE id=$1', [id], (error) => {
 			if (error) {
-				return responseJSON(res, 500, { message: 'serverError', error });
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
 			}
 
 			return responseJSON(res, 200, { message: 'company.deleteSuccess', isSuccess: true });
@@ -81,7 +81,7 @@ const updateCompany = ({ body: { login, companyName, id } }, res) => {
 
 	pool.query('SELECT id FROM company WHERE login=$1', [login], (error, result) => {
 		if (error) {
-			return responseJSON(res, 500, { message: 'serverError', error });
+			return responseJSON(res, 500, { message: error.message, errorInfo: error });
 		}
 
 		const { rowCount, rows } = result;
@@ -96,7 +96,7 @@ const updateCompany = ({ body: { login, companyName, id } }, res) => {
 
 		return pool.query(query, [companyName, login, id], (error, result) => {
 			if (error) {
-				return responseJSON(res, 500, { message: 'serverError', error });
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
 			}
 
 			const { rowCount, rows } = result;
@@ -134,7 +134,7 @@ const updateCompanyPassword = ({ body: { secretKey, password, id } }, res) => {
 
 	return pool.query(query, [salt, hash, id], (error, result) => {
 		if (error) {
-			return responseJSON(res, 500, { message: 'serverError', error });
+			return responseJSON(res, 500, { message: error.message, errorInfo: error });
 		}
 
 		const { rowCount } = result;
@@ -159,7 +159,7 @@ const getCompany = ({ query }, res) => {
 		[companyId],
 		(error, result) => {
 			if (error) {
-				return responseJSON(res, 500, { message: 'serverError', error });
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
 			}
 
 			const data = (!!result && result.rows[0]) || {};

@@ -12,8 +12,8 @@ const normBot = require('../controllers/normBot');
 const router = express.Router();
 
 // manager
-router.get('/get-manager-by-jwt', managerController.getManagerByJWT);
-router.post('/create-manager', managerController.createManager);
+router.get('/manager', managerController.getManagerByJWT);
+router.post('/manager', managerController.createManager);
 router.post('/delete-manager', managerController.deleteManger);
 
 // auth
@@ -23,35 +23,35 @@ router.post('/login-manger', authController.MangerLogin);
 router.post('/create-company', companyController.createCompany);
 router.post('/update-company', companyController.updateCompany);
 router.post('/update-company-password', companyController.updateCompanyPassword);
-router.get('/get-companies', companyController.getCompanies);
-router.delete('/delete-company', companyController.deleteCompany);
-router.get('/get-company', companyController.getCompany);
+router.get('/companies', companyController.getCompanies);
+router.delete('/company', companyController.deleteCompany);
+router.get('/company', companyController.getCompany);
 
 // region
 router.post('/create-region', regionController.createRegion);
-router.get('/get-regions', regionController.getRegions);
-router.delete('/delete-region', regionController.deleteRegion);
 router.post('/update-region', regionController.updateRegion);
-router.get('/get-region', regionController.getRegion);
+router.get('/regions', regionController.getRegions);
+router.delete('/region', regionController.deleteRegion);
+router.get('/region', regionController.getRegion);
 
 // field
 router.post('/create-field', fieldController.createField);
-router.get('/get-fields', fieldController.getFields);
-router.delete('/delete-field', fieldController.deleteField);
 router.post('/update-field', fieldController.updateField);
+router.get('/fields', fieldController.getFields);
+router.delete('/field', fieldController.deleteField);
 
 // year
-router.post('/create-year', yearController.createYear);
-router.get('/get-years', yearController.getYears);
-router.delete('/delete-year', yearController.deleteYear);
+router.post('/year', yearController.createYear);
+router.get('/years', yearController.getYears);
+router.delete('/year', yearController.deleteYear);
 
 // zonalManagement
-router.post('/set-zonal-management', zonalManagement.setZonalManagement);
-router.get('/get-zonal-management', zonalManagement.getZonalManagement);
+router.post('/zonal-management', zonalManagement.setZonalManagement);
+router.get('/zonal-management', zonalManagement.getZonalManagement);
 
 // normBot
-router.post('/set-norm-bot', normBot.setNormBotRow);
-router.get('/get-norm-bot', normBot.getNormBot);
-router.delete('/delete-norm-bot', normBot.deleteNormBotRow);
+router.post('/norm-bot', normBot.setNormBotRow);
+router.get('/norm-bot', normBot.getNormBot);
+router.delete('/norm-bot', normBot.deleteNormBotRow);
 
 module.exports = router;

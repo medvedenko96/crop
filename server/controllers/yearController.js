@@ -17,7 +17,7 @@ const createYear = ({ body }, res) => {
 
 	return pool.query(query, value, (error, result) => {
 		if (error) {
-			return responseJSON(res, 500, { message: 'serverError', error });
+			return responseJSON(res, 500, { message: error.message, errorInfo: error });
 		}
 
 		const { rowCount, rows } = result;
@@ -46,7 +46,7 @@ const getYears = ({ query }, res) => {
 		[fieldId],
 		(error, result) => {
 			if (error) {
-				return res.status(500).send({ message: 'serverError', error });
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
 			}
 
 			const years = (!!result && result.rows) || [];
@@ -65,7 +65,7 @@ const deleteYear = ({ query }, res) => {
 
 	return pool.query('DELETE FROM year_field WHERE id=$1', [yearId], (error, result) => {
 		if (error) {
-			return responseJSON(res, 500, { message: 'serverError', error });
+			return responseJSON(res, 500, { message: error.message, errorInfo: error });
 		}
 
 		const { rowCount } = result;

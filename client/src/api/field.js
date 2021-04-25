@@ -11,7 +11,7 @@ export default {
 	},
 
 	async getFields({ regionId }) {
-		const { data } = await axios.get('/api/get-fields', {
+		const { data } = await axios.get('/api/fields', {
 			params: { id: regionId },
 		});
 
@@ -19,7 +19,7 @@ export default {
 	},
 
 	async deleteField({ fieldId }) {
-		const { data } = await axios.delete('/api/delete-field', {
+		const { data } = await axios.delete('/api/field', {
 			params: { id: fieldId },
 		});
 
@@ -27,7 +27,7 @@ export default {
 	},
 
 	async updateField({ fieldId, fieldName, regionId }) {
-		const { data } = await axios.post('/api//update-field', {
+		const { data } = await axios.post('/api/update-field', {
 			fieldId,
 			fieldName,
 			regionId,

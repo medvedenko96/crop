@@ -20,7 +20,7 @@ const createRegion = ({ body }, res) => {
 
 	return pool.query(query, value, (error, result) => {
 		if (error) {
-			return responseJSON(res, 500, { message: 'serverError', error });
+			return responseJSON(res, 500, { message: error.message, errorInfo: error });
 		}
 
 		const { rowCount, rows } = result;
@@ -49,7 +49,7 @@ const getRegions = ({ query }, res) => {
 		[companyId],
 		(error, result) => {
 			if (error) {
-				return res.status(500).send({ message: 'serverError', error });
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
 			}
 			const regions = (!!result && result.rows) || [];
 
@@ -67,7 +67,7 @@ const deleteRegion = ({ query }, res) => {
 
 	return pool.query('DELETE FROM region WHERE id=$1', [regionId], (error, result) => {
 		if (error) {
-			return responseJSON(res, 500, 'serverError');
+			return responseJSON(res, 500, { message: error.message, errorInfo: error });
 		}
 
 		const { rowCount } = result;
@@ -92,7 +92,7 @@ const updateRegion = ({ body }, res) => {
 		[regionName, companyId],
 		(error, result) => {
 			if (error) {
-				return responseJSON(res, 500, { message: 'serverError', error });
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
 			}
 
 			const { rowCount } = result;
@@ -106,7 +106,7 @@ const updateRegion = ({ body }, res) => {
 				[regionName, regionId],
 				(error, result) => {
 					if (error) {
-						return responseJSON(res, 500, { message: 'serverError', error });
+						return responseJSON(res, 500, { message: error.message, errorInfo: error });
 					}
 
 					const { rowCount } = result;
@@ -139,7 +139,7 @@ const getRegion = ({ query }, res) => {
 		[regionId],
 		(error, result) => {
 			if (error) {
-				return res.status(500).send({ message: 'serverError', error });
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
 			}
 			const data = (!!result && result.rows[0]) || {};
 

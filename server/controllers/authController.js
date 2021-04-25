@@ -11,7 +11,7 @@ const MangerLogin = ({ body }, res) => {
 
 	return pool.query('SELECT * FROM manager WHERE login=$1 ', [login], (error, result) => {
 		if (error) {
-			return responseJSON(res, 500, { message: 'serverError', error });
+			return responseJSON(res, 500, { message: error.message, errorInfo: error });
 		}
 
 		if (!result.rows.length) {

@@ -20,7 +20,7 @@ const createField = ({ body }, res) => {
 
 	return pool.query(query, value, (error, result) => {
 		if (error) {
-			return responseJSON(res, 500, { message: 'serverError', error });
+			return responseJSON(res, 500, { message: error.message, errorInfo: error });
 		}
 
 		const { rowCount, rows } = result;
@@ -49,7 +49,7 @@ const getFields = ({ query }, res) => {
 		[regionId],
 		(error, result) => {
 			if (error) {
-				return responseJSON(res, 500, { message: 'serverError', error });
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
 			}
 			const fields = (!!result && result.rows) || [];
 
@@ -67,7 +67,7 @@ const deleteField = ({ query }, res) => {
 
 	return pool.query('DELETE FROM field WHERE id=$1', [fieldId], (error, result) => {
 		if (error) {
-			return responseJSON(res, 500, { message: 'serverError', error });
+			return responseJSON(res, 500, { message: error.message, errorInfo: error });
 		}
 
 		const { rowCount } = result;
@@ -92,7 +92,7 @@ const updateField = ({ body }, res) => {
 		[fieldName, regionId],
 		(error, result) => {
 			if (error) {
-				return responseJSON(res, 500, { message: 'serverError', error });
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
 			}
 
 			const { rowCount } = result;
@@ -106,7 +106,7 @@ const updateField = ({ body }, res) => {
 				[fieldName, fieldId],
 				(error, result) => {
 					if (error) {
-						return responseJSON(res, 500, { message: 'serverError', error });
+						return responseJSON(res, 500, { message: error.message, errorInfo: error });
 					}
 
 					const { rowCount } = result;
