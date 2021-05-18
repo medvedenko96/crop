@@ -2,15 +2,11 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const config = require('./config');
 const { authenticateToken } = require('./middlewares/authenticateToken');
-
-const origin = {
-	origin: config.IS_PRODUCTION ? process.env.DOMEN : '*',
-};
+const config = require('./config');
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const origin = { origin: '*' };
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,4 +25,4 @@ if (config.IS_PRODUCTION) {
 	});
 }
 
-app.listen(PORT);
+app.listen(config.PORT);

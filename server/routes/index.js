@@ -6,8 +6,8 @@ const companyController = require('../controllers/companyController');
 const regionController = require('../controllers/regionController');
 const fieldController = require('../controllers/fieldController');
 const yearController = require('../controllers/yearController');
-const zonalManagement = require('../controllers/zonalManagementController');
-const normBot = require('../controllers/normBot');
+const zonalManagementController = require('../controllers/zonalManagementController');
+const normBotController = require('../controllers/normBotController');
 
 const router = express.Router();
 
@@ -46,12 +46,12 @@ router.get('/years', yearController.getYears);
 router.delete('/year', yearController.deleteYear);
 
 // zonalManagement
-router.post('/zonal-management', zonalManagement.setZonalManagement);
-router.get('/zonal-management', zonalManagement.getZonalManagement);
+router.post('/zonal-management', zonalManagementController.setZonalManagement);
+router.get('/zonal-management', zonalManagementController.getZonalManagement);
 
 // normBot
-router.post('/norm-bot', normBot.setNormBotRow);
-router.get('/norm-bot', normBot.getNormBot);
-router.delete('/norm-bot', normBot.deleteNormBotRow);
+router.post('/norm-bot', normBotController.setNormBotRow);
+router.get('/norm-bot', normBotController.getNormBot);
+router.delete('/norm-bot', normBotController.deleteNormBotRow);
 
 module.exports = router;

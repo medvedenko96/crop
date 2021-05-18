@@ -1,12 +1,12 @@
 import React from 'react';
-import { shape, string, object, func, array } from 'prop-types';
+import { shape, string, object, func } from 'prop-types';
 
 /* @Components */
 import ZonalManagementTable from './submodals/ZonalManagementTable';
 import NormBotTable from './submodals/NormBotTable';
 
 /* @Antd */
-import { Input, Upload } from 'antd';
+import { Input } from 'antd';
 
 /* @Utils */
 import { capitalizeFirstLetter } from 'utils/capitalizeFirstLetter';
@@ -21,20 +21,9 @@ const propTypes = {
 	currentField: shape({ crop: string }),
 	description: string,
 	onTextAreaChange: func,
-	onUploadChange: func,
-	onPreview: func,
-	fileList: array,
 };
 
-const FieldInfoComponent = ({
-	intl,
-	currentField,
-	description,
-	onTextAreaChange,
-	onUploadChange,
-	onPreview,
-	fileList,
-}) => {
+const FieldInfoComponent = ({ intl, currentField, description, onTextAreaChange }) => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.cropTitle}>
@@ -51,16 +40,6 @@ const FieldInfoComponent = ({
 						placeholder="Опис, коментар для замовника"
 						autoSize={{ minRows: 5, maxRows: 8 }}
 					/>
-				</div>
-				<div className={styles.upload}>
-					<Upload
-						listType="picture-card"
-						fileList={fileList}
-						onChange={onUploadChange}
-						onPreview={onPreview}
-					>
-						{fileList.length < 3 && '+ Upload'}
-					</Upload>
 				</div>
 			</div>
 			<ZonalManagementTable />

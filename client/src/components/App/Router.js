@@ -13,7 +13,7 @@ import Field from 'pages/MangerPages/Field';
 const Router = () => {
 	return (
 		<Switch>
-			<Route exect path="/manager" render={(props) => <MangerLogin {...props} />} />
+			<Route exect path="/admin" render={(props) => <MangerLogin {...props} />} />
 			<PrivateRoute
 				exect
 				path="/dashboard/:companyId?/:regionId?/:fieldId?"
