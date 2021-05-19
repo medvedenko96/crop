@@ -8,12 +8,12 @@ const createYear = ({ body }, res) => {
 		return responseJSON(res, 400, { message: 'All fields required.' });
 	}
 
-	const query = `INSERT INTO year_field (field_id, year_field, crop)
-    SELECT $1, $2, $3 WHERE NOT EXISTS
-        (SELECT id FROM year_field WHERE year_field=$4 AND field_id=$5) 
+	const query = `INSERT INTO year_field (field_id, year_field, crop, img_url, description)
+    SELECT $1, $2, $3, $4, $5 WHERE NOT EXISTS
+        (SELECT id FROM year_field WHERE year_field=$6 AND field_id=$7) 
         RETURNING id, year_field AS year, crop`;
 
-	const value = [fieldId, year, crop, year, fieldId];
+	const value = [fieldId, year, crop, '', '', year, fieldId];
 
 	return pool.query(query, value, (error, result) => {
 		if (error) {
@@ -78,8 +78,72 @@ const deleteYear = ({ query }, res) => {
 	});
 };
 
+const setDescription = ({ body }, res) => {
+	const { yearId, description } = body;
+
+	if (!yearId || !description) {
+		return responseJSON(res, 400, { message: 'All fields required.' });
+	}
+
+	return pool.query(
+		'UPDATE year_field SET description=$1 WHERE id=$2',
+		[description, yearId],
+		(error, result) => {
+			if (error) {
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
+			}
+
+			const { rowCount } = result;
+
+			if (rowCount) {
+				return responseJSON(res, 200, {
+					isSuccess: true,
+					message: 'description.updated',
+				});
+			}
+
+			return responseJSON(res, 200, {
+				message: 'description.notUpdated',
+			});
+		}
+	);
+};
+
+const setImgUrl = ({ body }, res) => {
+	const { yearId, imgUrl } = body;
+
+	if (!yearId || !imgUrl) {
+		return responseJSON(res, 400, { message: 'All fields required.' });
+	}
+
+	return pool.query(
+		'UPDATE year_field SET img_url=$1 WHERE id=$2',
+		[imgUrl, yearId],
+		(error, result) => {
+			if (error) {
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
+			}
+
+			const { rowCount } = result;
+
+			if (rowCount) {
+				return responseJSON(res, 200, {
+					isSuccess: true,
+					message: 'description.updated',
+				});
+			}
+
+			return responseJSON(res, 200, {
+				message: 'description.notUpdated',
+			});
+		}
+	);
+};
+
 module.exports = {
 	createYear,
 	getYears,
 	deleteYear,
+	setDescription,
+	setImgUrl,
 };

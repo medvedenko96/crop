@@ -51,6 +51,8 @@ CREATE TABLE year_field (
     ID SERIAL PRIMARY KEY,
     field_id integer references field(id) ON DELETE CASCADE,
     year_field smallint NOT NULL,
+    img_url text,
+    description text,
     crop VARCHAR(255) NOT NULL
 );
 </pre>
@@ -60,10 +62,10 @@ CREATE TABLE zonal_management (
     ID SERIAL PRIMARY KEY,
     year_id integer references year_field(id) ON DELETE CASCADE,
     type smallint NOT NULL,
-    yield_capacity integer,
-    actual_population integer,
-    planting_density integer,
-    hectares integer
+    yield_capacity decimal,
+    actual_population decimal,
+    planting_density decimal,
+    hectares decimal
 );
 </pre>
 
@@ -72,12 +74,12 @@ CREATE TABLE norm_bot (
     ID SERIAL PRIMARY KEY,
     year_id integer references year_field(id) ON DELETE CASCADE,
     row_key integer NOT NULL,
-    row_number integer,
-    control_norm integer,
-    control_yield integer,
-    control_square integer,
-    experiment_norm integer,
-    experiment_yield integer,
-    experiment_square integer
+    row_number decimal,
+    control_norm decimal,
+    control_yield decimal,
+    control_square decimal,
+    experiment_norm decimal,
+    experiment_yield decimal,
+    experiment_square decimal
 );
 </pre>
