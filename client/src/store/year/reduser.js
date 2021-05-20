@@ -14,6 +14,8 @@ import {
 	UPDATE_NORM_BOT_ROW,
 	SET_NORM_BOT,
 	DELETE_NORM_BOT_ROW,
+	SET_DESCRIPTION,
+	SET_IMG_URL,
 } from './constants';
 
 const setYears = ({ currentYearId, byId, allIds }, payload) => ({
@@ -105,6 +107,30 @@ const deleteNormBotRow = ({ byId, allIds, currentYearId }, { yearId, rowKey }) =
 	};
 };
 
+const setDescription = ({ byId, allIds, currentYearId }, { yearId, description }) => ({
+	currentYearId,
+	allIds,
+	byId: {
+		...byId,
+		[yearId]: {
+			...byId[yearId],
+			description,
+		},
+	},
+});
+
+const setImgUrl = ({ byId, allIds, currentYearId }, { yearId, imgUrl }) => ({
+	currentYearId,
+	allIds,
+	byId: {
+		...byId,
+		[yearId]: {
+			...byId[yearId],
+			imgUrl,
+		},
+	},
+});
+
 const initialState = {
 	byId: {},
 	allIds: {},
@@ -141,6 +167,12 @@ export default (state = initialState, action = {}) => {
 
 		case DELETE_NORM_BOT_ROW:
 			return deleteNormBotRow(state, payload);
+
+		case SET_DESCRIPTION:
+			return setDescription(state, payload);
+
+		case SET_IMG_URL:
+			return setImgUrl(state, payload);
 
 		default:
 			return state;

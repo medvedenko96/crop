@@ -7,7 +7,7 @@
 
 .content {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     padding-bottom: 16px;
 }
 
@@ -16,6 +16,23 @@
     padding: 0 0 8px 8px;
 }
 
-.titleAndDescription {
-    width: 300px;
+.descriptionContent {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.description {
+    width: 100%;
+}
+
+.imgUrlInputContent {
+    display: flex;
+
+}
+.imgUrlInput {
+    width: 100%;
+}
+
+.buttonWrapper {
+    margin-left: 16px;
 }

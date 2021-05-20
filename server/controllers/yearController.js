@@ -1,5 +1,6 @@
 const { pool } = require('../db');
 const { responseJSON } = require('../utils/response');
+const { snakeToCamelMapper } = require('../utils/snakeToCamel');
 
 const createYear = ({ body }, res) => {
 	const { fieldId, year, crop } = body;
@@ -42,7 +43,7 @@ const getYears = ({ query }, res) => {
 	}
 
 	return pool.query(
-		'SELECT id, year_field AS year, crop FROM year_field WHERE field_id=$1',
+		'SELECT id, year_field AS year, crop, description, img_url FROM year_field WHERE field_id=$1',
 		[fieldId],
 		(error, result) => {
 			if (error) {
@@ -51,7 +52,10 @@ const getYears = ({ query }, res) => {
 
 			const years = (!!result && result.rows) || [];
 
-			return responseJSON(res, 200, { years, isSuccess: true });
+			return responseJSON(res, 200, {
+				years: years.map((year) => snakeToCamelMapper(year)),
+				isSuccess: true,
+			});
 		}
 	);
 };
@@ -98,12 +102,12 @@ const setDescription = ({ body }, res) => {
 			if (rowCount) {
 				return responseJSON(res, 200, {
 					isSuccess: true,
-					message: 'description.updated',
+					message: 'description.saved',
 				});
 			}
 
 			return responseJSON(res, 200, {
-				message: 'description.notUpdated',
+				message: 'description.notSaved',
 			});
 		}
 	);
@@ -129,12 +133,12 @@ const setImgUrl = ({ body }, res) => {
 			if (rowCount) {
 				return responseJSON(res, 200, {
 					isSuccess: true,
-					message: 'description.updated',
+					message: 'imgUrl.saved',
 				});
 			}
 
 			return responseJSON(res, 200, {
-				message: 'description.notUpdated',
+				message: 'imgUrl.notSaved',
 			});
 		}
 	);

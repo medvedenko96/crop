@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { array, func } from 'prop-types';
+import { object, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
 import classNames from 'classnames/bind';
@@ -29,7 +29,7 @@ const notification = (type, message) => antdMessage[type](message);
 const propTypes = {
 	setNormBot: func,
 	deleteNormBotRow: func,
-	normBot: array,
+	normBot: object,
 };
 
 const NormBotTableContainer = ({ setNormBot, deleteNormBotRow, normBot }) => {

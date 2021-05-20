@@ -10,7 +10,7 @@ import EditableCell from '../EditableCell';
 const propTypes = {
 	form: object,
 	mergedColumns: array,
-	rows: object,
+	rows: array,
 };
 
 const ZonalManagementTableComponent = ({ form, mergedColumns, rows }) => {

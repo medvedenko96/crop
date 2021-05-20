@@ -12,6 +12,8 @@ import {
 	UPDATE_NORM_BOT_ROW,
 	SET_NORM_BOT,
 	DELETE_NORM_BOT_ROW,
+	SET_IMG_URL,
+	SET_DESCRIPTION,
 } from './constants';
 
 import { getYearsSelector } from './selectors';
@@ -122,6 +124,32 @@ export const deleteNormBotRowAction = (rowKey) => async (dispatch, getState) => 
 
 	if (isSuccess) {
 		dispatch({ type: DELETE_NORM_BOT_ROW, payload: { yearId, rowKey } });
+	}
+
+	return { isSuccess, message };
+};
+
+export const setImgUrlAction = (imgUrl) => async (dispatch, getState) => {
+	const state = getState();
+	const { currentYearId: yearId } = getYearsSelector(state);
+
+	const { isSuccess, message } = await year.setImgUrl(yearId, imgUrl);
+
+	if (isSuccess) {
+		dispatch({ type: SET_IMG_URL, payload: { yearId, imgUrl } });
+	}
+
+	return { isSuccess, message };
+};
+
+export const setDescriptionAction = (description) => async (dispatch, getState) => {
+	const state = getState();
+	const { currentYearId: yearId } = getYearsSelector(state);
+
+	const { isSuccess, message } = await year.setDescription(yearId, description);
+
+	if (isSuccess) {
+		dispatch({ type: SET_DESCRIPTION, payload: { yearId, description } });
 	}
 
 	return { isSuccess, message };

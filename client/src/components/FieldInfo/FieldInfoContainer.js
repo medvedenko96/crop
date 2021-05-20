@@ -6,22 +6,50 @@ import { useIntl } from 'react-intl';
 /* @Components */
 import FieldInfoComponent from './FieldInfoComponent';
 
+/* @Antd */
+import { message as antdMessage } from 'antd';
+
 /* @Actions */
+import { setImgUrlAction, setDescriptionAction } from 'store/year/actions';
 
 /* @Selectors */
 import { getYearsSelector } from 'store/year/selectors';
 
+const notification = (type, message) => antdMessage[type](message);
+
 const propTypes = {
-	uploadPhotoField: func,
-	currentField: shape({ crop: string }),
+	saveImgUrl: func,
+	saveDescription: func,
+	currentField: shape({
+		crop: string,
+		description: string,
+		imgUrl: string,
+	}),
 };
 
-const FieldInfoContainer = ({ currentField }) => {
+const FieldInfoContainer = ({ saveImgUrl, saveDescription, currentField }) => {
 	const intl = useIntl();
-	const [description, setDescription] = useState('');
+	const [description, setDescription] = useState(currentField.description);
+	const [imgUrl, setImgUrl] = useState(currentField.imgUrl);
 
-	const handleTextAreaChange = ({ target: { value } }) => {
-		setDescription(value);
+	const handleTextAreaChange = ({ target: { value } }) => setDescription(value);
+
+	const handleSaveDescriptionClick = async () => {
+		const { isSuccess, message } = await saveDescription(description);
+
+		isSuccess
+			? notification('success', intl.formatMessage({ id: message }))
+			: notification('warning', intl.formatMessage({ id: message }));
+	};
+
+	const handleInputChange = ({ target: { value } }) => setImgUrl(value);
+
+	const handleSaveImgUrlClick = async () => {
+		const { isSuccess, message } = await saveImgUrl(imgUrl);
+
+		isSuccess
+			? notification('success', intl.formatMessage({ id: message }))
+			: notification('warning', intl.formatMessage({ id: message }));
 	};
 
 	return (
@@ -29,7 +57,11 @@ const FieldInfoContainer = ({ currentField }) => {
 			intl={intl}
 			currentField={currentField}
 			description={description}
+			imgUrl={imgUrl}
 			onTextAreaChange={handleTextAreaChange}
+			onSaveDescriptionClick={handleSaveDescriptionClick}
+			onInputChange={handleInputChange}
+			onSaveImgUrlClick={handleSaveImgUrlClick}
 		/>
 	);
 };
@@ -38,7 +70,10 @@ FieldInfoContainer.propTypes = propTypes;
 
 FieldInfoContainer.displayName = 'FieldInfoContainer';
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+	saveImgUrl: setImgUrlAction,
+	saveDescription: setDescriptionAction,
+};
 
 const mapStateToProps = (state) => {
 	const { yearsById, currentYearId } = getYearsSelector(state);

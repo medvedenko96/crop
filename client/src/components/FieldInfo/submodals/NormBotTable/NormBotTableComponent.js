@@ -16,7 +16,7 @@ const propTypes = {
 	onAddRowClick: func,
 	form: object,
 	mergedColumns: array,
-	tableData: object,
+	tableData: array,
 };
 
 const NormBotTable = ({ intl, editingKey, onAddRowClick, form, mergedColumns, tableData }) => {

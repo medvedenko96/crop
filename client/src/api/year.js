@@ -71,4 +71,22 @@ export default {
 
 		return data;
 	},
+
+	async setImgUrl(yearId, imgUrl) {
+		const { data } = await axios.post('/api/img-url', {
+			yearId,
+			imgUrl,
+		});
+
+		return data;
+	},
+
+	async setDescription(yearId, description) {
+		const { data } = await axios.post('/api/description', {
+			yearId,
+			description,
+		});
+
+		return data;
+	},
 };
