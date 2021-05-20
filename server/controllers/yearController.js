@@ -85,7 +85,7 @@ const deleteYear = ({ query }, res) => {
 const setDescription = ({ body }, res) => {
 	const { yearId, description } = body;
 
-	if (!yearId || !description) {
+	if (!yearId && (!description || description === '')) {
 		return responseJSON(res, 400, { message: 'All fields required.' });
 	}
 
@@ -116,7 +116,7 @@ const setDescription = ({ body }, res) => {
 const setImgUrl = ({ body }, res) => {
 	const { yearId, imgUrl } = body;
 
-	if (!yearId || !imgUrl) {
+	if (!yearId && (imgUrl !== '' || !imgUrl)) {
 		return responseJSON(res, 400, { message: 'All fields required.' });
 	}
 

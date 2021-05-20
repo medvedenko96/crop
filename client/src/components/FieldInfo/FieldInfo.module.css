@@ -5,7 +5,7 @@
     padding-right: 16px;
 }
 
-.content {
+.inputs {
     display: flex;
     flex-direction: column;
     padding-bottom: 16px;
@@ -35,4 +35,22 @@
 
 .buttonWrapper {
     margin-left: 16px;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.mainInfo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.imgWrapper {
+    margin-left: 16px;
+    margin-bottom: 16px;
 }
