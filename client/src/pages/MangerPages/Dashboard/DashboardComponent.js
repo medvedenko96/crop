@@ -9,9 +9,9 @@ import Dashboard from 'components/DashboardContent';
 import Header from 'components/Header';
 
 /* @Styles */
-import styles from './DashboardPage.module.css';
+import styles from './Dashboard.module.css';
 
-const DashboardPageComponent = () => (
+const DashboardComponent = () => (
 	<div className={styles.wrapper}>
 		<Header />
 		<div className={styles.mainWrapper}>
@@ -27,4 +27,4 @@ const DashboardPageComponent = () => (
 	</div>
 );
 
-export default DashboardPageComponent;
+export default DashboardComponent;

@@ -22,6 +22,7 @@ const locales = {
 		notSave: 'Не вдалося зберегти зміни',
 		hectares: 'Гектари',
 		crop: 'Культура: {crop}',
+		loading: 'Загрузка...',
 		notFound: {
 			subTitle: 'На жаль, відвіданої вами сторінки не існує.',
 			buttonText: 'На головну',

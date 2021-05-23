@@ -1,5 +1,5 @@
 /* @Api */
-import { auth, manager } from 'api';
+import { auth, user } from 'api';
 /* @Constants */
 import { SET_MANAGER_INFO, LOGIN_MANAGER, LOGOUT } from './constants';
 
@@ -14,9 +14,9 @@ export const setManagerInfoActions = (managerInfo) => (dispatch) => {
 };
 
 export const getManagerInfoActions = () => async (dispatch) => {
-	const managerInfo = await manager.getManagerByJWT();
+	const managerInfo = await user.getUserInfoByJWT();
 
-	dispatch({ type: SET_MANAGER_INFO, payload: { ...managerInfo, isManagerInfoLoaded: false } });
+	dispatch({ type: SET_MANAGER_INFO, payload: { ...managerInfo, isInfoLoaded: false } });
 };
 
 export const loginManagerActions = (userInfo) => async (dispatch) => {
@@ -25,7 +25,19 @@ export const loginManagerActions = (userInfo) => async (dispatch) => {
 
 	if (data?.login && data?.id) {
 		setToken(data);
-		dispatch({ type: LOGIN_MANAGER, payload: { ...data, isManagerInfoLoaded: false } });
+		dispatch({ type: LOGIN_MANAGER, payload: { ...data, isInfoLoaded: false } });
+	}
+
+	return data;
+};
+
+export const loginCompanyActions = (userInfo) => async (dispatch) => {
+	const data = await auth.companyLogin(userInfo);
+	const { setToken } = useToken();
+
+	if (data?.login && data?.id) {
+		setToken(data);
+		dispatch({ type: LOGIN_MANAGER, payload: { ...data, isInfoLoaded: false } });
 	}
 
 	return data;

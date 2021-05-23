@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { func, number, string, bool } from 'prop-types';
 import { connect } from 'react-redux';
+import { useIntl } from 'react-intl';
 
 /* @Actions */
-import { getManagerInfoActions } from 'store/manager/actions';
+import { getManagerInfoActions } from 'store/user/actions';
 
 /* @Component */
 import PrivateRouteComponent from './PrivateRouteComponent';
@@ -14,11 +15,21 @@ import useToken from 'helpers/useToken';
 const propTypes = {
 	id: number,
 	login: string,
-	isManagerInfoLoaded: bool,
+	isInfoLoaded: bool,
 	getManagerInfo: func,
+	isCompany: bool,
 };
 
-const PrivateRouteContainer = ({ id, login, isManagerInfoLoaded, getManagerInfo, ...props }) => {
+const PrivateRouteContainer = ({
+	id,
+	login,
+	isInfoLoaded,
+	getManagerInfo,
+	isCompany,
+	...props
+}) => {
+	const intl = useIntl();
+
 	if (!id) {
 		useEffect(getManagerInfo, []);
 	}
@@ -26,7 +37,15 @@ const PrivateRouteContainer = ({ id, login, isManagerInfoLoaded, getManagerInfo,
 	const { checkToken } = useToken();
 	const isAuth = checkToken({ login, id });
 
-	return <PrivateRouteComponent isLoaded={isManagerInfoLoaded} isAuth={isAuth} {...props} />;
+	return (
+		<PrivateRouteComponent
+			intl={intl}
+			isLoaded={isInfoLoaded}
+			isAuth={isAuth}
+			isCompany={isCompany}
+			{...props}
+		/>
+	);
 };
 
 PrivateRouteContainer.propTypes = propTypes;
@@ -34,7 +53,8 @@ PrivateRouteContainer.propTypes = propTypes;
 const mapStateToProps = ({ user }) => ({
 	id: user.id,
 	login: user.login,
-	isManagerInfoLoaded: user.isManagerInfoLoaded,
+	isInfoLoaded: user.isInfoLoaded,
+	isCompany: user.isCompany,
 });
 
 const mapDispatchToProps = {

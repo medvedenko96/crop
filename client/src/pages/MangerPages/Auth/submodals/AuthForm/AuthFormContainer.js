@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
 
 /* @Component */
-import LoginFormComponent from './LoginFormComponent';
+import AuthFormComponent from './AuthFormComponent';
 
 /* @Actions */
-import { loginManagerActions } from 'store/manager/actions';
+import { loginManagerActions } from 'store/user/actions';
 
 const propTypes = {
 	login: func,
 };
 
-const LoginFormContainer = ({ login }) => {
+const AuthFormContainer = ({ login }) => {
 	const [serverError, setServerError] = useState('');
 	const intl = useIntl();
 
@@ -23,7 +23,7 @@ const LoginFormContainer = ({ login }) => {
 	};
 
 	return (
-		<LoginFormComponent
+		<AuthFormComponent
 			intl={intl}
 			onSubmitButtonClick={handleSubmitButtonClick}
 			serverError={serverError}
@@ -31,12 +31,12 @@ const LoginFormContainer = ({ login }) => {
 	);
 };
 
-LoginFormContainer.propTypes = propTypes;
+AuthFormContainer.propTypes = propTypes;
 
-LoginFormContainer.displayName = 'LoginFormContainer';
+AuthFormContainer.displayName = 'AuthFormContainer';
 
 const mapDispatchToProps = {
 	login: loginManagerActions,
 };
 
-export default connect(null, mapDispatchToProps)(LoginFormContainer);
+export default connect(null, mapDispatchToProps)(AuthFormContainer);

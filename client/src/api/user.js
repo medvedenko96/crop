@@ -7,9 +7,10 @@ export default {
 			password,
 		});
 	},
-	async getManagerByJWT() {
+
+	async getUserInfoByJWT() {
 		try {
-			const { data } = await axios.get('/api/manager');
+			const { data } = await axios.get('/api/user-info');
 
 			return data;
 		} catch (error) {

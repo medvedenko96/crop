@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 /* @Components */
-import LoginForm from 'components/LoginForm';
+import LoginForm from './submodals/AuthForm';
 
 const propTypes = {
 	isAuth: bool,
 };
 
-const LoginPage = ({ isAuth }) => {
+const Auth = ({ isAuth }) => {
 	if (isAuth) {
 		return <Redirect to="/dashboard" />;
 	}
@@ -18,12 +18,12 @@ const LoginPage = ({ isAuth }) => {
 	return <LoginForm />;
 };
 
-LoginPage.propTypes = propTypes;
+Auth.propTypes = propTypes;
 
-LoginPage.displayName = 'LoginPage';
+Auth.displayName = 'Auth';
 
 const mapStateToProps = ({ user }) => ({
 	isAuth: user.isAuth,
 });
 
-export default connect(mapStateToProps, null)(LoginPage);
+export default connect(mapStateToProps, null)(Auth);

@@ -12,12 +12,13 @@ const normBotController = require('../controllers/normBotController');
 const router = express.Router();
 
 // manager
-router.get('/manager', managerController.getManagerByJWT);
 router.post('/manager', managerController.createManager);
 router.post('/delete-manager', managerController.deleteManger);
 
 // auth
-router.post('/login-manger', authController.MangerLogin);
+router.post('/login-manger', authController.mangerLogin);
+router.post('/login-company', authController.companyLogin);
+router.get('/user-info', authController.getUserInfoByJWT);
 
 // company
 router.post('/create-company', companyController.createCompany);

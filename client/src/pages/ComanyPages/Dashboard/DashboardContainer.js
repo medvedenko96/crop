@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-/* @Components */
+/* @Pages */
 import DashboardComponent from './DashboardComponent';
 
 const propTypes = {};
@@ -12,6 +12,10 @@ const DashboardContainer = () => {
 
 DashboardContainer.propTypes = propTypes;
 
-DashboardContainer.defaultProps = {};
+DashboardContainer.displayName = 'DashboardContainer';
 
-export default connect(null, null)(DashboardContainer);
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);

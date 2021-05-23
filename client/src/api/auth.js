@@ -10,6 +10,15 @@ export default {
 		return data;
 	},
 
+	async companyLogin({ login, password }) {
+		const { data } = await axios.post('/api/login-company', {
+			login,
+			password,
+		});
+
+		return data;
+	},
+
 	async mangerLogout() {
 		await axios.get('/api/logout');
 	},

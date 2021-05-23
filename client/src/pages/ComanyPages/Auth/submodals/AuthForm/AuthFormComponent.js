@@ -10,7 +10,7 @@ import { Form, Input, Button } from 'antd';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import LockOutlined from '@ant-design/icons/LockOutlined';
 
-import styles from './LoginForm.module.css';
+import styles from './AuthForm.module.css';
 
 const { Item } = Form;
 
@@ -20,7 +20,7 @@ const propTypes = {
 	intl: object,
 };
 
-const LoginFormComponent = ({ onSubmitButtonClick, serverError, intl }) => {
+const AuthFormComponent = ({ onSubmitButtonClick, serverError, intl }) => {
 	const [form] = Form.useForm();
 
 	const validationSchema = Yup.object().shape({
@@ -92,8 +92,8 @@ const LoginFormComponent = ({ onSubmitButtonClick, serverError, intl }) => {
 	);
 };
 
-LoginFormComponent.propTypes = propTypes;
+AuthFormComponent.propTypes = propTypes;
 
-LoginFormComponent.displayName = 'LoginFormComponent';
+AuthFormComponent.displayName = 'AuthFormComponent';
 
-export default LoginFormComponent;
+export default AuthFormComponent;

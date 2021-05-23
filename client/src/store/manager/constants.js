@@ -1,5 +1,0 @@
-const MANAGER = 'MANAGER';
-
-export const LOGIN_MANAGER = `${MANAGER}_LOGIN_MANAGER`;
-export const SET_MANAGER_INFO = `${MANAGER}_SET_MANAGER_INFO`;
-export const LOGOUT = `${MANAGER}_LOGOUT`;

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
-import user from './manager/reduser';
+import user from './user/reduser';
 import companies from './company/reduser';
 import regions from './region/reduser';
 import fields from './field/reduser';

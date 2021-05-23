@@ -1,11 +1,13 @@
 /* @Constants */
-import { SET_MANAGER_INFO, LOGIN_MANAGER } from './constants';
+import { SET_MANAGER_INFO, LOGIN_MANAGER, LOGIN_COMPANY } from './constants';
 
 const initialState = {
-	isManagerInfoLoaded: true,
+	isInfoLoaded: true,
 	isAuth: false,
 	id: null,
 	login: '',
+	isCompany: false,
+	companyName: '',
 };
 
 export default (state = initialState, action = {}) => {
@@ -19,6 +21,12 @@ export default (state = initialState, action = {}) => {
 			};
 
 		case LOGIN_MANAGER:
+			return {
+				...state,
+				...payload,
+			};
+
+		case LOGIN_COMPANY:
 			return {
 				...state,
 				...payload,

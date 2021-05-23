@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper > form {
+  margin-top: 100px;
+  width: 300px;
+}
+
+.input_icon {
+  color: rgba(0, 0, 0, 0.45) !important;
+}
+
+.forgot {
+  padding-bottom: 12px;
+  color: #1da57a;
+}
+
+.input_error {
+  color: #ff4d4f;
+}

@@ -3,7 +3,7 @@ const config = require('../config');
 
 const { responseJSON } = require('../utils/response');
 
-const path = ['/login', '/login-manger'];
+const path = ['/login-company', '/login-manger'];
 
 module.exports.authenticateToken = (req, res, next) => {
 	const { url, cookies } = req;
