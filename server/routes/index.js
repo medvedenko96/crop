@@ -32,6 +32,7 @@ router.get('/company', companyController.getCompany);
 router.post('/create-region', regionController.createRegion);
 router.post('/update-region', regionController.updateRegion);
 router.get('/regions', regionController.getRegions);
+router.get('/regions-with-fields', regionController.getRegionsWithFields);
 router.delete('/region', regionController.deleteRegion);
 router.get('/region', regionController.getRegion);
 

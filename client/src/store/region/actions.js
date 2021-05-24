@@ -32,6 +32,14 @@ export const getRegionsAction = (companyId) => async (dispatch) => {
 	}
 };
 
+export const getRegionsWithFieldsAction = (companyId) => async (dispatch) => {
+	const { regions, isSuccess } = await region.getRegionsWithFields(companyId);
+
+	if (isSuccess) {
+		dispatch({ type: SET_REGIONS, payload: normalizedData(regions, companyId) });
+	}
+};
+
 export const deleteRegionAction = (regionId, currentCompanyId) => async (dispatch) => {
 	const { isSuccess, message } = await region.deleteRegion(regionId);
 

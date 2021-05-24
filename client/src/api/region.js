@@ -20,6 +20,16 @@ export default {
 		return data;
 	},
 
+	async getRegionsWithFields(companyId) {
+		const { data } = await axios.get('/api/regions-with-fields', {
+			params: {
+				id: companyId,
+			},
+		});
+
+		return data;
+	},
+
 	async deleteRegion(regionId) {
 		const { data } = await axios.delete('/api/region', {
 			params: {

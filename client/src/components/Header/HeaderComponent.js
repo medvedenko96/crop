@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 /* @Antd */
 import { Row, Col } from 'antd';
 
-/* @Icons */
-import UserOutlined from '@ant-design/icons/UserOutlined';
-
 import styles from './Header.module.css';
 
 const propTypes = {};
@@ -24,9 +21,7 @@ const HeaderComponent = () => {
 					</h1>
 				</Col>
 				<Col xs={24} sm={24} md={18} lg={18} xl={19} xxl={20}>
-					<div className={styles.header}>
-						<UserOutlined />
-					</div>
+					<div className={styles.header} />
 				</Col>
 			</Row>
 		</div>

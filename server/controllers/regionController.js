@@ -148,10 +148,54 @@ const getRegion = ({ query }, res) => {
 	);
 };
 
+const getFieldsByRegionId = async (regionId) => {
+	const { rows } = await pool.query(
+		'SELECT id, field_name as name FROM field WHERE region_id=$1',
+		[regionId]
+	);
+
+	return rows;
+};
+
+const getRegionsWithFields = ({ query }, res) => {
+	const { id: companyId } = query;
+
+	if (!companyId) {
+		return responseJSON(res, 400, { message: 'All fields required.' });
+	}
+
+	return pool.query(
+		'SELECT id, region_name as name FROM region WHERE company_id=$1',
+		[companyId],
+		async (error, result) => {
+			if (error) {
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
+			}
+
+			const { rowCount, rows } = result;
+
+			if (rowCount) {
+				const regionsWithFields = rows.map(async ({ id, name }) => {
+					const fields = await getFieldsByRegionId(id);
+
+					return { id, name, fields };
+				});
+
+				const regions = await Promise.all(regionsWithFields);
+
+				return responseJSON(res, 200, { regions, isSuccess: true });
+			}
+
+			return responseJSON(res, 200, { regions: [], isSuccess: true });
+		}
+	);
+};
+
 module.exports = {
 	getRegions,
 	createRegion,
 	deleteRegion,
 	updateRegion,
 	getRegion,
+	getRegionsWithFields,
 };
