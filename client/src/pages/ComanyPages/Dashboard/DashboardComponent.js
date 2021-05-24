@@ -5,6 +5,7 @@ import { Row, Col } from 'antd';
 
 /* @Components */
 import Menu from './submodals/Menu';
+import Tabs from './submodals/Tabs';
 import Header from 'components/Header';
 
 /* @Styles */
@@ -22,7 +23,7 @@ const DashboardComponent = () => {
 						<Menu />
 					</Col>
 					<Col xs={24} sm={24} md={18} lg={18} xl={19} xxl={20}>
-						Dashboard
+						<Tabs />
 					</Col>
 				</Row>
 			</div>

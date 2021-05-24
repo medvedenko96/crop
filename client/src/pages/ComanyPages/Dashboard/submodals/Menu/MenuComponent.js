@@ -11,15 +11,21 @@ const { SubMenu, Item } = Menu;
 
 const propTypes = {
 	regions: array,
-	onSubMenuClick: func,
+	selectedKeys: array,
+	onClick: func,
 };
 
-const MenuComponent = ({ regions, onSubMenuClick }) => {
+const MenuComponent = ({ regions, selectedKeys, onClick }) => {
 	return (
 		<div>
-			<Menu onClick={onSubMenuClick} mode="inline" className={styles.menu}>
+			<Menu
+				onClick={onClick}
+				selectedKeys={selectedKeys}
+				mode="inline"
+				className={styles.menu}
+			>
 				{regions.map(({ id, name, fields = [] }) => (
-					<SubMenu onTitleClick={onSubMenuClick} key={id} title={name}>
+					<SubMenu key={id} title={name}>
 						{fields.map(({ id, name }) => (
 							<Item key={id}>{name}</Item>
 						))}
