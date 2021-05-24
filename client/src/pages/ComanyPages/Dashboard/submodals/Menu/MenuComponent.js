@@ -17,7 +17,7 @@ const propTypes = {
 const MenuComponent = ({ regions, onSubMenuClick }) => {
 	return (
 		<div>
-			<Menu onClick={onSubMenuClick} mode="inline" className={styles.wrapper}>
+			<Menu onClick={onSubMenuClick} mode="inline" className={styles.menu}>
 				{regions.map(({ id, name, fields = [] }) => (
 					<SubMenu onTitleClick={onSubMenuClick} key={id} title={name}>
 						{fields.map(({ id, name }) => (

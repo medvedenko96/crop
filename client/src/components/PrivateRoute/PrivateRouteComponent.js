@@ -51,6 +51,10 @@ const PrivateRouteComponent = ({
 		return <Route render={(props) => <NotFound {...props} />} />;
 	}
 
+	if (!isCompany && !props.adminPage) {
+		return <Route render={(props) => <NotFound {...props} />} />;
+	}
+
 	return <Route {...props} render={isLoaded || isAuth ? renderPage : redirect} />;
 };
 

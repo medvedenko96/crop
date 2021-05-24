@@ -74,7 +74,7 @@ const MenuComponent = ({
 
 	return (
 		<>
-			<Menu onClick={onClick} selectedKeys={[companyId?.toString()]}>
+			<Menu onClick={onClick} selectedKeys={[companyId?.toString()]} className={styles.menu}>
 				{menuItem.map((el) => (
 					<ItemGroup key={el.title} title={el.title}>
 						{el.items.map((id) => {

@@ -1,4 +1,4 @@
-.wrapper {
+.menu {
     height: calc(100vh - 104px);
     overflow-y: scroll;
     scroll-behavior: smooth
