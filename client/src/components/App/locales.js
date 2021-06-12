@@ -23,6 +23,7 @@ const locales = {
 		hectares: 'Гектари',
 		crop: 'Культура: {crop}',
 		loading: 'Загрузка...',
+		empty: 'Немає даних',
 		notFound: {
 			subTitle: 'На жаль, відвіданої вами сторінки не існує.',
 			buttonText: 'На головну',

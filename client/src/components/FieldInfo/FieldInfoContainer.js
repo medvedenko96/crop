@@ -66,8 +66,14 @@ const FieldInfoContainer = ({ saveImgUrl, saveDescription, currentField }) => {
 	);
 };
 
+FieldInfoContainer.defaultProps = {
+	currentField: {
+		crop: '',
+		description: '',
+		imgUrl: '',
+	},
+};
 FieldInfoContainer.propTypes = propTypes;
-
 FieldInfoContainer.displayName = 'FieldInfoContainer';
 
 const mapDispatchToProps = {

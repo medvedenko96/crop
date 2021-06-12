@@ -23,10 +23,10 @@ const NormBotTable = ({ intl, editingKey, onAddRowClick, form, mergedColumns, ta
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.header}>
-				<div className={styles.title}>Norm Bot</div>
 				<Button disabled={editingKey} onClick={onAddRowClick}>
 					{intl.formatMessage({ id: 'normBot.addRow' })}
 				</Button>
+				<div className={styles.title}>Norm Bot</div>
 			</div>
 			<Form form={form} component={false}>
 				<Table

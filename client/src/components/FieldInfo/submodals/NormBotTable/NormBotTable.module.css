@@ -1,13 +1,12 @@
 .wrapper {
-    padding-top: 32PX;
+    padding-top: 16px;
+    padding-bottom: 32px;
 }
 
 .header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding-bottom: 12px;
-    padding-left: 8px;
 }
 
 .value {
@@ -16,6 +15,7 @@
 }
 
 .title {
+    margin-left: 16px;
     font-weight: 600;
 }
 

@@ -95,8 +95,8 @@ const FieldInfoComponent = ({
 					</div>
 				)}
 			</div>
-			<ZonalManagementTable />
 			<NormBotTable />
+			<ZonalManagementTable />
 		</div>
 	);
 };

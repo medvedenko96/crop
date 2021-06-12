@@ -31,7 +31,7 @@ const Router = () => {
 			/>
 			<PrivateRoute
 				exect
-				path="/:fieldId?"
+				path="/:fieldId?/:yearId?"
 				render={(props) => <CompanyDashboard {...props} />}
 			/>
 			<Route render={(props) => <NotFound {...props} />} />

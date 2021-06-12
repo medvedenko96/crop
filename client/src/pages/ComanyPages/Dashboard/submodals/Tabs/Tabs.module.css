@@ -1,3 +1,10 @@
 .wrapper {
   margin-left: 32px;
 }
+
+.empty {
+  height: calc(100vh - 104px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
