@@ -125,8 +125,11 @@ const FieldPageContainer = ({
 
 	const intl = useIntl();
 	const [isShowCreateYearModal, setIsShowCreateYearModal] = useState(false);
-
+	const [isShowDrawer, setIsShowDrawer] = useState(false);
 	const years = yearsFormat(yearsById, yearsIds, currentFieldId);
+
+	const handleShowDrawer = () => setIsShowDrawer(true);
+	const handleCloseDrawer = () => setIsShowDrawer(false);
 
 	const handleBackClick = () => {
 		const url = `/dashboard/${currentCompanyId}/${currentRegionId}/${currentFieldId}`;
@@ -193,6 +196,9 @@ const FieldPageContainer = ({
 			years={years}
 			currentRegion={currentRegion}
 			currentCompany={currentCompany}
+			isShowDrawer={isShowDrawer}
+			onShowDrawer={handleShowDrawer}
+			onCloseDrawer={handleCloseDrawer}
 			onCancel={handleCancel}
 			onActionsOnTab={handleActionsOnTab}
 			onSubmitCreateYearModal={handleSubmitCreateYearModal}

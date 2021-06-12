@@ -2,12 +2,15 @@ import React from 'react';
 import { func, object, bool, array, string, shape } from 'prop-types';
 
 /* @Antd */
-import { Tabs, PageHeader } from 'antd';
+import { Tabs, PageHeader, Drawer } from 'antd';
 
 /* @Components */
 import FieldsList from 'components/FieldsList';
 import FieldInfo from 'components/FieldInfo';
 import { CreateYearModal } from 'components/Modals';
+
+/* @Icons */
+import RightOutlined from '@ant-design/icons/RightOutlined';
 
 /* @Styles */
 import styles from './FieldPage.module.css';
@@ -19,6 +22,9 @@ const propTypes = {
 	currentRegion: shape({ name: string }),
 	currentCompany: shape({ name: string }),
 	isShowCreateYearModal: bool,
+	isShowDrawer: bool,
+	onShowDrawer: func,
+	onCloseDrawer: func,
 	onActionsOnTab: func,
 	onCancel: func,
 	onSubmitCreateYearModal: func,
@@ -33,6 +39,9 @@ const FieldPageComponent = ({
 	currentRegion,
 	currentCompany,
 	isShowCreateYearModal,
+	isShowDrawer,
+	onShowDrawer,
+	onCloseDrawer,
 	onActionsOnTab,
 	onCancel,
 	onSubmitCreateYearModal,
@@ -61,9 +70,7 @@ const FieldPageComponent = ({
 					</div>
 				</PageHeader>
 				<div className={styles.content}>
-					<div className={styles.fieldsListWrapper}>
-						<FieldsList isFieldPage />
-					</div>
+					<RightOutlined onClick={onShowDrawer} className={styles.iconOpenDrawer} />
 					<div className={styles.tabsWrapper}>
 						<Tabs
 							type="editable-card"
@@ -86,6 +93,17 @@ const FieldPageComponent = ({
 				onOk={onSubmitCreateYearModal}
 				handleCancel={onCancel}
 			/>
+			<Drawer
+				placement="left"
+				width={420}
+				closable={false}
+				onClose={onCloseDrawer}
+				visible={isShowDrawer}
+			>
+				<div className={styles.fieldsListWrapper}>
+					<FieldsList isFieldPage />
+				</div>
+			</Drawer>
 		</>
 	);
 };
