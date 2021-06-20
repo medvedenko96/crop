@@ -48,10 +48,6 @@
     padding-right: 48px;
 }
 
-.card:last-child {
-    padding-right: 0;
-}
-
 .experiment {
     position: relative;
     height: 250px;

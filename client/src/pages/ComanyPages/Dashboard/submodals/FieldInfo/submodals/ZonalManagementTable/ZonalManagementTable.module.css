@@ -1,0 +1,21 @@
+.wrapper {
+    padding:  0 64px 0 32px;
+}
+
+.colorCube {
+    width: 20px;
+    height: 20px;
+}
+
+.title {
+    text-align: center;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.value {
+    text-align: center;
+    padding: 1px 0;
+}

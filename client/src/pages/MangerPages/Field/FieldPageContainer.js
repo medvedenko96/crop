@@ -21,7 +21,7 @@ import {
 	getYearsAction,
 	setCurrentYearIdAction,
 	deleteYearAction,
-	setZonalManagementAction,
+	getZonalManagementAction,
 	getNormBotAction,
 } from 'store/year/actions';
 import { setCurrentFieldIdAction, getFieldsAction } from 'store/field/actions';
@@ -243,7 +243,7 @@ const mapDispatchToProps = {
 	getRegion: getRegionAction,
 	getCompany: getCompanyAction,
 	deleteYear: deleteYearAction,
-	getZonalManagement: setZonalManagementAction,
+	getZonalManagement: getZonalManagementAction,
 	getNormBot: getNormBotAction,
 	goTo: push,
 };

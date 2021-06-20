@@ -2,7 +2,8 @@ import React from 'react';
 import { shape, string, object } from 'prop-types';
 
 /* @Components */
-import NormBotSlider from '../NormBotSlider';
+import NormBotSlider from './submodals/NormBotSlider';
+import ZonalManagementTable from './submodals/ZonalManagementTable';
 
 /* @Utils */
 import { capitalizeFirstLetter } from 'utils/capitalizeFirstLetter';
@@ -28,6 +29,7 @@ const FieldInfoComponent = ({ intl, currentYear }) => {
 				)}
 			</div>
 			<NormBotSlider normBot={currentYear?.normBot} />
+			<ZonalManagementTable zonalManagement={currentYear?.zonalManagement} />
 		</div>
 	);
 };

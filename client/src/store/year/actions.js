@@ -8,7 +8,7 @@ import {
 	SET_CURRENT_YEAR_ID,
 	DELETE_YEAR,
 	UPDATE_ZONAL_MANAGEMENT_ROW,
-	SET_ZONAL_MANAGEMENT,
+	GET_ZONAL_MANAGEMENT,
 	UPDATE_NORM_BOT_ROW,
 	SET_NORM_BOT,
 	DELETE_NORM_BOT_ROW,
@@ -77,11 +77,11 @@ export const updateZonalManagementAction = (zonalManagementType, zonalManagement
 	return { isSuccess, message };
 };
 
-export const setZonalManagementAction = (yearId) => async (dispatch) => {
+export const getZonalManagementAction = (yearId) => async (dispatch) => {
 	const { isSuccess, data } = await year.getZonalManagement(yearId);
 
 	if (isSuccess) {
-		dispatch({ type: SET_ZONAL_MANAGEMENT, payload: { data, yearId } });
+		dispatch({ type: GET_ZONAL_MANAGEMENT, payload: { data, yearId } });
 	}
 
 	return { isSuccess };

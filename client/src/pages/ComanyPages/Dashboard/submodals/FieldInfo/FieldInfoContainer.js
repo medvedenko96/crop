@@ -7,7 +7,7 @@ import { useIntl } from 'react-intl';
 import FieldInfoComponent from './FieldInfoComponent';
 
 /* @Actions */
-import { getNormBotAction } from 'store/year/actions';
+import { getNormBotAction, getZonalManagementAction } from 'store/year/actions';
 
 /* @Selectors */
 import { getYearsSelector } from 'store/year/selectors';
@@ -18,15 +18,26 @@ const propTypes = {
 	}),
 	currentYearId: number,
 	getNormBot: func,
+	getZonalManagement: func,
 	years: object,
 };
 
-const FieldInfoContainer = ({ currentYear, currentYearId, getNormBot, years }) => {
+const FieldInfoContainer = ({
+	currentYear,
+	currentYearId,
+	getNormBot,
+	getZonalManagement,
+	years,
+}) => {
 	const intl = useIntl();
 
 	useEffect(() => {
 		if (currentYearId && !years[currentYearId]?.normBot) {
 			getNormBot(currentYearId);
+		}
+
+		if (currentYearId && !years[currentYearId]?.zonalManagement) {
+			getZonalManagement(currentYearId);
 		}
 	}, [currentYearId]);
 
@@ -48,6 +59,7 @@ const mapStateToProps = (state, { currentYearId }) => {
 
 const mapDispatchToProps = {
 	getNormBot: getNormBotAction,
+	getZonalManagement: getZonalManagementAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FieldInfoContainer);

@@ -10,7 +10,7 @@ import {
 	SET_CURRENT_YEAR_ID,
 	DELETE_YEAR,
 	UPDATE_ZONAL_MANAGEMENT_ROW,
-	SET_ZONAL_MANAGEMENT,
+	GET_ZONAL_MANAGEMENT,
 	UPDATE_NORM_BOT_ROW,
 	SET_NORM_BOT,
 	DELETE_NORM_BOT_ROW,
@@ -39,7 +39,7 @@ const createYear = ({ currentYearId, byId, allIds }, { newYear, fieldId }) => ({
 	allIds: { ...allIds, [fieldId]: [...allIds[fieldId], newYear.id] },
 });
 
-const setZonalManagement = ({ byId, allIds }, { data, yearId }) => ({
+const zonalManagement = ({ byId, allIds }, { data, yearId }) => ({
 	currentYearId: yearId,
 	allIds,
 	byId: { ...byId, [yearId]: { ...byId[yearId], zonalManagement: arrayToObject(data, 'type') } },
@@ -156,8 +156,8 @@ export default (state = initialState, action = {}) => {
 		case UPDATE_ZONAL_MANAGEMENT_ROW:
 			return updateZonalManagement(state, payload);
 
-		case SET_ZONAL_MANAGEMENT:
-			return setZonalManagement(state, payload);
+		case GET_ZONAL_MANAGEMENT:
+			return zonalManagement(state, payload);
 
 		case SET_NORM_BOT:
 			return setNormBot(state, payload);
