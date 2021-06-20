@@ -1,0 +1,162 @@
+.wrapper {
+    position: relative;
+    padding:  24px 64px 0 32px;
+}
+
+.cards {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.cards::-webkit-scrollbar {
+     display: none;
+ }
+
+.button > span {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    height: 18px;
+    width: 38px;
+}
+
+.button_wrapper {
+    position: absolute;
+    top: calc((300px - 40px) / 2);
+    z-index: 1;
+    transform: translateY(-50%);
+}
+
+.button_wrapper_left {
+    left: -20px;
+}
+
+.button_wrapper_right {
+    right: -20px;
+}
+
+.card {
+    position: relative;
+    height: 300px;
+    width: 300px;
+    padding-right: 48px;
+}
+
+.card:last-child {
+    padding-right: 0;
+}
+
+.experiment {
+    position: relative;
+    height: 250px;
+    width: 250px;
+    padding: 16px;
+    background-color: #f0f0f0;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px #f0f1f2;
+}
+
+.control {
+    position: absolute;
+    bottom: 32px;
+    right: 24px;
+    height: 160px;
+    width: 160px;
+    padding: 12px 12px 8px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px #f0f1f2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.number {
+    position: absolute;
+    top: 32px;
+    right: 24px;
+    height: 60px;
+    width: 60px;
+    padding: 4px;
+    background-color: #a8a8a8;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #f0f1f2;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.number > div {
+    font-size: 20px;
+    margin-left: 4px;
+}
+
+.experimentNorm {
+    margin-bottom: 8px;
+}
+
+.experimentNorm > div, .experimentYield > div {
+    font-size: 16px;
+    color: #636363;
+}
+
+.experimentSquare {
+    position: absolute;
+    bottom: 8px;
+    width: 94px;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    color: #636363;
+}
+
+.controlNorm {
+    margin-bottom: 8px;
+}
+
+.controlNorm > div, .controlYield > div {
+    font-size: 16px;
+    color: #636363;
+}
+
+.controlSquare {
+    width: 136px;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    color: #636363;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+}
+
+.container__left_fade::before,
+.container__right_fade::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 32px;
+    height: 184px;
+    transform: translateY(-50%);
+}
+
+.container__right_fade::after {
+     right: 0;
+     background: linear-gradient(270deg, #fff 0.07%, #fff 99.93%);
+ }
+
+.container__left_fade::before {
+     left: 0;
+     background: linear-gradient(90deg, #fff 0.07%, #fff 99.93%);
+ }

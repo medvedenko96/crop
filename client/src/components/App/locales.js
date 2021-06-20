@@ -128,6 +128,7 @@ const locales = {
 			addRow: 'Додати рядок',
 			delete: 'Рядок з таблиці видаленно',
 			notDelete: 'Рядок з таблиці не видаленно',
+			hectares: '{count} га',
 		},
 		description: {
 			saved: 'Опис успішно збережено!',

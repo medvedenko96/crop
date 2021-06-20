@@ -1,6 +1,9 @@
 import React from 'react';
 import { shape, string, object } from 'prop-types';
 
+/* @Components */
+import NormBotSlider from '../NormBotSlider';
+
 /* @Utils */
 import { capitalizeFirstLetter } from 'utils/capitalizeFirstLetter';
 
@@ -11,6 +14,7 @@ const propTypes = {
 	intl: object,
 	currentYear: shape({
 		crop: string,
+		normBot: object,
 	}),
 };
 
@@ -23,6 +27,7 @@ const FieldInfoComponent = ({ intl, currentYear }) => {
 					{ crop: capitalizeFirstLetter(currentYear?.crop) }
 				)}
 			</div>
+			<NormBotSlider normBot={currentYear?.normBot} />
 		</div>
 	);
 };
@@ -30,6 +35,7 @@ const FieldInfoComponent = ({ intl, currentYear }) => {
 FieldInfoComponent.defaultProps = {
 	currentYear: {
 		crop: '',
+		normBot: {},
 	},
 };
 FieldInfoComponent.propTypes = propTypes;
