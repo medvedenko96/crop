@@ -7,8 +7,17 @@
 
 .inputs {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding-bottom: 16px;
+}
+
+.inputs > div {
+    width: 32%;
+    padding-right: 32px;
+}
+
+.inputs > div:last-child {
+    padding-right: 0;
 }
 
 .cropTitle {
@@ -18,6 +27,7 @@
 
 .descriptionContent {
     display: flex;
+    flex-direction: column;
     margin-bottom: 16px;
 }
 
@@ -27,14 +37,17 @@
 
 .imgUrlInputContent {
     display: flex;
-
+    flex-direction: column;
+    align-items: center;
 }
-.imgUrlInput {
-    width: 100%;
+
+.imgName {
+    font-weight: 500;
+    padding-bottom: 8px;
 }
 
 .buttonWrapper {
-    margin-left: 16px;
+    margin-top: 8px;
 }
 
 .content {
@@ -51,6 +64,10 @@
 }
 
 .imgWrapper {
-    margin-left: 16px;
-    margin-bottom: 16px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

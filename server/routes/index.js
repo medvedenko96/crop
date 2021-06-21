@@ -46,7 +46,8 @@ router.delete('/field', fieldController.deleteField);
 router.post('/year', yearController.createYear);
 router.get('/years', yearController.getYears);
 router.delete('/year', yearController.deleteYear);
-router.post('/img-url', yearController.setImgUrl);
+router.post('/img-yield', yearController.setImgYield);
+router.post('/img-control-area', yearController.setImgControlArea);
 router.post('/description', yearController.setDescription);
 
 // zonalManagement

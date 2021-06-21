@@ -72,8 +72,17 @@ export default {
 		return data;
 	},
 
-	async setImgUrl(yearId, imgUrl) {
-		const { data } = await axios.post('/api/img-url', {
+	async setDescription(yearId, description) {
+		const { data } = await axios.post('/api/description', {
+			yearId,
+			description,
+		});
+
+		return data;
+	},
+
+	async setImgYield(yearId, imgUrl) {
+		const { data } = await axios.post('/api/img-yield', {
 			yearId,
 			imgUrl,
 		});
@@ -81,10 +90,10 @@ export default {
 		return data;
 	},
 
-	async setDescription(yearId, description) {
-		const { data } = await axios.post('/api/description', {
+	async setImgControlArea(yearId, imgUrl) {
+		const { data } = await axios.post('/api/img-control-area', {
 			yearId,
-			description,
+			imgUrl,
 		});
 
 		return data;

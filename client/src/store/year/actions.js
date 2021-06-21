@@ -12,7 +12,8 @@ import {
 	UPDATE_NORM_BOT_ROW,
 	SET_NORM_BOT,
 	DELETE_NORM_BOT_ROW,
-	SET_IMG_URL,
+	SET_IMG_YIELD,
+	SET_IMG_CONTROL_AREA,
 	SET_DESCRIPTION,
 } from './constants';
 
@@ -129,14 +130,27 @@ export const deleteNormBotRowAction = (rowKey) => async (dispatch, getState) => 
 	return { isSuccess, message };
 };
 
-export const setImgUrlAction = (imgUrl) => async (dispatch, getState) => {
+export const setImgYieldAction = (imgUrl) => async (dispatch, getState) => {
 	const state = getState();
 	const { currentYearId: yearId } = getYearsSelector(state);
 
-	const { isSuccess, message } = await year.setImgUrl(yearId, imgUrl);
+	const { isSuccess, message } = await year.setImgYield(yearId, imgUrl);
 
 	if (isSuccess) {
-		dispatch({ type: SET_IMG_URL, payload: { yearId, imgUrl } });
+		dispatch({ type: SET_IMG_YIELD, payload: { yearId, imgUrl } });
+	}
+
+	return { isSuccess, message };
+};
+
+export const setImgControlAreaAction = (imgUrl) => async (dispatch, getState) => {
+	const state = getState();
+	const { currentYearId: yearId } = getYearsSelector(state);
+
+	const { isSuccess, message } = await year.setImgControlArea(yearId, imgUrl);
+
+	if (isSuccess) {
+		dispatch({ type: SET_IMG_CONTROL_AREA, payload: { yearId, imgUrl } });
 	}
 
 	return { isSuccess, message };

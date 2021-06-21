@@ -9,12 +9,12 @@ const createYear = ({ body }, res) => {
 		return responseJSON(res, 400, { message: 'All fields required.' });
 	}
 
-	const query = `INSERT INTO year_field (field_id, year_field, crop, img_url, description)
-    SELECT $1, $2, $3, $4, $5 WHERE NOT EXISTS
-        (SELECT id FROM year_field WHERE year_field=$6 AND field_id=$7) 
+	const query = `INSERT INTO year_field (field_id, year_field, crop)
+    SELECT $1, $2, $3 WHERE NOT EXISTS
+        (SELECT id FROM year_field WHERE year_field=$4 AND field_id=$5) 
         RETURNING id, year_field AS year, crop`;
 
-	const value = [fieldId, year, crop, '', '', year, fieldId];
+	const value = [fieldId, year, crop, year, fieldId];
 
 	return pool.query(query, value, (error, result) => {
 		if (error) {
@@ -43,7 +43,7 @@ const getYears = ({ query }, res) => {
 	}
 
 	return pool.query(
-		'SELECT id, year_field AS year, crop, description, img_url FROM year_field WHERE field_id=$1',
+		'SELECT id, year_field AS year, crop, description, img_yield, img_control_area FROM year_field WHERE field_id=$1',
 		[fieldId],
 		(error, result) => {
 			if (error) {
@@ -113,7 +113,7 @@ const setDescription = ({ body }, res) => {
 	);
 };
 
-const setImgUrl = ({ body }, res) => {
+const setImgYield = ({ body }, res) => {
 	const { yearId, imgUrl } = body;
 
 	if (!yearId && (imgUrl !== '' || !imgUrl)) {
@@ -121,7 +121,38 @@ const setImgUrl = ({ body }, res) => {
 	}
 
 	return pool.query(
-		'UPDATE year_field SET img_url=$1 WHERE id=$2',
+		'UPDATE year_field SET img_yield=$1 WHERE id=$2',
+		[imgUrl, yearId],
+		(error, result) => {
+			if (error) {
+				return responseJSON(res, 500, { message: error.message, errorInfo: error });
+			}
+
+			const { rowCount } = result;
+
+			if (rowCount) {
+				return responseJSON(res, 200, {
+					isSuccess: true,
+					message: 'imgUrl.saved',
+				});
+			}
+
+			return responseJSON(res, 200, {
+				message: 'imgUrl.notSaved',
+			});
+		}
+	);
+};
+
+const setImgControlArea = ({ body }, res) => {
+	const { yearId, imgUrl } = body;
+
+	if (!yearId && (imgUrl !== '' || !imgUrl)) {
+		return responseJSON(res, 400, { message: 'All fields required.' });
+	}
+
+	return pool.query(
+		'UPDATE year_field SET img_control_area=$1 WHERE id=$2',
 		[imgUrl, yearId],
 		(error, result) => {
 			if (error) {
@@ -149,5 +180,6 @@ module.exports = {
 	getYears,
 	deleteYear,
 	setDescription,
-	setImgUrl,
+	setImgYield,
+	setImgControlArea,
 };

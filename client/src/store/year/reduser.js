@@ -15,7 +15,8 @@ import {
 	SET_NORM_BOT,
 	DELETE_NORM_BOT_ROW,
 	SET_DESCRIPTION,
-	SET_IMG_URL,
+	SET_IMG_CONTROL_AREA,
+	SET_IMG_YIELD,
 } from './constants';
 
 const setYears = ({ currentYearId, byId, allIds }, payload) => ({
@@ -119,14 +120,26 @@ const setDescription = ({ byId, allIds, currentYearId }, { yearId, description }
 	},
 });
 
-const setImgUrl = ({ byId, allIds, currentYearId }, { yearId, imgUrl }) => ({
+const setImgControlArea = ({ byId, allIds, currentYearId }, { yearId, imgUrl }) => ({
 	currentYearId,
 	allIds,
 	byId: {
 		...byId,
 		[yearId]: {
 			...byId[yearId],
-			imgUrl,
+			imgControlArea: imgUrl,
+		},
+	},
+});
+
+const setImgYield = ({ byId, allIds, currentYearId }, { yearId, imgUrl }) => ({
+	currentYearId,
+	allIds,
+	byId: {
+		...byId,
+		[yearId]: {
+			...byId[yearId],
+			imgYield: imgUrl,
 		},
 	},
 });
@@ -171,8 +184,11 @@ export default (state = initialState, action = {}) => {
 		case SET_DESCRIPTION:
 			return setDescription(state, payload);
 
-		case SET_IMG_URL:
-			return setImgUrl(state, payload);
+		case SET_IMG_CONTROL_AREA:
+			return setImgControlArea(state, payload);
+
+		case SET_IMG_YIELD:
+			return setImgYield(state, payload);
 
 		default:
 			return state;
