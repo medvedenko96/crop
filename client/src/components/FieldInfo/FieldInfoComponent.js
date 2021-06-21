@@ -80,7 +80,9 @@ const FieldInfoComponent = ({
 						</div>
 
 						<div className={styles.imgUrlInputContent}>
-							<div className={styles.imgName}>Карта урожайності</div>
+							<div className={styles.imgName}>
+								{intl.formatMessage({ id: 'imgUrl.yieldMap' })}
+							</div>
 							<div className={styles.imgWrapper}>
 								{imgControlArea ? (
 									<Image width={WIDTH_IMG} src={imgYield} fallback={FALLBACK} />
@@ -103,7 +105,9 @@ const FieldInfoComponent = ({
 						</div>
 
 						<div className={styles.imgUrlInputContent}>
-							<div className={styles.imgName}>Зона упровльння</div>
+							<div className={styles.imgName}>
+								{intl.formatMessage({ id: 'imgUrl.controlArea' })}
+							</div>
 							<div className={styles.imgWrapper}>
 								{imgControlArea ? (
 									<Image

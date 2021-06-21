@@ -80,7 +80,7 @@ const mapStateToProps = (state) => {
 	const regions = regionsIds[user.id]?.map((id) => {
 		return { ...regionsById[id] };
 	});
-
+	console.log(regions);
 	return {
 		companyId: user.id,
 		yearsIds,

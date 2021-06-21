@@ -25,7 +25,7 @@ const MenuComponent = ({ regions, selectedKeys, onClick }) => {
 				className={styles.menu}
 			>
 				{regions.map(({ id, name, fields = [] }) => (
-					<SubMenu key={id} title={name}>
+					<SubMenu key={`region-${id}`} title={name}>
 						{fields.map(({ id, name }) => (
 							<Item key={id}>{name}</Item>
 						))}
