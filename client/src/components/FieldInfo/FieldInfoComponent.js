@@ -4,6 +4,7 @@ import { shape, string, object, func } from 'prop-types';
 /* @Components */
 import ZonalManagementTable from './submodals/ZonalManagementTable';
 import NormBotTable from './submodals/NormBotTable';
+import Files from './submodals/Files';
 
 /* @Antd */
 import { Input, Button, Image } from 'antd';
@@ -135,6 +136,7 @@ const FieldInfoComponent = ({
 					</div>
 				</div>
 			</div>
+			<Files />
 			<NormBotTable />
 			<ZonalManagementTable />
 		</div>

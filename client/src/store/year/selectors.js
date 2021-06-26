@@ -15,3 +15,9 @@ export const getZonalManagement = (state) => {
 
 	return yearsById[currentYearId]?.zonalManagement;
 };
+
+export const getFilesSelector = (state) => {
+	const { yearsById, currentYearId } = getYearsSelector(state);
+
+	return yearsById[currentYearId]?.files;
+};

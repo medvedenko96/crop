@@ -22,3 +22,10 @@
     content: '1';
 }
 
+.ant-menu-title-content {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+

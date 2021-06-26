@@ -51,7 +51,8 @@ CREATE TABLE year_field (
     ID SERIAL PRIMARY KEY,
     field_id integer references field(id) ON DELETE CASCADE,
     year_field smallint NOT NULL,
-    img_url text,
+    img_yield text,
+    img_control_area text,
     description text,
     crop VARCHAR(255) NOT NULL
 );
@@ -81,5 +82,15 @@ CREATE TABLE norm_bot (
     experiment_norm decimal,
     experiment_yield decimal,
     experiment_square decimal
+);
+</pre>
+
+
+<pre>
+CREATE TABLE files (
+    ID SERIAL PRIMARY KEY,
+    year_id integer references year_field(id) ON DELETE CASCADE,
+    file_url text,
+    file_name text
 );
 </pre>

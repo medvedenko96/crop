@@ -1,5 +1,5 @@
 /* @api */
-import { year } from 'api';
+import { year, files as apiFiles } from 'api';
 
 /* @Constants */
 import {
@@ -15,6 +15,10 @@ import {
 	SET_IMG_YIELD,
 	SET_IMG_CONTROL_AREA,
 	SET_DESCRIPTION,
+	SET_FILES,
+	CREATE_FILES,
+	DELETE_FILE,
+	UPDATE_FILE,
 } from './constants';
 
 import { getYearsSelector } from './selectors';
@@ -164,6 +168,62 @@ export const setDescriptionAction = (description) => async (dispatch, getState) 
 
 	if (isSuccess) {
 		dispatch({ type: SET_DESCRIPTION, payload: { yearId, description } });
+	}
+
+	return { isSuccess, message };
+};
+
+export const getFilesAction = () => async (dispatch, getState) => {
+	const state = getState();
+	const { currentYearId: yearId } = getYearsSelector(state);
+
+	const { isSuccess, message, files } = await apiFiles.getFiles(yearId);
+
+	if (isSuccess) {
+		dispatch({ type: SET_FILES, payload: { yearId, files } });
+	}
+
+	return { isSuccess, message };
+};
+
+export const createFileAction = ({ fileName, fileUrl }) => async (dispatch, getState) => {
+	const state = getState();
+	const { currentYearId: yearId } = getYearsSelector(state);
+
+	const { isSuccess, message, newFile } = await apiFiles.createFile({
+		yearId,
+		fileName,
+		fileUrl,
+	});
+
+	if (isSuccess) {
+		dispatch({ type: CREATE_FILES, payload: { yearId, newFile } });
+	}
+
+	return { isSuccess, message };
+};
+
+export const deleteFileAction = (fileId) => async (dispatch, getState) => {
+	const state = getState();
+	const { currentYearId: yearId } = getYearsSelector(state);
+
+	const { isSuccess, message } = await apiFiles.deleteFile(fileId);
+
+	if (isSuccess) {
+		dispatch({ type: DELETE_FILE, payload: { yearId, fileId } });
+	}
+
+	return { isSuccess, message };
+};
+
+export const updateFileAction = ({ fileName, fileUrl, id }) => async (dispatch, getState) => {
+	const state = getState();
+	const { currentYearId: yearId } = getYearsSelector(state);
+
+	const { isSuccess, message } = await apiFiles.updateFile({ fileName, fileUrl, id });
+
+	if (isSuccess) {
+		dispatch({ type: UPDATE_FILE, payload: { yearId, fileName, fileUrl, fileId: id } });
 	}
 
 	return { isSuccess, message };

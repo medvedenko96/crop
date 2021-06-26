@@ -12,3 +12,7 @@ export const DELETE_NORM_BOT_ROW = `${YEAR}_DELETE_NORM_BOT_ROW`;
 export const SET_IMG_YIELD = `${YEAR}_SET_IMG_YIELD`;
 export const SET_IMG_CONTROL_AREA = `${YEAR}_SET_IMG_CONTROL_AREA`;
 export const SET_DESCRIPTION = `${YEAR}_SET_DESCRIPTION`;
+export const SET_FILES = `${YEAR}_SET_FILES`;
+export const CREATE_FILES = `${YEAR}_CREATE_FILES`;
+export const DELETE_FILE = `${YEAR}_DELETE_FILE`;
+export const UPDATE_FILE = `${YEAR}_UPDATE_FILE`;

@@ -17,6 +17,10 @@ import {
 	SET_DESCRIPTION,
 	SET_IMG_CONTROL_AREA,
 	SET_IMG_YIELD,
+	SET_FILES,
+	CREATE_FILES,
+	DELETE_FILE,
+	UPDATE_FILE,
 } from './constants';
 
 const setYears = ({ currentYearId, byId, allIds }, payload) => ({
@@ -144,6 +148,56 @@ const setImgYield = ({ byId, allIds, currentYearId }, { yearId, imgUrl }) => ({
 	},
 });
 
+const setFiles = ({ byId, allIds, currentYearId }, { yearId, files }) => ({
+	currentYearId,
+	allIds,
+	byId: {
+		...byId,
+		[yearId]: {
+			...byId[yearId],
+			files: files,
+		},
+	},
+});
+
+const addFile = ({ byId, allIds, currentYearId }, { yearId, newFile }) => ({
+	currentYearId,
+	allIds,
+	byId: {
+		...byId,
+		[yearId]: {
+			...byId[yearId],
+			files: [...byId[yearId].files, newFile],
+		},
+	},
+});
+
+const deleteFile = ({ byId, allIds, currentYearId }, { yearId, fileId }) => ({
+	currentYearId,
+	allIds,
+	byId: {
+		...byId,
+		[yearId]: {
+			...byId[yearId],
+			files: byId[yearId].files.filter(({ id }) => id !== fileId),
+		},
+	},
+});
+
+const updateFile = ({ byId, allIds, currentYearId }, { yearId, fileName, fileUrl, fileId }) => ({
+	currentYearId,
+	allIds,
+	byId: {
+		...byId,
+		[yearId]: {
+			...byId[yearId],
+			files: byId[yearId].files.map((file) =>
+				file.id === fileId ? { id: fileId, fileName, fileUrl } : file
+			),
+		},
+	},
+});
+
 const initialState = {
 	byId: {},
 	allIds: {},
@@ -189,6 +243,18 @@ export default (state = initialState, action = {}) => {
 
 		case SET_IMG_YIELD:
 			return setImgYield(state, payload);
+
+		case SET_FILES:
+			return setFiles(state, payload);
+
+		case CREATE_FILES:
+			return addFile(state, payload);
+
+		case DELETE_FILE:
+			return deleteFile(state, payload);
+
+		case UPDATE_FILE:
+			return updateFile(state, payload);
 
 		default:
 			return state;

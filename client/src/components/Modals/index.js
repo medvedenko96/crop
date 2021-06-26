@@ -6,6 +6,8 @@ import UpdateRegionModal from './UpdateRegion';
 import CreateFieldModal from './CreateField';
 import UpdateFieldModal from './UpdateField';
 import CreateYearModal from './CreateYear';
+import AddFile from './AddFile';
+import EditFile from './EditFile';
 
 export {
 	CreateCompanyModal,
@@ -16,4 +18,6 @@ export {
 	CreateFieldModal,
 	UpdateFieldModal,
 	CreateYearModal,
+	AddFile,
+	EditFile,
 };
