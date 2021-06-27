@@ -1,11 +1,5 @@
 # crop
 
-**Todo**
-
- - notification if delete entity with children ( if delete company with a region or region with a field )
- - first init page
- - edit year
-
 **init husky**
 `npx mrm lint-staged`
 

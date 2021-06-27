@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 /* @Antd */
 import { Row, Col } from 'antd';
 
+import Logo from 'static/images/logo.png';
 import styles from './Header.module.css';
 
 const propTypes = {};
@@ -13,12 +14,7 @@ const HeaderComponent = () => {
 		<div className={styles.headerWrapper}>
 			<Row>
 				<Col xs={24} sm={24} md={6} lg={6} xl={5} xxl={4}>
-					<h1 className={styles.logo}>
-						Crop Time{' '}
-						<sup>
-							<small>.org</small>
-						</sup>
-					</h1>
+					<img className={styles.logo} src={Logo} alt="Logo" />
 				</Col>
 				<Col xs={24} sm={24} md={18} lg={18} xl={19} xxl={20}>
 					<div className={styles.header} />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { arrayOf, shape, number, string } from 'prop-types';
+import { useIntl } from 'react-intl';
 
 /* @Antd */
 import { List } from 'antd';
@@ -21,12 +22,15 @@ const propTypes = {
 };
 
 const FilesComponent = ({ files }) => {
+	const intl = useIntl();
+
 	return (
 		<div className={styles.wrapper}>
 			<List
-				header={<div>Файли</div>}
+				header={<div>{intl.formatMessage({ id: 'file._' })}</div>}
 				size="small"
 				dataSource={files}
+				locale={{ emptyText: intl.formatMessage({ id: 'file.notUploaded' }) }}
 				renderItem={({ id, fileName, fileUrl }) => (
 					<List.Item key={id} className={styles.item}>
 						<a className={styles.link} href={fileUrl} target="_blank" rel="noreferrer">
@@ -42,7 +46,9 @@ const FilesComponent = ({ files }) => {
 	);
 };
 
-FilesComponent.defaultProps = {};
+FilesComponent.defaultProps = {
+	files: [],
+};
 FilesComponent.propTypes = propTypes;
 FilesComponent.displayName = 'FilesComponent';
 

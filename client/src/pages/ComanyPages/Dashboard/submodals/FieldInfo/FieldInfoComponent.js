@@ -110,6 +110,7 @@ FieldInfoComponent.defaultProps = {
 		imgControlArea: '',
 		imgYield: '',
 		description: '',
+		files: [],
 	},
 };
 FieldInfoComponent.propTypes = propTypes;

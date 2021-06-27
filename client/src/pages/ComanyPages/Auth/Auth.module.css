@@ -1,0 +1,13 @@
+.wrapper {
+    padding-top: 64px;
+}
+
+.logo {
+    height: 50px;
+}
+
+.logoWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
