@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { shape, string, number, func, object } from 'prop-types';
+import { shape, string, number, func, object, array } from 'prop-types';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
 
@@ -7,7 +7,7 @@ import { useIntl } from 'react-intl';
 import FieldInfoComponent from './FieldInfoComponent';
 
 /* @Actions */
-import { getNormBotAction, getZonalManagementAction } from 'store/year/actions';
+import { getNormBotAction, getZonalManagementAction, getFilesAction } from 'store/year/actions';
 
 /* @Selectors */
 import { getYearsSelector } from 'store/year/selectors';
@@ -15,11 +15,17 @@ import { getYearsSelector } from 'store/year/selectors';
 const propTypes = {
 	currentYear: shape({
 		crop: string,
+		normBot: object,
+		description: string,
+		imgYield: string,
+		imgControlArea: string,
+		files: array,
 	}),
 	currentYearId: number,
 	getNormBot: func,
 	getZonalManagement: func,
 	years: object,
+	getFiles: func,
 };
 
 const FieldInfoContainer = ({
@@ -28,6 +34,7 @@ const FieldInfoContainer = ({
 	getNormBot,
 	getZonalManagement,
 	years,
+	getFiles,
 }) => {
 	const intl = useIntl();
 
@@ -38,6 +45,10 @@ const FieldInfoContainer = ({
 
 		if (currentYearId && !years[currentYearId]?.zonalManagement) {
 			getZonalManagement(currentYearId);
+		}
+
+		if (currentYearId && !years[currentYearId]?.files) {
+			getFiles(currentYearId);
 		}
 	}, [currentYearId]);
 
@@ -60,6 +71,7 @@ const mapStateToProps = (state, { currentYearId }) => {
 const mapDispatchToProps = {
 	getNormBot: getNormBotAction,
 	getZonalManagement: getZonalManagementAction,
+	getFiles: getFilesAction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FieldInfoContainer);

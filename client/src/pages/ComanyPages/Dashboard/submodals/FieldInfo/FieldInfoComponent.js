@@ -1,5 +1,5 @@
 import React from 'react';
-import { shape, string, object } from 'prop-types';
+import { shape, string, object, array } from 'prop-types';
 
 /* @Antd */
 import { Image, Space } from 'antd';
@@ -7,6 +7,7 @@ import { Image, Space } from 'antd';
 /* @Components */
 import NormBotSlider from './submodals/NormBotSlider';
 import ZonalManagementTable from './submodals/ZonalManagementTable';
+import Files from './submodals/Files';
 
 /* @Utils */
 import { capitalizeFirstLetter } from 'utils/capitalizeFirstLetter';
@@ -26,11 +27,20 @@ const propTypes = {
 		description: string,
 		imgYield: string,
 		imgControlArea: string,
+		files: array,
 	}),
 };
 
 const FieldInfoComponent = ({ intl, currentYear }) => {
-	const { imgControlArea, imgYield, description, normBot, crop, zonalManagement } = currentYear;
+	const {
+		imgControlArea,
+		imgYield,
+		description,
+		normBot,
+		crop,
+		zonalManagement,
+		files,
+	} = currentYear;
 
 	return (
 		<div>
@@ -84,8 +94,8 @@ const FieldInfoComponent = ({ intl, currentYear }) => {
 						</div>
 					</div>
 				)}
+				<Files files={files} />
 			</div>
-
 			<ZonalManagementTable zonalManagement={zonalManagement} />
 			<NormBotSlider normBot={normBot} />
 		</div>

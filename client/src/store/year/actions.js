@@ -173,14 +173,14 @@ export const setDescriptionAction = (description) => async (dispatch, getState) 
 	return { isSuccess, message };
 };
 
-export const getFilesAction = () => async (dispatch, getState) => {
+export const getFilesAction = (currentYearId) => async (dispatch, getState) => {
 	const state = getState();
 	const { currentYearId: yearId } = getYearsSelector(state);
 
-	const { isSuccess, message, files } = await apiFiles.getFiles(yearId);
+	const { isSuccess, message, files } = await apiFiles.getFiles(currentYearId || yearId);
 
 	if (isSuccess) {
-		dispatch({ type: SET_FILES, payload: { yearId, files } });
+		dispatch({ type: SET_FILES, payload: { yearId: currentYearId || yearId, files } });
 	}
 
 	return { isSuccess, message };

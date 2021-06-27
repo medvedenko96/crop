@@ -1,0 +1,15 @@
+.wrapper {
+    max-width: 400px;
+    min-width: 300px;
+    width: 100%;
+}
+
+.link {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+
+.item:hover {
+    background-color: #f0f0f0;
+}
